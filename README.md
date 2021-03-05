@@ -1,2 +1,2 @@
 # Library-Application
- Advanced Object Programming Project
+Project developed in Java, using Object Oriented Programming concepts
