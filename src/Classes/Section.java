@@ -29,6 +29,10 @@ public class Section {
         this.books = books;
     }
 
+    public void addBook(LibraryBook libraryBook){
+        // books = ArrayUtils.add(libraryBook); ???
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o){

@@ -15,6 +15,10 @@ public class LibraryAuthor extends Author{
         this.books = books;
     }
 
+    public void addBook(LibraryBook libraryBook){
+        // books = ArrayUtils.add(libraryBook); ???
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o){
