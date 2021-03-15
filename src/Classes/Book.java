@@ -7,6 +7,17 @@ public abstract class Book {
     private int yearOfPublication;
     private String language;
 
+    public Book(){
+        this("",0,0,"");
+    }
+
+    public Book(String name, int numberOfPages, int yearOfPublication, String language) {
+        this.name = name;
+        this.numberOfPages = numberOfPages;
+        this.yearOfPublication = yearOfPublication;
+        this.language = language;
+    }
+
     public String getName() {
         return name;
     }

@@ -1,9 +1,18 @@
 package Classes;
 
-public class RequiredBook {
+public class RequiredBook extends Book{
 
     private Author author;
     private int numberOfRequests;
+
+    public RequiredBook(){
+    }
+
+    public RequiredBook(String name, int numberOfPages, int yearOfPublication, String language, Author author, int numberOfRequests) {
+        super(name, numberOfPages, yearOfPublication, language);
+        this.author = author;
+        this.numberOfRequests = numberOfRequests;
+    }
 
     public Author getAuthor() {
         return author;
@@ -19,5 +28,9 @@ public class RequiredBook {
 
     public void setNumberOfRequests(int numberOfRequests) {
         this.numberOfRequests = numberOfRequests;
+    }
+
+    public void increaseTheNumberOfRequests(){
+        numberOfRequests += 1;
     }
 }
