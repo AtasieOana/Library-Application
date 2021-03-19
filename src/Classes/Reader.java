@@ -12,6 +12,20 @@ public class Reader {
     private int phoneNumber;
     private ArrayList<Loan> loans;
 
+    public Reader(){
+        this("", "", null, 0, "", 0, new ArrayList<>());
+    }
+
+    public Reader(String lastName, String firstName, Date dateOfBirth, int CNP, String address, int phoneNumber, ArrayList<Loan> loans) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.dateOfBirth = dateOfBirth;
+        this.CNP = CNP;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.loans = loans;
+    }
+
     public String getLastName() {
         return lastName;
     }

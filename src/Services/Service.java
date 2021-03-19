@@ -40,10 +40,13 @@ public class Service {
         }
         LibraryBook book = new LibraryBook(name, numberOfPages, yearOfPublication, language, libraryAuthor,
                                            section, numberOfCopies);
-        libraryAuthor.addBook(book);
-        section.addBook(book);
+        library.addBookInSection(section, book);
+        library.addBookAtAuthor(libraryAuthor, book);
     }
 
-
+    /** Remove a book from the library **/
+    /**
+    *
+    **/
 
 }

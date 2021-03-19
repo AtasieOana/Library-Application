@@ -7,6 +7,12 @@ public class LibraryAuthor extends Author implements Comparable<LibraryAuthor>{
     private TreeSet<LibraryBook> books;
 
     public LibraryAuthor(){
+        this.books = new TreeSet<>();
+    }
+
+    public LibraryAuthor(String lastName, String firstName) {
+        super(lastName, firstName);
+        this.books = new TreeSet<>();
     }
 
     public LibraryAuthor(String lastName, String firstName, TreeSet<LibraryBook> books) {
@@ -22,12 +28,8 @@ public class LibraryAuthor extends Author implements Comparable<LibraryAuthor>{
         this.books = books;
     }
 
-    public LibraryAuthor(TreeSet<LibraryBook> books) {
-        this.books = books;
-    }
-
     public void addBook(LibraryBook libraryBook){
-        // books = ArrayUtils.add(libraryBook); ???
+        books.add(libraryBook);
     }
 
     @Override

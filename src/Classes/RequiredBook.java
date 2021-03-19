@@ -6,6 +6,8 @@ public class RequiredBook extends Book implements Comparable<RequiredBook>{
     private int numberOfRequests;
 
     public RequiredBook(){
+        author = new Author();
+        numberOfRequests = 0;
     }
 
     public RequiredBook(String name, int numberOfPages, int yearOfPublication, String language, Author author, int numberOfRequests) {

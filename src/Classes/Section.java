@@ -8,6 +8,17 @@ public class Section implements Comparable<Section> {
     private SectionType sectionType;
     private TreeSet<LibraryBook> books;
 
+    public Section(){
+        sectionType = null;
+        books = new TreeSet<>();
+    }
+
+    public Section(SectionType sectionType){
+        System.out.println("hjsedjhfs");
+        this.sectionType = sectionType;
+        books = new TreeSet<>();
+    }
+
     public Section(SectionType sectionType, TreeSet<LibraryBook> books) {
         this.sectionType = sectionType;
         this.books = books;
@@ -30,7 +41,7 @@ public class Section implements Comparable<Section> {
     }
 
     public void addBook(LibraryBook libraryBook) {
-        // books = ArrayUtils.add(libraryBook); ???
+        books.add(libraryBook);
     }
 
     @Override

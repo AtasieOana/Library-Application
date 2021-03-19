@@ -6,6 +6,13 @@ public class LibraryBook extends Book implements Comparable<LibraryBook> {
     private Section section;
     private int numberOfCopies;
 
+    public LibraryBook(){
+        author = new LibraryAuthor();
+        section = new Section();
+        numberOfCopies = 0;
+
+    }
+
     public LibraryBook(String name, int numberOfPages, int yearOfPublication, String language,
                        LibraryAuthor author, Section section, int numberOfCopies) {
         super(name, numberOfPages, yearOfPublication, language);

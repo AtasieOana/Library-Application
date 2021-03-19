@@ -10,6 +10,16 @@ public class Loan {
     private Date loanDate;
     private static final int loanWeeks = 2;
 
+    public Loan(){
+    }
+
+    public Loan(Book book, Reader reader, Librarian librarian, Date loanDate) {
+        this.book = book;
+        this.reader = reader;
+        this.librarian = librarian;
+        this.loanDate = loanDate;
+    }
+
     public Book getBook() {
         return book;
     }
