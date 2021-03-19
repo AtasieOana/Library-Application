@@ -28,23 +28,20 @@ public class LibraryAuthor extends Author implements Comparable<LibraryAuthor>{
         this.books = books;
     }
 
-    public void addBook(LibraryBook libraryBook){
-        books.add(libraryBook);
-    }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o){
+        if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()){
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        if (!super.equals(o)){
+        if (!super.equals(o)) {
             return false;
         }
         LibraryAuthor that = (LibraryAuthor) o;
-        return Objects.equals(books, that.books);
+        return true;
     }
 
     @Override
@@ -58,5 +55,24 @@ public class LibraryAuthor extends Author implements Comparable<LibraryAuthor>{
             return this.getLastName().compareTo(author.getLastName());
         }
         return this.getFirstName().compareTo(author.getFirstName());
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
+    /**
+     * Method for adding a book to its author
+     **/
+    public void addBook(LibraryBook libraryBook){
+        books.add(libraryBook);
+    }
+
+    /**
+     * Method for removing a book from its author
+     **/
+    public void removeBook(LibraryBook libraryBook){
+        books.remove(libraryBook);
     }
 }

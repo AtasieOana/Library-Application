@@ -49,4 +49,9 @@ public class Author{
         return Objects.hash(lastName, firstName);
     }
 
+    @Override
+    public String toString() {
+        return "lastName=" + lastName +
+                ", firstName=" + firstName;
+    }
 }

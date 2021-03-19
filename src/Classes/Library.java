@@ -102,7 +102,6 @@ public class Library {
      **/
     public void addAuthor(LibraryAuthor libraryAuthor) {
         libraryAuthors.add(libraryAuthor);
-
     }
 
     /**
@@ -120,9 +119,10 @@ public class Library {
      **/
     public void addBookInSection(Section section, LibraryBook book) {
         boolean found = false;
+
         for (Section sec : sections) {
             if (sec.equals(section)) {
-                section.addBook(book);
+                sec.addBook(book);
                 found = true;
             }
         }
@@ -138,7 +138,7 @@ public class Library {
         boolean found = false;
         for (LibraryAuthor aut : libraryAuthors) {
             if (aut.equals(author)) {
-                author.addBook(book);
+                aut.addBook(book);
                 found = true;
             }
         }
@@ -146,4 +146,5 @@ public class Library {
             System.out.println("Author doesn't exist!");
         }
     }
+
 }

@@ -50,4 +50,12 @@ public abstract class Book{
         this.language = language;
     }
 
+    @Override
+    public String toString() {
+        return "Book: " +
+                "name=" + name + ",\n" +
+                "      numberOfPages=" + numberOfPages + ",\n" +
+                "      yearOfPublication=" + yearOfPublication + ",\n" +
+                "      language=" + language + "\n";
+    }
 }

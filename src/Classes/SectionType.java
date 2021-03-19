@@ -6,6 +6,7 @@ public enum SectionType {
     ReferenceMaterials,
     News,
     ChildrenBooks,
-    NonfictionBooks
+    NonfictionBooks,
+    PoemsBook
 
 }

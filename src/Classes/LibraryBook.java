@@ -59,4 +59,12 @@ public class LibraryBook extends Book implements Comparable<LibraryBook> {
             return this.author.compareTo(libraryBook.author);
         }
     }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                "      author: " + author + ",\n" +
+                "      section: " + section + ",\n" +
+                "      numberOfCopies=" + numberOfCopies;
+    }
 }

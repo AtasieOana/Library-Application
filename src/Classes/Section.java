@@ -39,10 +39,6 @@ public class Section implements Comparable<Section> {
         this.books = books;
     }
 
-    public void addBook(LibraryBook libraryBook) {
-        books.add(libraryBook);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -52,7 +48,7 @@ public class Section implements Comparable<Section> {
             return false;
         }
         Section section = (Section) o;
-        return sectionType == section.sectionType && Objects.equals(books, section.books);
+        return sectionType == section.sectionType;
     }
 
     @Override
@@ -65,6 +61,11 @@ public class Section implements Comparable<Section> {
         return this.sectionType.compareTo(section.sectionType);
     }
 
+    @Override
+    public String toString() {
+        return "sectionType=" + sectionType;
+    }
+
     /**
      * Method to find a book in the section
      **/
@@ -73,6 +74,20 @@ public class Section implements Comparable<Section> {
             return false;
         }
         return books.contains(book);
+    }
+
+    /**
+     * Method for adding a book to its section
+     **/
+    public void addBook(LibraryBook libraryBook) {
+        books.add(libraryBook);
+    }
+
+    /**
+     * Method for removing a book from its section
+     **/
+    public void removeBook(LibraryBook libraryBook){
+        books.remove(libraryBook);
     }
 
 }
