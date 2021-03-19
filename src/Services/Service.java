@@ -24,7 +24,7 @@ public class Service {
         this.library = library;
     }
 
-    /** Adding a book in the library involving
+    /** Adding a book in the library involving:
      * If the author of the book is not in the library, then it is added.
      * If the section is not in the library, then it is added.
      * The book is added to the author and the corresponding section.
@@ -43,7 +43,7 @@ public class Service {
         library.addBookAtAuthor(libraryAuthor, book);
     }
 
-    /** Remove a book from the library involving
+    /** Remove a book from the library involving:
      * If the author of the book has no other book in the library then it will be deleted.
      * The book will be removed from the section to which it belonged.
     **/
