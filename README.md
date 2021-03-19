@@ -16,7 +16,7 @@ The following classes were used in the system:
 * Service
 
 **Features**
-* Adding a book in the library involving
+* Adding a book in the library involving:
     * If the author of the book is not in the library, then it is added.
     * If the section is not in the library, then it is added.
     * The book is added to the author and the corresponding section.
