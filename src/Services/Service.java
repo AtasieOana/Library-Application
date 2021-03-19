@@ -10,10 +10,18 @@ public class Service {
     private Library library;
 
     public Service(){
-        this.library = null;
+        this.library = new Library();
     }
 
     public Service(Library library) {
+        this.library = library;
+    }
+
+    public Library getLibrary() {
+        return library;
+    }
+
+    public void setLibrary(Library library) {
         this.library = library;
     }
 
@@ -25,16 +33,17 @@ public class Service {
     public void addBookInLibrary(String name, int numberOfPages, int yearOfPublication, String language,
                                  LibraryAuthor libraryAuthor, Section section, int numberOfCopies){
         if(!library.findSection(section)){
-            library.addSection(section.getSectionType());
+            library.addSection(section);
         }
         if(!library.findAuthor(libraryAuthor)){
-            library.addAuthor(libraryAuthor.getFirstName(),libraryAuthor.getLastName());
+            library.addAuthor(libraryAuthor);
         }
         LibraryBook book = new LibraryBook(name, numberOfPages, yearOfPublication, language, libraryAuthor,
                                            section, numberOfCopies);
         libraryAuthor.addBook(book);
         section.addBook(book);
     }
+
 
 
 }

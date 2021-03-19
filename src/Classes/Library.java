@@ -12,6 +12,12 @@ public class Library {
     private ArrayList<Loan> loans;
 
     public Library() {
+        this.librarians = new ArrayList<>();
+        this.libraryAuthors = new TreeSet<>();
+        this.sections = new ArrayList<>();
+        this.readers = new ArrayList<>();
+        this.requiredBooks = new ArrayList<>();
+        this.loans = new ArrayList<>();
     }
 
     public Library(ArrayList<Librarian> librarians, TreeSet<LibraryAuthor> libraryAuthors, ArrayList<Section> sections,
@@ -72,38 +78,27 @@ public class Library {
         this.loans = loans;
     }
 
-    public void addSection(SectionType sectionType){
-
-        TreeSet<LibraryBook> nullBooks = new TreeSet<>();
-        Section section = new Section(sectionType, nullBooks);
+    public void addSection(Section section){
         sections.add(section);
-
     }
 
     public Boolean findSection(Section section){
-
-        for (Section s : sections) {
-            if (s == section)
-                return true;
+        if(sections.isEmpty()){
+            return false;
         }
-        return false;
+        return sections.contains(section);
     }
 
-    public void addAuthor(String firstName, String lastName){
-
-        TreeSet<LibraryBook> nullBooks = new TreeSet<>();
-        LibraryAuthor libraryAuthor = new LibraryAuthor(firstName, lastName, nullBooks);
+    public void addAuthor(LibraryAuthor libraryAuthor){
         libraryAuthors.add(libraryAuthor);
 
     }
 
     public Boolean findAuthor(LibraryAuthor libraryAuthor){
-
-        for (LibraryAuthor la: libraryAuthors) {
-            if (la == libraryAuthor)
-                return true;
+        if(libraryAuthors.isEmpty()){
+            return false;
         }
-        return false;
+        return libraryAuthors.contains(libraryAuthor);
     }
 
 }

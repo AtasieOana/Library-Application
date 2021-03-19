@@ -1,17 +1,16 @@
 package Main;
 
-import Classes.Author;
-import Classes.Library;
-import Classes.LibraryAuthor;
+import Classes.*;
+import Services.Service;
 
 public class Main {
 
-    public static void Main(String[] args){
+    public static void main(String[] args){
 
-        Library library = new Library();
+        Service service = new Service();
         LibraryAuthor author = new LibraryAuthor("Mihai","Mircea", null);
-
-        System.out.println(library.findAuthor(author));
+        Section section = new Section( SectionType.FictionBooks,null);
+        service.addBookInLibrary("Nume", 54, 1987, "romana", author, section, 4);
     }
 
 }
