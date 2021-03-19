@@ -1,6 +1,6 @@
 package Classes;
 
-import java.util.Date;
+import java.util.*;
 
 public class Reader {
 
@@ -10,7 +10,7 @@ public class Reader {
     private int CNP;
     private String address;
     private int phoneNumber;
-    private Loan[] loans;
+    private ArrayList<Loan> loans;
 
     public String getLastName() {
         return lastName;
@@ -60,11 +60,12 @@ public class Reader {
         this.phoneNumber = phoneNumber;
     }
 
-    public Loan[] getLoans() {
+    public ArrayList<Loan> getLoans() {
         return loans;
     }
 
-    public void setLoans(Loan[] loans) {
+    public void setLoans(ArrayList<Loan> loans) {
         this.loans = loans;
     }
+
 }

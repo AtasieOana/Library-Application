@@ -1,27 +1,82 @@
 package Classes;
 
+import java.util.*;
+
 public class Library {
 
-    private Librarian[] librarians;
-    private LibraryAuthor[] libraryAuthors;
-    private Section[] sections;
-    private Reader[] readers;
-    private RequiredBook[] requiredBooks;
-    private Loan[] loans;
+    private ArrayList<Librarian> librarians;
+    private TreeSet<LibraryAuthor> libraryAuthors;
+    private ArrayList<Section> sections;
+    private ArrayList<Reader> readers;
+    private ArrayList<RequiredBook> requiredBooks;
+    private ArrayList<Loan> loans;
 
-    public Section[] getSections() {
+    public Library() {
+    }
+
+    public Library(ArrayList<Librarian> librarians, TreeSet<LibraryAuthor> libraryAuthors, ArrayList<Section> sections,
+                   ArrayList<Reader> readers, ArrayList<RequiredBook> requiredBooks, ArrayList<Loan> loans) {
+        this.librarians = librarians;
+        this.libraryAuthors = libraryAuthors;
+        this.sections = sections;
+        this.readers = readers;
+        this.requiredBooks = requiredBooks;
+        this.loans = loans;
+    }
+
+    public ArrayList<Librarian> getLibrarians() {
+        return librarians;
+    }
+
+    public void setLibrarians(ArrayList<Librarian> librarians) {
+        this.librarians = librarians;
+    }
+
+    public TreeSet<LibraryAuthor> getLibraryAuthors() {
+        return libraryAuthors;
+    }
+
+    public void setLibraryAuthors(TreeSet<LibraryAuthor> libraryAuthors) {
+        this.libraryAuthors = libraryAuthors;
+    }
+
+    public ArrayList<Section> getSections() {
         return sections;
     }
 
-    public void setSections(Section[] sections) {
+    public void setSections(ArrayList<Section> sections) {
         this.sections = sections;
+    }
+
+    public ArrayList<Reader> getReaders() {
+        return readers;
+    }
+
+    public void setReaders(ArrayList<Reader> readers) {
+        this.readers = readers;
+    }
+
+    public ArrayList<RequiredBook> getRequiredBooks() {
+        return requiredBooks;
+    }
+
+    public void setRequiredBooks(ArrayList<RequiredBook> requiredBooks) {
+        this.requiredBooks = requiredBooks;
+    }
+
+    public ArrayList<Loan> getLoans() {
+        return loans;
+    }
+
+    public void setLoans(ArrayList<Loan> loans) {
+        this.loans = loans;
     }
 
     public void addSection(SectionType sectionType){
 
-        LibraryBook[] nullBooks = new LibraryBook[0];
+        TreeSet<LibraryBook> nullBooks = new TreeSet<>();
         Section section = new Section(sectionType, nullBooks);
-        // sections = ArrayUtils.add(sections); ???
+        sections.add(section);
 
     }
 
@@ -36,9 +91,9 @@ public class Library {
 
     public void addAuthor(String firstName, String lastName){
 
-        LibraryBook[] nullBooks = new LibraryBook[0];
+        TreeSet<LibraryBook> nullBooks = new TreeSet<>();
         LibraryAuthor libraryAuthor = new LibraryAuthor(firstName, lastName, nullBooks);
-        // libraryAuthors = ArrayUtils.add(libraryAuthor); ???
+        libraryAuthors.add(libraryAuthor);
 
     }
 

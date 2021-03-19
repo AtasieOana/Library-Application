@@ -2,7 +2,7 @@ package Classes;
 
 import java.util.Objects;
 
-public class Author {
+public class Author{
 
     private String lastName;
     private String firstName;
@@ -48,4 +48,5 @@ public class Author {
     public int hashCode() {
         return Objects.hash(lastName, firstName);
     }
+
 }

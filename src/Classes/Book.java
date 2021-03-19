@@ -1,6 +1,6 @@
 package Classes;
 
-public abstract class Book {
+public abstract class Book{
 
     private String name;
     private int numberOfPages;
@@ -49,4 +49,5 @@ public abstract class Book {
     public void setLanguage(String language) {
         this.language = language;
     }
+
 }

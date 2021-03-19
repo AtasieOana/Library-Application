@@ -1,6 +1,6 @@
 package Classes;
 
-public class RequiredBook extends Book{
+public class RequiredBook extends Book implements Comparable<RequiredBook>{
 
     private Author author;
     private int numberOfRequests;
@@ -32,5 +32,18 @@ public class RequiredBook extends Book{
 
     public void increaseTheNumberOfRequests(){
         numberOfRequests += 1;
+    }
+
+    @Override
+    public int compareTo(RequiredBook book) {
+        if (this.getName().equals(book.getName())) {
+            if(this.author.equals(book.getAuthor())){
+                return this.getYearOfPublication() - book.getYearOfPublication();
+            }
+            else{
+                return this.author.getFirstName().compareTo(book.getAuthor().getFirstName());
+            }
+        }
+        return this.getName().compareTo(book.getName());
     }
 }

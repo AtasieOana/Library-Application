@@ -1,14 +1,14 @@
 package Classes;
 
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.*;
 
-public class Section {
+
+public class Section implements Comparable<Section> {
 
     private SectionType sectionType;
-    private LibraryBook[] books;
+    private TreeSet<LibraryBook> books;
 
-    public Section(SectionType sectionType, LibraryBook[] books) {
+    public Section(SectionType sectionType, TreeSet<LibraryBook> books) {
         this.sectionType = sectionType;
         this.books = books;
     }
@@ -21,34 +21,38 @@ public class Section {
         this.sectionType = sectionType;
     }
 
-    public Book[] getBooks() {
+    public TreeSet<LibraryBook> getBooks() {
         return books;
     }
 
-    public void setBooks(LibraryBook[] books) {
+    public void setBooks(TreeSet<LibraryBook> books) {
         this.books = books;
     }
 
-    public void addBook(LibraryBook libraryBook){
+    public void addBook(LibraryBook libraryBook) {
         // books = ArrayUtils.add(libraryBook); ???
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o){
+        if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()){
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
         Section section = (Section) o;
-        return sectionType == section.sectionType && Arrays.equals(books, section.books);
+        return sectionType == section.sectionType && Objects.equals(books, section.books);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(sectionType);
-        result = 31 * result + Arrays.hashCode(books);
-        return result;
+        return Objects.hash(sectionType, books);
     }
+
+    @Override
+    public int compareTo(Section section) {
+        return this.sectionType.compareTo(section.sectionType);
+    }
+
 }

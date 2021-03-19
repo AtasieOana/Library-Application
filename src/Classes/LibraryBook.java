@@ -1,6 +1,6 @@
 package Classes;
 
-public class LibraryBook extends Book {
+public class LibraryBook extends Book implements Comparable<LibraryBook> {
 
     private LibraryAuthor author;
     private Section section;
@@ -36,5 +36,20 @@ public class LibraryBook extends Book {
 
     public void setNumberOfCopies(int numberOfCopies) {
         this.numberOfCopies = numberOfCopies;
+    }
+
+    @Override
+    public int compareTo(LibraryBook libraryBook) {
+        if (this.author.equals(libraryBook.author)) {
+            if (this.section.equals(libraryBook.section)) {
+                return this.numberOfCopies - libraryBook.numberOfCopies;
+            }
+            else{
+                return this.section.compareTo(libraryBook.section);
+            }
+        }
+        else {
+            return this.author.compareTo(libraryBook.author);
+        }
     }
 }

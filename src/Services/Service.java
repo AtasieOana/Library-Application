@@ -9,6 +9,10 @@ public class Service {
 
     private Library library;
 
+    public Service(){
+        this.library = null;
+    }
+
     public Service(Library library) {
         this.library = library;
     }

@@ -10,6 +10,18 @@ public class Librarian {
     private String address;
     private int salary;
 
+    public Librarian(){
+        this("","",null,"",0);
+
+    }
+
+    public Librarian(String lastName, String firstName, Date dateOfBirth, String address, int salary) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.dateOfBirth = dateOfBirth;
+        this.address = address;
+        this.salary = salary;
+    }
 
     public String getLastName() {
         return lastName;

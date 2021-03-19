@@ -1,17 +1,28 @@
 package Classes;
 
-import java.util.Arrays;
+import java.util.*;
 
-public class LibraryAuthor extends Author{
+public class LibraryAuthor extends Author implements Comparable<LibraryAuthor>{
 
-    private LibraryBook[] books;
+    private TreeSet<LibraryBook> books;
 
-    public LibraryAuthor(LibraryBook[] books) {
+    public LibraryAuthor(){
+    }
+
+    public LibraryAuthor(String lastName, String firstName, TreeSet<LibraryBook> books) {
+        super(lastName, firstName);
         this.books = books;
     }
 
-    public LibraryAuthor(String lastName, String firstName, LibraryBook[] books) {
-        super(lastName, firstName);
+    public TreeSet<LibraryBook> getBooks() {
+        return books;
+    }
+
+    public void setBooks(TreeSet<LibraryBook> books) {
+        this.books = books;
+    }
+
+    public LibraryAuthor(TreeSet<LibraryBook> books) {
         this.books = books;
     }
 
@@ -27,17 +38,23 @@ public class LibraryAuthor extends Author{
         if (o == null || getClass() != o.getClass()){
             return false;
         }
-        if (!super.equals(o)) {
+        if (!super.equals(o)){
             return false;
         }
         LibraryAuthor that = (LibraryAuthor) o;
-        return Arrays.equals(books, that.books);
+        return Objects.equals(books, that.books);
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + Arrays.hashCode(books);
-        return result;
+        return Objects.hash(super.hashCode(), books);
+    }
+
+    @Override
+    public int compareTo(LibraryAuthor author) {
+        if (this.getFirstName().equals(author.getFirstName())) {
+            return this.getLastName().compareTo(author.getLastName());
+        }
+        return this.getFirstName().compareTo(author.getFirstName());
     }
 }
