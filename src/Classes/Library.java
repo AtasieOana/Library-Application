@@ -82,16 +82,16 @@ public class Library {
 
     /**
      * Method for adding a new section to the library
-     */
-    public void addSection(Section section){
+     **/
+    public void addSection(Section section) {
         sections.add(section);
     }
 
     /**
      * Method for finding a section in the library
-     */
-    public Boolean findSection(Section section){
-        if(sections.isEmpty()){
+     **/
+    public Boolean findSection(Section section) {
+        if (sections.isEmpty()) {
             return false;
         }
         return sections.contains(section);
@@ -99,44 +99,50 @@ public class Library {
 
     /**
      * Method for adding a new author to the library
-     */
-    public void addAuthor(LibraryAuthor libraryAuthor){
+     **/
+    public void addAuthor(LibraryAuthor libraryAuthor) {
         libraryAuthors.add(libraryAuthor);
 
     }
 
     /**
      * Method for finding a author in the library
-     */
-    public Boolean findAuthor(LibraryAuthor libraryAuthor){
-        if(libraryAuthors.isEmpty()){
+     **/
+    public Boolean findAuthor(LibraryAuthor libraryAuthor) {
+        if (libraryAuthors.isEmpty()) {
             return false;
         }
         return libraryAuthors.contains(libraryAuthor);
     }
 
-    public void addBookInSection(Section section, LibraryBook book){
-        if(findSection(section)){
-            for(Section sec:sections){
-                if(sec.equals(section)){
-                    section.addBook(book);
-                }
+    /**
+     * Method for adding a book to a section
+     **/
+    public void addBookInSection(Section section, LibraryBook book) {
+        boolean found = false;
+        for (Section sec : sections) {
+            if (sec.equals(section)) {
+                section.addBook(book);
+                found = true;
             }
         }
-        else{
+        if (!found) {
             System.out.println("Section doesn't exist!");
         }
     }
 
-    public void addBookAtAuthor(LibraryAuthor author, LibraryBook book){
-        if(findAuthor(author)){
-            for(LibraryAuthor aut:libraryAuthors){
-                if(aut.equals(author)){
-                    author.addBook(book);
-                }
+    /**
+     * Method to add a book to the corresponding author
+     **/
+    public void addBookAtAuthor(LibraryAuthor author, LibraryBook book) {
+        boolean found = false;
+        for (LibraryAuthor aut : libraryAuthors) {
+            if (aut.equals(author)) {
+                author.addBook(book);
+                found = true;
             }
         }
-        else{
+        if (!found) {
             System.out.println("Author doesn't exist!");
         }
     }

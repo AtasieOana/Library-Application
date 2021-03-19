@@ -14,7 +14,6 @@ public class Section implements Comparable<Section> {
     }
 
     public Section(SectionType sectionType){
-        System.out.println("hjsedjhfs");
         this.sectionType = sectionType;
         books = new TreeSet<>();
     }
@@ -64,6 +63,16 @@ public class Section implements Comparable<Section> {
     @Override
     public int compareTo(Section section) {
         return this.sectionType.compareTo(section.sectionType);
+    }
+
+    /**
+     * Method to find a book in the section
+     **/
+    public boolean findBook(LibraryBook book){
+        if(books.isEmpty()){
+            return false;
+        }
+        return books.contains(book);
     }
 
 }
