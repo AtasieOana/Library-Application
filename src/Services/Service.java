@@ -28,7 +28,7 @@ public class Service {
      * If the author of the book is not in the library, then it is added.
      * If the section is not in the library, then it is added.
      * The book is added to the author and the corresponding section.
-     **/
+     */
     public void addBookInLibrary(String name, int numberOfPages, int yearOfPublication, String language,
                                  LibraryAuthor libraryAuthor, Section section, int numberOfCopies){
         if(!library.findSection(section)){
@@ -46,7 +46,7 @@ public class Service {
     /** Remove a book from the library involving:
      * If the author of the book has no other book in the library then it will be deleted.
      * The book will be removed from the section to which it belonged.
-    **/
+    */
     public void removeBookFromLibrary(LibraryBook book){
         book.getAuthor().removeBook(book);
         TreeSet<LibraryBook> libraryBookTreeSet = book.getAuthor().getBooks();
@@ -58,7 +58,7 @@ public class Service {
 
     /**
      * Find all books from an author;
-     **/
+     */
     public void findBooksFromAuthor(LibraryAuthor author){
 
         boolean found = false;
@@ -76,6 +76,27 @@ public class Service {
         }
         else{
             System.out.println("Author doesn't exist!");
+        }
+    }
+
+    /**
+     *  Find all books from a section;
+     */
+    public void findBooksFromSection(Section section) {
+        boolean found = false;
+        TreeSet<LibraryBook> libraryBookTreeSet = new TreeSet<>();
+        for (Section sec : library.getSections())
+            if (sec.equals(section)) {
+                libraryBookTreeSet = sec.getBooks();
+                found = true;
+            }
+
+        if (found) {
+            for (LibraryBook libraryBook : libraryBookTreeSet) {
+                System.out.println(libraryBook);
+            }
+        } else {
+            System.out.println("Section doesn't exist!");
         }
     }
 

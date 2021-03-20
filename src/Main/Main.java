@@ -10,7 +10,6 @@ public class Main {
 
     private static int Options() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("0. Chose another option");
         System.out.println("1. Add a book in the library");
         System.out.println("2. Remove a book from the library");
         System.out.println("3. Find a book by its author");
@@ -47,6 +46,10 @@ public class Main {
             if (opt == 3) {
                 LibraryAuthor author1 = new LibraryAuthor("Eminescu", "Mihai");
                 service.findBooksFromAuthor(author1);
+            }
+            if (opt == 4){
+                Section section = new Section(SectionType.PoemsBook);
+                service.findBooksFromSection(section);
             }
             if( opt == 10){
                 opt = -1;
