@@ -10,31 +10,19 @@ public class Reader {
     private String CNP;
     private String address;
     private String phoneNumber;
-    private ArrayList<Loan> loans;
 
     public Reader(){
-        this("", "", null, "", "", "", new ArrayList<>());
-    }
-
-    public Reader(String lastName, String firstName, Date dateOfBirth, String CNP, String address, String phoneNumber){
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.dateOfBirth = dateOfBirth;
-        this.CNP = CNP;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.loans = new ArrayList<>();
+        this("", "", null, "", "", "");
     }
 
     public Reader(String lastName, String firstName, Date dateOfBirth, String CNP, String address,
-                  String phoneNumber, ArrayList<Loan> loans) {
+                  String phoneNumber) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.dateOfBirth = dateOfBirth;
         this.CNP = CNP;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.loans = loans;
     }
 
     public String getLastName() {
@@ -85,13 +73,6 @@ public class Reader {
         this.phoneNumber = phoneNumber;
     }
 
-    public ArrayList<Loan> getLoans() {
-        return loans;
-    }
-
-    public void setLoans(ArrayList<Loan> loans) {
-        this.loans = loans;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -112,6 +93,6 @@ public class Reader {
 
     @Override
     public int hashCode() {
-        return Objects.hash(lastName, firstName, dateOfBirth, CNP, address, phoneNumber, loans);
+        return Objects.hash(lastName, firstName, dateOfBirth, CNP, address, phoneNumber);
     }
 }

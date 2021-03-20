@@ -88,6 +88,21 @@ public class Library {
     }
 
     /**
+     * Method for adding a new loan to the library
+     **/
+    public void addLoan(Loan loan) {
+        loans.add(loan);
+    }
+
+    /**
+     * Method for adding a new librarian to the library
+     **/
+    public void addLibrarian(Librarian librarian) {
+        librarians.add(librarian);
+    }
+
+
+    /**
      * Method for finding a section in the library
      **/
     public Boolean findSection(Section section) {
@@ -145,6 +160,41 @@ public class Library {
         if (!found) {
             System.out.println("Author doesn't exist!");
         }
+    }
+
+    /**
+     * Method to check if there is an author in the library
+     */
+    public LibraryAuthor checkAuthor(Author author){
+        boolean found = false;
+        for (LibraryAuthor aut : libraryAuthors) {
+            if (aut.getFirstName().equals(author.getFirstName()) && aut.getLastName().equals(author.getLastName())) {
+                return aut;
+            }
+        }
+        return new LibraryAuthor();
+    }
+
+    /**
+     * Method to find a reader by its name
+     */
+    public Reader findReaderByName(String lastname, String firstname) {
+        for (Reader reader : readers)
+            if (reader.getFirstName().equals(firstname) && reader.getLastName().equals(lastname)) {
+                return reader;
+            }
+        return new Reader();
+    }
+
+    /**
+     * Method to find a librarian by its name
+     */
+    public Librarian findLibrarianByName(String lastname, String firstname) {
+        for (Librarian librarian : librarians)
+            if (librarian.getFirstName().equals(firstname) && librarian.getLastName().equals(lastname)) {
+                return librarian;
+            }
+        return new Librarian();
     }
 
 }

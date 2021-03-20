@@ -19,6 +19,7 @@ public class Main {
         System.out.println("6. Add a new reader");
         System.out.println("7. Remove a reader");
         System.out.println("8. Remove an author from the library");
+        System.out.println("9. Borrow a book;");
         System.out.println("10. End program");
         System.out.println("Choose one of the above options:");
 
@@ -73,7 +74,18 @@ public class Main {
                 LibraryAuthor author = new LibraryAuthor("Eminescu", "Mihai");
                 service.removeAuthor(author);
             }
-
+            if(opt == 9){
+                Librarian librarian = new Librarian("Mircea", "Mihai");
+                service.getLibrary().addLibrarian(librarian);
+                LibraryAuthor author = new LibraryAuthor("Eminescu", "Mihai");
+                String bookName = "Luceafarul";
+                String firstNameReader = "Valentin";
+                String lastNameReader = "Gica";
+                String firstNameLibrarian = "Mihai";
+                String lastNameLibrarian ="Mircea";
+                service.borrowBook(bookName, author, firstNameReader, lastNameReader,
+                        firstNameLibrarian,lastNameLibrarian);
+            }
 
             if( opt == 10){
                 opt = -1;

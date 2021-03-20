@@ -1,7 +1,6 @@
 package Services;
 
 import Classes.*;
-
 import java.util.*;
 
 public class LibraryService {
@@ -59,7 +58,7 @@ public class LibraryService {
     /**
      * See all books written by an author
      */
-    public void findBooksFromAuthor(LibraryAuthor author){
+    public TreeSet<LibraryBook> findBooksFromAuthor(LibraryAuthor author){
 
         boolean found = false;
         TreeSet<LibraryBook> libraryBookTreeSet = new TreeSet<>();
@@ -73,9 +72,12 @@ public class LibraryService {
             for (LibraryBook libraryBook : libraryBookTreeSet) {
                 System.out.println(libraryBook);
             }
+            return libraryBookTreeSet;
+
         }
         else{
             System.out.println("Author doesn't exist!");
+            return libraryBookTreeSet;
         }
     }
 
@@ -132,7 +134,6 @@ public class LibraryService {
      * Removing a reader;
      */
     public void removeReader(Reader reader){
-
         boolean found = false;
         ArrayList<Reader> allReaders = library.getReaders();
         Iterator<Reader> iterator = allReaders.iterator();
@@ -175,7 +176,55 @@ public class LibraryService {
     }
 
     /**
-     * Borrowing and returning a book
+     * Borrowing a book
+     * If a book that is not in the library is requested, then it will be added to the list of required books;
      */
+    public void borrowBook(String name, Author author, String firstNameReader, String lastNameReader,
+                           String firstNameLibrarian, String lastNameLibrarian){
 
+        /**
+         * Check if the reader and the librarian are part of the library
+         */
+        Librarian librarian = library.findLibrarianByName(lastNameLibrarian,firstNameLibrarian);
+        Reader reader = library.findReaderByName(lastNameReader, firstNameReader);
+        if(!librarian.equals(new Librarian()) && !reader.equals(new Reader())) {
+            boolean found = false;
+            LibraryAuthor libraryAuthor = library.checkAuthor(author);
+            LibraryBook book = new LibraryBook();
+            if (libraryAuthor.equals(new LibraryAuthor()))
+                System.out.println("The author is not currently in the library.");
+            else {
+                TreeSet<LibraryBook> libraryBookTreeSet = findBooksFromAuthor(libraryAuthor);
+                for (LibraryBook libraryBook : libraryBookTreeSet) {
+                    if (libraryBook.getName().equals(name)) {
+                        if (libraryBook.getNumberOfCopies() >= 1) {
+                            System.out.println("The loan will be completed!");
+                            found = true;
+                            book = libraryBook;
+                            libraryBook.setNumberOfCopies(libraryBook.getNumberOfCopies()-1);
+                        } else {
+                            System.out.println("The book is no longer in stock!");
+                        }
+                        break;
+                    }
+                }
+                if(found){
+                    Date date = new Date();
+                    Loan loan = new Loan(book, reader, librarian, date);
+                    library.addLoan(loan);
+                }
+                else{
+                    System.out.println("The book is not currently in the library!");
+                }
+            }
+        }
+        else{
+            if(librarian.equals(new Librarian())) {
+                System.out.println("The librarian is not registered at the library!");
+            }
+            else{
+                System.out.println("The reader is not registered at the library!");
+            }
+        }
+    }
 }

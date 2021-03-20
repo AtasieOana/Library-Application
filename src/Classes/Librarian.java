@@ -1,6 +1,7 @@
 package Classes;
 
 import java.util.Date;
+import java.util.Stack;
 
 public class Librarian {
 
@@ -13,6 +14,14 @@ public class Librarian {
     public Librarian(){
         this("","",null,"",0);
 
+    }
+
+    public Librarian(String lastName, String firstName){
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.dateOfBirth = null;
+        this.address = "";
+        this.salary = 0;
     }
 
     public Librarian(String lastName, String firstName, Date dateOfBirth, String address, int salary) {

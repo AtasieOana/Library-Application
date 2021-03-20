@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Loan {
 
-    private Book book;
+    private LibraryBook book;
     private Reader reader;
     private Librarian librarian;
     private Date loanDate;
@@ -13,18 +13,18 @@ public class Loan {
     public Loan(){
     }
 
-    public Loan(Book book, Reader reader, Librarian librarian, Date loanDate) {
+    public Loan(LibraryBook book, Reader reader, Librarian librarian, Date loanDate) {
         this.book = book;
         this.reader = reader;
         this.librarian = librarian;
         this.loanDate = loanDate;
     }
 
-    public Book getBook() {
+    public LibraryBook getBook() {
         return book;
     }
 
-    public void setBook(Book book) {
+    public void setBook(LibraryBook book) {
         this.book = book;
     }
 
