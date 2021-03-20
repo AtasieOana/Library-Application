@@ -88,6 +88,13 @@ public class Library {
     }
 
     /**
+     * Method for adding a new required book to the library
+     **/
+    public void addRequiredBook(RequiredBook requiredBook) {
+        requiredBooks.add(requiredBook);
+    }
+
+    /**
      * Method for adding a new loan to the library
      **/
     public void addLoan(Loan loan) {
@@ -101,6 +108,12 @@ public class Library {
         librarians.add(librarian);
     }
 
+    /**
+     * Method for removing a loan
+     **/
+    public void removeLoan(Loan loan) {
+        loans.add(loan);
+    }
 
     /**
      * Method for finding a section in the library
@@ -195,6 +208,30 @@ public class Library {
                 return librarian;
             }
         return new Librarian();
+    }
+
+    /**
+     * Method for finding a loan by the reader's name and the name of the book
+     */
+    public Loan findLoan(String readerFirstName, String readerLastName, String bookName){
+        for (Loan loan : loans)
+            if (loan.getReader().getFirstName().equals(readerFirstName) &&
+                    loan.getReader().getLastName().equals(readerLastName) &&
+                    loan.getBook().getName().equals(bookName)) {
+                return loan;
+            }
+        return new Loan();
+    }
+
+    /**
+     * Method for finding a required book by its name
+     */
+    public RequiredBook findRequiredBook(String bookName){
+        for (RequiredBook requiredBook : requiredBooks)
+            if (requiredBook.getName().equals(bookName)) {
+                return requiredBook;
+            }
+        return new RequiredBook();
     }
 
 }

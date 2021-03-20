@@ -195,7 +195,7 @@ public class LibraryService {
      * If a book that is not in the library is requested, then it will be added to the list of required books;
      */
     public void borrowBook(String name, Author author, String firstNameReader, String lastNameReader,
-                           String firstNameLibrarian, String lastNameLibrarian){
+                           String firstNameLibrarian, String lastNameLibrarian, int yearBook){
 
         /**
          * Check if the reader and the librarian are part of the library
@@ -211,7 +211,7 @@ public class LibraryService {
             else {
                 TreeSet<LibraryBook> libraryBookTreeSet = findBooksFromAuthor(libraryAuthor);
                 for (LibraryBook libraryBook : libraryBookTreeSet) {
-                    if (libraryBook.getName().equals(name)) {
+                    if (libraryBook.getName().equals(name) && libraryBook.getYearOfPublication() == yearBook) {
                         if (libraryBook.getNumberOfCopies() >= 1) {
                             System.out.println("The loan will be completed!");
                             found = true;
@@ -229,7 +229,15 @@ public class LibraryService {
                     library.addLoan(loan);
                 }
                 else{
-                    System.out.println("The book is not currently in the library!");
+                    System.out.println("The book doesn't exit in the library!");
+                    RequiredBook requiredBook = library.findRequiredBook(name);
+                    if (requiredBook.getName() == "") {
+                        RequiredBook requiredBook1= new RequiredBook(name, author, yearBook, 1);
+                        library.addRequiredBook(requiredBook1);
+                    }
+                    else {
+                        requiredBook.increaseTheNumberOfRequests();
+                    }
                 }
             }
         }
@@ -240,6 +248,40 @@ public class LibraryService {
             else{
                 System.out.println("The reader is not registered at the library!");
             }
+        }
+    }
+
+    /**
+     *  Returning a book;
+     */
+    public void returnBook(String name, String firstNameReader, String lastNameReader) {
+
+        Loan loan = library.findLoan(firstNameReader, lastNameReader, name);
+        if (loan.getLoanDate() == null) {
+            System.out.println("Loan doesn't exist!");
+        } else {
+            loan.getBook().setNumberOfCopies(loan.getBook().getNumberOfCopies() + 1);
+            library.removeLoan(loan);
+        }
+    }
+
+    /**
+     *  Find the most requested book;
+     */
+    public void findMostRequestedBook() {
+        int number = 0;
+        RequiredBook max = new RequiredBook();
+        for (RequiredBook requiredBook : library.getRequiredBooks()){
+            if (requiredBook.getNumberOfRequests() > number) {
+                number = requiredBook.getNumberOfRequests();
+                max = requiredBook;
+            }
+        }
+        if(number == 0){
+            System.out.println("No book required!");
+        }
+        else {
+            System.out.println(max);
         }
     }
 }

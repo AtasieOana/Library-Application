@@ -18,6 +18,13 @@ public abstract class Book{
         this.language = language;
     }
 
+    public Book(String name, int yearOfPublication){
+        this.yearOfPublication = yearOfPublication;
+        this.name = name;
+        this.numberOfPages = 0;
+        this.language = "";
+    }
+
     public String getName() {
         return name;
     }

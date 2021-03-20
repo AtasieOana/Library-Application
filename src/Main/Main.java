@@ -47,7 +47,9 @@ public class Main {
         System.out.println("7. Remove a reader");
         System.out.println("8. Remove an author from the library");
         System.out.println("9. Borrow a book;");
-        System.out.println("10. End program");
+        System.out.println("10. Return a book");
+        System.out.println("11. Find the most requested book;");
+        System.out.println("12. End program");
         System.out.println("Choose one of the above options:");
 
         int opt = scanner.nextInt();
@@ -103,21 +105,41 @@ public class Main {
                 service.removeAuthor(author);
             }
             if(opt == 9){
-                LibraryAuthor author = new LibraryAuthor("Eminescu", "Mihai");
-                String bookName = "Luceafarul";
+                /**
+                Author author = new Author("Christie", "Agatha");
+                String bookName = "The Mysterious Affair at Styles";
                 String firstNameReader = "Valentin";
                 String lastNameReader = "Gica";
                 String firstNameLibrarian = "Mihai";
                 String lastNameLibrarian ="Mircea";
+                int year = 1920;
                 service.borrowBook(bookName, author, firstNameReader, lastNameReader,
-                        firstNameLibrarian,lastNameLibrarian);
+                        firstNameLibrarian,lastNameLibrarian,year);
+                 **/
+                Author author = new Author("Christie", "Agatha");
+                String bookName = "The Secret of Chimneys ";
+                String firstNameReader = "Valentin";
+                String lastNameReader = "Gica";
+                String firstNameLibrarian = "Mihai";
+                String lastNameLibrarian ="Mircea";
+                int year = 1925;
+                service.borrowBook(bookName, author, firstNameReader, lastNameReader,
+                        firstNameLibrarian,lastNameLibrarian,year);
             }
-
-            if( opt == 10){
+            if(opt == 10){
+                String bookName = "The Mysterious Affair at Styles";
+                String firstNameReader = "Valentin";
+                String lastNameReader = "Gica";
+                service.returnBook(bookName, firstNameReader, lastNameReader);
+            }
+            if(opt == 11){
+                service.findMostRequestedBook();
+            }
+            if(opt == 12){
                 opt = -1;
                 break;
             }
-            if (opt > 10) {
+            if (opt < 0 || opt > 11) {
                 System.out.println("The entered option is invalid!");
             }
 

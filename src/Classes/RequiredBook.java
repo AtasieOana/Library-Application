@@ -10,6 +10,12 @@ public class RequiredBook extends Book implements Comparable<RequiredBook>{
         numberOfRequests = 0;
     }
 
+    public RequiredBook(String name, Author author, int yearOfPublication, int numberOfRequests){
+        super(name, yearOfPublication);
+        this.author = author;
+        this.numberOfRequests = numberOfRequests;
+    }
+
     public RequiredBook(String name, int numberOfPages, int yearOfPublication, String language, Author author, int numberOfRequests) {
         super(name, numberOfPages, yearOfPublication, language);
         this.author = author;
@@ -48,4 +54,10 @@ public class RequiredBook extends Book implements Comparable<RequiredBook>{
         }
         return this.getName().compareTo(book.getName());
     }
+
+    @Override
+    public String toString() {
+        return this.getName() + ", author=" + author + ", numberOfRequests=" + numberOfRequests;
+    }
 }
+
