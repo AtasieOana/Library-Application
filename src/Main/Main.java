@@ -46,6 +46,19 @@ public class Main {
 
     }
 
+    private static Date makeDate(int year, int month, int day){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DATE, day);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date date = calendar.getTime();
+        return date;
+    }
+
     private static int Options() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("1. Add a book in the library");
@@ -99,22 +112,12 @@ public class Main {
                 service.findBooksFromLibrary();
             }
             if(opt == 6 ){
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.YEAR, 2000);
-                calendar.set(Calendar.MONTH, 11);
-                calendar.set(Calendar.DATE, 21);
-                Date date = calendar.getTime();
-                Reader reader = new Reader("Gica","Valentin", date,
+                Reader reader = new Reader("Gica","Valentin", makeDate(2000, 11, 21),
                         "6130110018580", "Strada X", "0756146777");
                 service.addReader(reader);
             }
             if(opt == 7){
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.YEAR, 2000);
-                calendar.set(Calendar.MONTH, 11);
-                calendar.set(Calendar.DATE, 21);
-                Date date = calendar.getTime();
-                Reader reader = new Reader("Gica","Valentin", date,
+                Reader reader = new Reader("Gica","Valentin", makeDate(2000, 11, 21),
                         "6130110018580", "Strada X", "0756146777");
                 service.removeReader(reader);
             }

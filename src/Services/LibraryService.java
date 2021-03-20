@@ -141,6 +141,7 @@ public class LibraryService {
         ArrayList<Reader> allReaders = library.getReaders();
         allReaders.add(reader);
         library.setReaders(allReaders);
+        System.out.println("The reader has been added!");
     }
 
     /**
@@ -159,6 +160,9 @@ public class LibraryService {
         }
         if(!found){
             System.out.println("Reader doesn't exist!");
+        }
+        else{
+            System.out.println("The reader has been removed!");
         }
     }
 
@@ -184,6 +188,9 @@ public class LibraryService {
         }
         if(!found){
             System.out.println("Author doesn't exist!");
+        }
+        else{
+            System.out.println("The author has been deleted!");
         }
 
     }
