@@ -3,18 +3,25 @@ package Main;
 import Classes.*;
 import Services.LibraryService;
 
-import java.io.IOException;
 import java.util.*;
+import java.util.Calendar;
 
 public class Main {
 
     private static Library CreateLibrary(){
 
         Library library = new Library();
-        Librarian librarian1 = new Librarian("Mircea", "Mihai", new Date(2000, Calendar.DECEMBER,
-                21), "Adresa X", 1600);
-        Librarian librarian2 = new Librarian("Ionel", "Maria", new Date(1989, Calendar.NOVEMBER,
-                06),"Adresa Y", 2000);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, 2000);
+        calendar.set(Calendar.MONTH, 1);
+        calendar.set(Calendar.DATE, 21);
+        Librarian librarian1 = new Librarian("Mircea", "Mihai", calendar.getTime(),
+                "Adresa X", 1600);
+        calendar.set(Calendar.YEAR, 1989);
+        calendar.set(Calendar.MONTH, 9);
+        calendar.set(Calendar.DATE, 6);
+        Librarian librarian2 = new Librarian("Ionel", "Maria", calendar.getTime(),
+                "Adresa Y", 2000);
         library.addLibrarian(librarian1);
         library.addLibrarian(librarian2);
         LibraryAuthor author = new LibraryAuthor("Christie", "Agatha");
@@ -31,7 +38,10 @@ public class Main {
         library.addBookInSection(section, libraryBook);
         library.addBookAtAuthor(author1, libraryBook1);
         library.addBookInSection(section, libraryBook1);
-
+        Author a = new Author("Wilde","Oscar");
+        RequiredBook requiredBook = new RequiredBook("The Happy Prince and Other Tales", a,
+                1888, 1);
+        library.addRequiredBook(requiredBook);
         return library;
 
     }
@@ -52,13 +62,11 @@ public class Main {
         System.out.println("12. End program");
         System.out.println("Choose one of the above options:");
 
-        int opt = scanner.nextInt();
-        return opt;
+        return scanner.nextInt();
     }
 
     public static void main(String[] args){
 
-        LibraryAuthor author11 = new LibraryAuthor("Christie", "Agatha");
         Scanner scan = new Scanner(System.in);
         LibraryService service = new LibraryService(CreateLibrary());
         int opt = Options();
@@ -91,12 +99,22 @@ public class Main {
                 service.findBooksFromLibrary();
             }
             if(opt == 6 ){
-                Reader reader = new Reader("Gica","Valentin", new Date(2000, 11, 21),
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.YEAR, 2000);
+                calendar.set(Calendar.MONTH, 11);
+                calendar.set(Calendar.DATE, 21);
+                Date date = calendar.getTime();
+                Reader reader = new Reader("Gica","Valentin", date,
                         "6130110018580", "Strada X", "0756146777");
                 service.addReader(reader);
             }
             if(opt == 7){
-                Reader reader = new Reader("Gica","Valentin", new Date(2000, 11, 21),
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.YEAR, 2000);
+                calendar.set(Calendar.MONTH, 11);
+                calendar.set(Calendar.DATE, 21);
+                Date date = calendar.getTime();
+                Reader reader = new Reader("Gica","Valentin", date,
                         "6130110018580", "Strada X", "0756146777");
                 service.removeReader(reader);
             }
@@ -105,7 +123,6 @@ public class Main {
                 service.removeAuthor(author);
             }
             if(opt == 9){
-                /**
                 Author author = new Author("Christie", "Agatha");
                 String bookName = "The Mysterious Affair at Styles";
                 String firstNameReader = "Valentin";
@@ -113,16 +130,6 @@ public class Main {
                 String firstNameLibrarian = "Mihai";
                 String lastNameLibrarian ="Mircea";
                 int year = 1920;
-                service.borrowBook(bookName, author, firstNameReader, lastNameReader,
-                        firstNameLibrarian,lastNameLibrarian,year);
-                 **/
-                Author author = new Author("Christie", "Agatha");
-                String bookName = "The Secret of Chimneys ";
-                String firstNameReader = "Valentin";
-                String lastNameReader = "Gica";
-                String firstNameLibrarian = "Mihai";
-                String lastNameLibrarian ="Mircea";
-                int year = 1925;
                 service.borrowBook(bookName, author, firstNameReader, lastNameReader,
                         firstNameLibrarian,lastNameLibrarian,year);
             }
@@ -136,7 +143,6 @@ public class Main {
                 service.findMostRequestedBook();
             }
             if(opt == 12){
-                opt = -1;
                 break;
             }
             if (opt < 0 || opt > 11) {

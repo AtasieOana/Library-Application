@@ -57,7 +57,7 @@ public class RequiredBook extends Book implements Comparable<RequiredBook>{
 
     @Override
     public String toString() {
-        return this.getName() + ", author=" + author + ", numberOfRequests=" + numberOfRequests;
+        return this.getName() + ", author: " + author + ", numberOfRequests=" + numberOfRequests;
     }
 }
 

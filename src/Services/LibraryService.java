@@ -3,6 +3,7 @@ package Services;
 import Classes.*;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class LibraryService {
 
@@ -221,7 +222,11 @@ public class LibraryService {
                     }
                 }
                 if(found){
-                    Date date = new Date();
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.YEAR, 2021);
+                    calendar.set(Calendar.MONTH, 2);
+                    calendar.set(Calendar.DATE, 14);
+                    Date date = calendar.getTime();
                     Loan loan = new Loan(book, reader, librarian, date);
                     library.addLoan(loan);
                 }
@@ -257,6 +262,10 @@ public class LibraryService {
         if (loan.getLoanDate() == null) {
             System.out.println("Loan doesn't exist!");
         } else {
+            Date d1 = new Date();
+            long diff = d1.getTime() - loan.getLoanDate().getTime();
+            long days_diff = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) - Loan.getLoanDays();
+            System.out.println("The book was returned with a delay of " + days_diff + " days.");
             loan.getBook().setNumberOfCopies(loan.getBook().getNumberOfCopies() + 1);
             library.removeLoan(loan);
         }

@@ -8,7 +8,7 @@ public class Loan {
     private Reader reader;
     private Librarian librarian;
     private Date loanDate;
-    private static final int loanWeeks = 2;
+    private static final int loanDays = 12;
 
     public Loan(){
     }
@@ -52,7 +52,7 @@ public class Loan {
         this.loanDate = loanDate;
     }
 
-    public static int getLoanWeeks() {
-        return loanWeeks;
+    public static int getLoanDays() {
+        return loanDays;
     }
 }
