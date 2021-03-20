@@ -37,11 +37,7 @@ public class LibraryAuthor extends Author implements Comparable<LibraryAuthor>{
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        if (!super.equals(o)) {
-            return false;
-        }
-        LibraryAuthor that = (LibraryAuthor) o;
-        return true;
+        return super.equals(o);
     }
 
     @Override

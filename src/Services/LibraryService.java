@@ -2,9 +2,7 @@ package Services;
 
 import Classes.*;
 
-import javax.swing.*;
 import java.util.*;
-import java.util.TreeSet.*;
 
 public class LibraryService {
 
@@ -86,13 +84,12 @@ public class LibraryService {
             for (LibraryBook libraryBook : libraryBookTreeSet) {
                 System.out.println(libraryBook);
             }
-            return libraryBookTreeSet;
 
         }
         else{
             System.out.println("Author doesn't exist!");
-            return libraryBookTreeSet;
         }
+        return libraryBookTreeSet;
     }
 
     /**
@@ -122,7 +119,7 @@ public class LibraryService {
      */
     public void findBooksFromLibrary() {
         boolean found = false;
-        TreeSet<LibraryBook> libraryBookTreeSet = new TreeSet<>();
+        TreeSet<LibraryBook> libraryBookTreeSet;
         for (Section sec : library.getSections()) {
             libraryBookTreeSet = sec.getBooks();
             for (LibraryBook libraryBook : libraryBookTreeSet) {
@@ -197,7 +194,7 @@ public class LibraryService {
     public void borrowBook(String name, Author author, String firstNameReader, String lastNameReader,
                            String firstNameLibrarian, String lastNameLibrarian, int yearBook){
 
-        /**
+        /*
          * Check if the reader and the librarian are part of the library
          */
         Librarian librarian = library.findLibrarianByName(lastNameLibrarian,firstNameLibrarian);
@@ -231,7 +228,7 @@ public class LibraryService {
                 else{
                     System.out.println("The book doesn't exit in the library!");
                     RequiredBook requiredBook = library.findRequiredBook(name);
-                    if (requiredBook.getName() == "") {
+                    if (requiredBook.getName().equals("")) {
                         RequiredBook requiredBook1= new RequiredBook(name, author, yearBook, 1);
                         library.addRequiredBook(requiredBook1);
                     }

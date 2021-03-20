@@ -1,7 +1,5 @@
 package Classes;
 
-import com.sun.source.tree.Tree;
-
 import java.util.*;
 
 public class Library {
@@ -179,7 +177,6 @@ public class Library {
      * Method to check if there is an author in the library
      */
     public LibraryAuthor checkAuthor(Author author){
-        boolean found = false;
         for (LibraryAuthor aut : libraryAuthors) {
             if (aut.getFirstName().equals(author.getFirstName()) && aut.getLastName().equals(author.getLastName())) {
                 return aut;
