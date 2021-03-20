@@ -4,10 +4,37 @@ import Classes.*;
 import Services.LibraryService;
 
 import java.io.IOException;
-import java.util.Scanner;
-import java.util.Date;
+import java.util.*;
 
 public class Main {
+
+    private static Library CreateLibrary(){
+
+        Library library = new Library();
+        Librarian librarian1 = new Librarian("Mircea", "Mihai", new Date(2000, Calendar.DECEMBER,
+                21), "Adresa X", 1600);
+        Librarian librarian2 = new Librarian("Ionel", "Maria", new Date(1989, Calendar.NOVEMBER,
+                06),"Adresa Y", 2000);
+        library.addLibrarian(librarian1);
+        library.addLibrarian(librarian2);
+        LibraryAuthor author = new LibraryAuthor("Christie", "Agatha");
+        library.addAuthor(author);
+        LibraryAuthor author1 = new LibraryAuthor("Twain", "Mark");
+        library.addAuthor(author1);
+        Section section = new Section(SectionType.FictionBooks);
+        library.addSection(section);
+        LibraryBook libraryBook = new LibraryBook( "The Mysterious Affair at Styles", 298,
+                1920, "Engleza", author, section, 10);
+        LibraryBook libraryBook1 = new LibraryBook( "Eve's Diary", 157,
+                1906, "Engleza", author1, section, 1);
+        library.addBookAtAuthor(author, libraryBook);
+        library.addBookInSection(section, libraryBook);
+        library.addBookAtAuthor(author1, libraryBook1);
+        library.addBookInSection(section, libraryBook1);
+
+        return library;
+
+    }
 
     private static int Options() {
         Scanner scanner = new Scanner(System.in);
@@ -29,9 +56,10 @@ public class Main {
 
     public static void main(String[] args){
 
-        int opt = Options();
+        LibraryAuthor author11 = new LibraryAuthor("Christie", "Agatha");
         Scanner scan = new Scanner(System.in);
-        LibraryService service = new LibraryService();
+        LibraryService service = new LibraryService(CreateLibrary());
+        int opt = Options();
         while (opt != -1) {
             if (opt == 0) {
                 opt = Options();
@@ -75,8 +103,6 @@ public class Main {
                 service.removeAuthor(author);
             }
             if(opt == 9){
-                Librarian librarian = new Librarian("Mircea", "Mihai");
-                service.getLibrary().addLibrarian(librarian);
                 LibraryAuthor author = new LibraryAuthor("Eminescu", "Mihai");
                 String bookName = "Luceafarul";
                 String firstNameReader = "Valentin";

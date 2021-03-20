@@ -1,7 +1,10 @@
 package Services;
 
 import Classes.*;
+
+import javax.swing.*;
 import java.util.*;
+import java.util.TreeSet.*;
 
 public class LibraryService {
 
@@ -47,12 +50,23 @@ public class LibraryService {
      * The book will be removed from the section to which it belonged.
      */
     public void removeBookFromLibrary(LibraryBook book){
-        book.getAuthor().removeBook(book);
-        TreeSet<LibraryBook> libraryBookTreeSet = book.getAuthor().getBooks();
+
+        LibraryAuthor libraryAuthor = new LibraryAuthor();
+        for (LibraryAuthor author : library.getLibraryAuthors())
+            if (author.equals(book.getAuthor())) {
+                libraryAuthor = author;
+                break;
+            }
+        TreeSet<LibraryBook> libraryBookTreeSet = libraryAuthor.getBooks();
+        libraryAuthor.removeBook(book);
         if(libraryBookTreeSet.isEmpty()){
-            library.getLibraryAuthors().remove(book.getAuthor());
+            library.getLibraryAuthors().remove(libraryAuthor);
         }
-        book.getSection().removeBook(book);
+        for (Section section : library.getSections())
+            if (section.equals(book.getSection())) {
+                section.removeBook(book);
+                break;
+            }
     }
 
     /**
@@ -109,11 +123,12 @@ public class LibraryService {
     public void findBooksFromLibrary() {
         boolean found = false;
         TreeSet<LibraryBook> libraryBookTreeSet = new TreeSet<>();
-        for (Section sec : library.getSections())
+        for (Section sec : library.getSections()) {
             libraryBookTreeSet = sec.getBooks();
-        for (LibraryBook libraryBook : libraryBookTreeSet) {
-            System.out.println(libraryBook);
-            found = true;
+            for (LibraryBook libraryBook : libraryBookTreeSet) {
+                System.out.println(libraryBook);
+                found = true;
+            }
         }
 
         if (!found){

@@ -47,16 +47,19 @@ public class LibraryBook extends Book implements Comparable<LibraryBook> {
 
     @Override
     public int compareTo(LibraryBook libraryBook) {
-        if (this.author.equals(libraryBook.author)) {
-            if (this.section.equals(libraryBook.section)) {
-                return this.numberOfCopies - libraryBook.numberOfCopies;
-            }
-            else{
-                return this.section.compareTo(libraryBook.section);
+        if(this.getName().equals(libraryBook.getName())) {
+            if (this.author.equals(libraryBook.author)) {
+                if (this.section.equals(libraryBook.section)) {
+                    return this.numberOfCopies - libraryBook.numberOfCopies;
+                } else {
+                    return this.section.compareTo(libraryBook.section);
+                }
+            } else {
+                return this.author.compareTo(libraryBook.author);
             }
         }
-        else {
-            return this.author.compareTo(libraryBook.author);
+        else{
+            return this.getName().compareTo(libraryBook.getName());
         }
     }
 
