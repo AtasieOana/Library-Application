@@ -5,6 +5,7 @@ import Services.LibraryService;
 
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Date;
 
 public class Main {
 
@@ -15,7 +16,9 @@ public class Main {
         System.out.println("3. See all books written by an author");
         System.out.println("4. See all the books in a section");
         System.out.println("5. See all the books in the library");
-        System.out.println("6. Adding a new reader");
+        System.out.println("6. Add a new reader");
+        System.out.println("7. Remove a reader");
+        System.out.println("8. Remove an author from the library");
         System.out.println("10. End program");
         System.out.println("Choose one of the above options:");
 
@@ -56,6 +59,22 @@ public class Main {
             if(opt == 5){
                 service.findBooksFromLibrary();
             }
+            if(opt == 6 ){
+                Reader reader = new Reader("Gica","Valentin", new Date(2000, 11, 21),
+                        "6130110018580", "Strada X", "0756146777");
+                service.addReader(reader);
+            }
+            if(opt == 7){
+                Reader reader = new Reader("Gica","Valentin", new Date(2000, 11, 21),
+                        "6130110018580", "Strada X", "0756146777");
+                service.removeReader(reader);
+            }
+            if(opt == 8){
+                LibraryAuthor author = new LibraryAuthor("Eminescu", "Mihai");
+                service.removeAuthor(author);
+            }
+
+
             if( opt == 10){
                 opt = -1;
                 break;

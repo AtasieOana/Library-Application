@@ -7,16 +7,27 @@ public class Reader {
     private String lastName;
     private String firstName;
     private Date dateOfBirth;
-    private int CNP;
+    private String CNP;
     private String address;
-    private int phoneNumber;
+    private String phoneNumber;
     private ArrayList<Loan> loans;
 
     public Reader(){
-        this("", "", null, 0, "", 0, new ArrayList<>());
+        this("", "", null, "", "", "", new ArrayList<>());
     }
 
-    public Reader(String lastName, String firstName, Date dateOfBirth, int CNP, String address, int phoneNumber, ArrayList<Loan> loans) {
+    public Reader(String lastName, String firstName, Date dateOfBirth, String CNP, String address, String phoneNumber){
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.dateOfBirth = dateOfBirth;
+        this.CNP = CNP;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.loans = new ArrayList<>();
+    }
+
+    public Reader(String lastName, String firstName, Date dateOfBirth, String CNP, String address,
+                  String phoneNumber, ArrayList<Loan> loans) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.dateOfBirth = dateOfBirth;
@@ -50,11 +61,11 @@ public class Reader {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public int getCNP() {
+    public String  getCNP() {
         return CNP;
     }
 
-    public void setCNP(int CNP) {
+    public void setCNP(String CNP) {
         this.CNP = CNP;
     }
 
@@ -66,11 +77,11 @@ public class Reader {
         this.address = address;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -82,4 +93,25 @@ public class Reader {
         this.loans = loans;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o){
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()){
+            return false;
+        }
+        Reader reader = (Reader) o;
+        return Objects.equals(lastName, reader.lastName) &&
+                Objects.equals(firstName, reader.firstName) &&
+                Objects.equals(dateOfBirth, reader.dateOfBirth) &&
+                Objects.equals(CNP, reader.CNP) &&
+                Objects.equals(address, reader.address) &&
+                Objects.equals(phoneNumber, reader.phoneNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(lastName, firstName, dateOfBirth, CNP, address, phoneNumber, loans);
+    }
 }

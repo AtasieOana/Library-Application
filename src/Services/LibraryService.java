@@ -24,7 +24,7 @@ public class LibraryService {
         this.library = library;
     }
 
-    /** Adding a book in the library involving:
+    /** Adding a book in the library;
      * If the author of the book is not in the library, then it is added.
      * If the section is not in the library, then it is added.
      * The book is added to the author and the corresponding section.
@@ -43,7 +43,7 @@ public class LibraryService {
         library.addBookAtAuthor(libraryAuthor, book);
     }
 
-    /** Remove a book from the library involving:
+    /** Remove a book from the library;
      * If the author of the book has no other book in the library then it will be deleted.
      * The book will be removed from the section to which it belonged.
      */
@@ -128,5 +128,50 @@ public class LibraryService {
         library.setReaders(allReaders);
     }
 
+    /**
+     * Removing a reader;
+     */
+    public void removeReader(Reader reader){
+
+        boolean found = false;
+        ArrayList<Reader> allReaders = library.getReaders();
+        Iterator<Reader> iterator = allReaders.iterator();
+        while (iterator.hasNext()) {
+            Reader r = iterator.next();
+            if (r.equals(reader)) {
+                iterator.remove();
+                found = true;
+            }
+        }
+        if(!found){
+            System.out.println("Reader doesn't exist!");
+        }
+    }
+
+    /**
+     * Removing an author from the library;
+     * When the author is removed, the books written by him are also removed.
+     */
+    public void removeAuthor(LibraryAuthor libraryAuthor){
+
+        boolean found = false;
+        TreeSet<LibraryAuthor> allLibraryAuthors = library.getLibraryAuthors();
+        Iterator<LibraryAuthor> iterator = allLibraryAuthors.iterator();
+        while (iterator.hasNext()) {
+            LibraryAuthor la = iterator.next();
+            if (la.equals(libraryAuthor)) {
+                TreeSet<LibraryBook> libraryBookTreeSet = la.getBooks();
+                for(LibraryBook libraryBook:libraryBookTreeSet){
+                    libraryBook.getSection().removeBook(libraryBook);
+                }
+                iterator.remove();
+                found = true;
+            }
+        }
+        if(!found){
+            System.out.println("Author doesn't exist!");
+        }
+
+    }
 
 }
