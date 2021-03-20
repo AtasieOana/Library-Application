@@ -1,7 +1,7 @@
 package Main;
 
 import Classes.*;
-import Services.Service;
+import Services.LibraryService;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -12,8 +12,10 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("1. Add a book in the library");
         System.out.println("2. Remove a book from the library");
-        System.out.println("3. Find a book by its author");
-        System.out.println("4. Find a book by the section it belongs to");
+        System.out.println("3. See all books written by an author");
+        System.out.println("4. See all the books in a section");
+        System.out.println("5. See all the books in the library");
+        System.out.println("6. Adding a new reader");
         System.out.println("10. End program");
         System.out.println("Choose one of the above options:");
 
@@ -25,7 +27,7 @@ public class Main {
 
         int opt = Options();
         Scanner scan = new Scanner(System.in);
-        Service service = new Service();
+        LibraryService service = new LibraryService();
         while (opt != -1) {
             if (opt == 0) {
                 opt = Options();
@@ -50,6 +52,9 @@ public class Main {
             if (opt == 4){
                 Section section = new Section(SectionType.PoemsBook);
                 service.findBooksFromSection(section);
+            }
+            if(opt == 5){
+                service.findBooksFromLibrary();
             }
             if( opt == 10){
                 opt = -1;
