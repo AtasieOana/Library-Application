@@ -51,10 +51,12 @@ public class LibraryService {
      */
     public void removeBookFromLibrary(LibraryBook book){
 
+        boolean found = false;
         LibraryAuthor libraryAuthor = new LibraryAuthor();
         for (LibraryAuthor author : library.getLibraryAuthors())
             if (author.equals(book.getAuthor())) {
                 libraryAuthor = author;
+                found = true;
                 break;
             }
         TreeSet<LibraryBook> libraryBookTreeSet = libraryAuthor.getBooks();
@@ -67,7 +69,12 @@ public class LibraryService {
                 section.removeBook(book);
                 break;
             }
-        System.out.println("The book was removed!");
+        if(found){
+            System.out.println("The book was removed!");
+        }
+        else {
+            System.out.println("The book doesn't exit!");
+        }
 
     }
 
