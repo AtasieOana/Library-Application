@@ -16,7 +16,6 @@ public class Reader {
     public Reader(){
         this("", "", null, "", "", "");
 
-
     }
 
     public Reader(String lastName, String firstName, Date dateOfBirth, String CNP, String address,
