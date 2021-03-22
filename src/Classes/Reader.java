@@ -1,6 +1,8 @@
 package Classes;
 
 import java.util.*;
+import java.util.regex.PatternSyntaxException;
+
 
 public class Reader {
 
@@ -13,6 +15,8 @@ public class Reader {
 
     public Reader(){
         this("", "", null, "", "", "");
+
+
     }
 
     public Reader(String lastName, String firstName, Date dateOfBirth, String CNP, String address,
@@ -20,9 +24,19 @@ public class Reader {
         this.lastName = lastName;
         this.firstName = firstName;
         this.dateOfBirth = dateOfBirth;
-        this.CNP = CNP;
+        if (!CNP.matches("^[0-9]{13}$")) {
+            throw new PatternSyntaxException("CNP is invalid!", "^[0-9]{13}$", -1);
+        }
+        else{
+            this.CNP = CNP;
+        }
         this.address = address;
-        this.phoneNumber = phoneNumber;
+        if (!phoneNumber.matches("^0[0-9]{9}$")) {
+            throw new PatternSyntaxException("Phone number is invalid!", "^0[0-9]{9}$", -1);
+        }
+        else{
+                this.phoneNumber = phoneNumber;
+        }
     }
 
     public String getLastName() {
@@ -54,7 +68,12 @@ public class Reader {
     }
 
     public void setCNP(String CNP) {
-        this.CNP = CNP;
+        if (!CNP.matches("^[0-9]{13}$")) {
+            throw new PatternSyntaxException("CNP is invalid!", "^[0-9]{13}$", -1);
+        }
+        else{
+            this.CNP = CNP;
+        }
     }
 
     public String getAddress() {
@@ -70,7 +89,12 @@ public class Reader {
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        if (!phoneNumber.matches("^0[0-9]{9}$")) {
+            throw new PatternSyntaxException("Phone number is invalid!", "^0[0-9]{9}$", -1);
+        }
+        else{
+            this.phoneNumber = phoneNumber;
+        }
     }
 
 
