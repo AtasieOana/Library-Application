@@ -23,19 +23,9 @@ public class Reader {
         this.lastName = lastName;
         this.firstName = firstName;
         this.dateOfBirth = dateOfBirth;
-        if (!CNP.matches("^[0-9]{13}$")) {
-            throw new PatternSyntaxException("CNP is invalid!", "^[0-9]{13}$", -1);
-        }
-        else{
-            this.CNP = CNP;
-        }
+        this.CNP = CNP;
         this.address = address;
-        if (!phoneNumber.matches("^0[0-9]{9}$")) {
-            throw new PatternSyntaxException("Phone number is invalid!", "^0[0-9]{9}$", -1);
-        }
-        else{
-                this.phoneNumber = phoneNumber;
-        }
+        this.phoneNumber = phoneNumber;
     }
 
     public String getLastName() {
@@ -67,12 +57,7 @@ public class Reader {
     }
 
     public void setCNP(String CNP) {
-        if (!CNP.matches("^[0-9]{13}$")) {
-            throw new PatternSyntaxException("CNP is invalid!", "^[0-9]{13}$", -1);
-        }
-        else{
-            this.CNP = CNP;
-        }
+        this.CNP = CNP;
     }
 
     public String getAddress() {
@@ -88,12 +73,8 @@ public class Reader {
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        if (!phoneNumber.matches("^0[0-9]{9}$")) {
-            throw new PatternSyntaxException("Phone number is invalid!", "^0[0-9]{9}$", -1);
-        }
-        else{
-            this.phoneNumber = phoneNumber;
-        }
+        this.phoneNumber = phoneNumber;
+
     }
 
 

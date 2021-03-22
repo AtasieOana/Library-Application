@@ -42,6 +42,7 @@ public class LibraryService {
                 section, numberOfCopies);
         library.addBookInSection(section, book);
         library.addBookAtAuthor(libraryAuthor, book);
+        System.out.println("The book was added!");
     }
 
     /** Remove a book from the library;
@@ -66,6 +67,8 @@ public class LibraryService {
                 section.removeBook(book);
                 break;
             }
+        System.out.println("The book was removed!");
+
     }
 
     /**
@@ -180,7 +183,11 @@ public class LibraryService {
             if (la.equals(libraryAuthor)) {
                 TreeSet<LibraryBook> libraryBookTreeSet = la.getBooks();
                 for(LibraryBook libraryBook:libraryBookTreeSet){
-                    libraryBook.getSection().removeBook(libraryBook);
+                    for (Section section : library.getSections()){
+                        if (section.equals(libraryBook.getSection())) {
+                            section.removeBook(libraryBook);
+                        }
+                    }
                 }
                 iterator.remove();
                 found = true;
