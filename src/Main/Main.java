@@ -8,28 +8,28 @@ import java.util.Calendar;
 
 public class Main {
 
+    /**
+     * Creating the initial library
+     */
     private static Library CreateLibrary(){
 
         Library library = new Library();
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, 2000);
-        calendar.set(Calendar.MONTH, 1);
-        calendar.set(Calendar.DATE, 21);
-        Librarian librarian1 = new Librarian("Mircea", "Mihai", calendar.getTime(),
+        /** adding librarians */
+        Librarian librarian1 = new Librarian("Mircea", "Mihai",  makeDate(2000, 1, 21),
                 "Adresa X", 1600);
-        calendar.set(Calendar.YEAR, 1989);
-        calendar.set(Calendar.MONTH, 9);
-        calendar.set(Calendar.DATE, 6);
-        Librarian librarian2 = new Librarian("Ionel", "Maria", calendar.getTime(),
+        Librarian librarian2 = new Librarian("Ionel", "Maria", makeDate(1989, 9, 6),
                 "Adresa Y", 2000);
         library.addLibrarian(librarian1);
         library.addLibrarian(librarian2);
+        /** adding authors to the library */
         LibraryAuthor author = new LibraryAuthor("Christie", "Agatha");
         library.addAuthor(author);
         LibraryAuthor author1 = new LibraryAuthor("Twain", "Mark");
         library.addAuthor(author1);
+        /** adding sections */
         Section section = new Section(SectionType.FictionBooks);
         library.addSection(section);
+        /** adding books to the library */
         LibraryBook libraryBook = new LibraryBook( "The Mysterious Affair at Styles", 298,
                 1920, "Engleza", author, section, 10);
         LibraryBook libraryBook1 = new LibraryBook( "Eve's Diary", 157,
@@ -38,6 +38,7 @@ public class Main {
         library.addBookInSection(section, libraryBook);
         library.addBookAtAuthor(author1, libraryBook1);
         library.addBookInSection(section, libraryBook1);
+        /** adding required book */
         Author a = new Author("Wilde","Oscar");
         RequiredBook requiredBook = new RequiredBook("The Happy Prince and Other Tales", a,
                 1888, 1);
@@ -46,6 +47,9 @@ public class Main {
 
     }
 
+    /**
+     * Creating a date with the given year, month and day
+     */
     private static Date makeDate(int year, int month, int day){
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
@@ -55,10 +59,12 @@ public class Main {
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
-        Date date = calendar.getTime();
-        return date;
+        return calendar.getTime();
     }
 
+    /**
+     * Illustrating the actions that can be done in the library
+     */
     private static int Options() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("1. Add a book in the library");

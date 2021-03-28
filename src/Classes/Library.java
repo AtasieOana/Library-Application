@@ -110,7 +110,7 @@ public class Library {
      * Method for removing a loan
      **/
     public void removeLoan(Loan loan) {
-        loans.add(loan);
+        loans.remove(loan);
     }
 
     /**
@@ -216,6 +216,7 @@ public class Library {
                     loan.getReader().getLastName().equals(readerLastName) &&
                     loan.getBook().getName().equals(bookName)) {
                 return loan;
+
             }
         return new Loan();
     }
