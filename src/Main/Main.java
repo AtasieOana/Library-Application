@@ -158,7 +158,7 @@ public class Main {
                 System.out.println("The entered option is invalid!");
             }
 
-            System.out.print("Press any key to continue . . . ");
+            System.out.print("Press enter to continue . . . ");
             scan.nextLine();
             opt = 0;
         }
