@@ -88,80 +88,95 @@ public class Main {
 
         Scanner scan = new Scanner(System.in);
         LibraryService service = new LibraryService(CreateLibrary());
-        int opt = Options();
-        while (opt != -1) {
-            if (opt == 0) {
-                opt = Options();
-            }
-            if (opt == 1) {
-                LibraryAuthor author = new LibraryAuthor("Eminescu", "Mihai");
-                Section section = new Section(SectionType.POEMS);
-                service.addBookInLibrary("Luceafarul", 10, 1883,
-                        "Romana", author, section, 4);
-            }
-            if (opt == 2) {
-                LibraryAuthor author = new LibraryAuthor("Eminescu", "Mihai");
-                Section section = new Section(SectionType.POEMS);
-                LibraryBook book = new LibraryBook("Luceafarul", 10, 1883,
-                        "Romana", author, section, 4);
-                service.removeBookFromLibrary(book);
-            }
-            if (opt == 3) {
-                LibraryAuthor author1 = new LibraryAuthor("Eminescu", "Mihai");
-                service.findBooksFromAuthor(author1);
-            }
-            if (opt == 4){
-                Section section = new Section(SectionType.POEMS);
-                service.findBooksFromSection(section);
-            }
-            if(opt == 5){
-                service.findBooksFromLibrary();
-            }
-            if(opt == 6 ){
-                Reader reader = new Reader("Gica","Valentin", makeDate(2000, 11, 21),
-                        "6130110018580", "Strada X", "0756146777");
-                service.addReader(reader);
-            }
-            if(opt == 7){
-                Reader reader = new Reader("Gica","Valentin", makeDate(2000, 11, 21),
-                        "6130110018580", "Strada X", "0756146777");
-                service.removeReader(reader);
-            }
-            if(opt == 8){
-                LibraryAuthor author = new LibraryAuthor("Eminescu", "Mihai");
-                service.removeAuthor(author);
-            }
-            if(opt == 9){
-                Author author = new Author("Christie", "Agatha");
-                String bookName = "The Mysterious Affair at Styles";
-                String firstNameReader = "Valentin";
-                String lastNameReader = "Gica";
-                String firstNameLibrarian = "Mihai";
-                String lastNameLibrarian ="Mircea";
-                int year = 1920;
-                service.borrowBook(bookName, author, firstNameReader, lastNameReader,
-                        firstNameLibrarian,lastNameLibrarian,year);
-            }
-            if(opt == 10){
-                String bookName = "The Mysterious Affair at Styles";
-                String firstNameReader = "Valentin";
-                String lastNameReader = "Gica";
-                service.returnBook(bookName, firstNameReader, lastNameReader);
-            }
-            if(opt == 11){
-                service.findMostRequestedBook();
-            }
-            if(opt == 12){
-                break;
-            }
-            if (opt < 0 || opt > 12) {
-                System.out.println("The entered option is invalid!");
-            }
+        try {
+            int opt = (int) Options();
 
-            System.out.print("Press enter to continue . . . ");
-            scan.nextLine();
-            opt = 0;
+            while (opt != -1) {
+                if (opt == 0) {
+                    opt = Options();
+                }
+                if (opt == 1) {
+                    LibraryAuthor author = new LibraryAuthor("Eminescu", "Mihai");
+                    Section section = new Section(SectionType.POEMS);
+                    service.addBookInLibrary("Luceafarul", 10, 1883,
+                            "Romana", author, section, 4);
+                }
+                if (opt == 2) {
+                    LibraryAuthor author = new LibraryAuthor("Eminescu", "Mihai");
+                    Section section = new Section(SectionType.POEMS);
+                    LibraryBook book = new LibraryBook("Luceafarul", 10, 1883,
+                            "Romana", author, section, 4);
+                    service.removeBookFromLibrary(book);
+                }
+                if (opt == 3) {
+                    LibraryAuthor author1 = new LibraryAuthor("Eminescu", "Mihai");
+                    service.findBooksFromAuthor(author1);
+                }
+                if (opt == 4){
+                    Section section = new Section(SectionType.POEMS);
+                    service.findBooksFromSection(section);
+                }
+                if(opt == 5){
+                    service.findBooksFromLibrary();
+                }
+                if(opt == 6 ){
+                    Reader reader = new Reader("Gica","Valentin", makeDate(2000, 11, 21),
+                            "6130110018580", "Strada X", "0756146777");
+                    service.addReader(reader);
+                }
+                if(opt == 7){
+                    Reader reader = new Reader("Gica","Valentin", makeDate(2000, 11, 21),
+                            "6130110018580", "Strada X", "0756146777");
+                    service.removeReader(reader);
+                }
+                if(opt == 8){
+                    LibraryAuthor author = new LibraryAuthor("Eminescu", "Mihai");
+                    service.removeAuthor(author);
+                }
+                if(opt == 9){
+                    Author author = new Author("Christie", "Agatha");
+                    String bookName = "The Mysterious Affair at Styles";
+                    String firstNameReader = "Valentin";
+                    String lastNameReader = "Gica";
+                    String firstNameLibrarian = "Mihai";
+                    String lastNameLibrarian ="Mircea";
+                    int year = 1920;
+                    service.borrowBook(bookName, author, firstNameReader, lastNameReader,
+                            firstNameLibrarian,lastNameLibrarian,year);
+                }
+                if(opt == 10){
+                    String bookName = "The Mysterious Affair at Styles";
+                    String firstNameReader = "Valentin";
+                    String lastNameReader = "Gica";
+                    service.returnBook(bookName, firstNameReader, lastNameReader);
+                }
+                if(opt == 11){
+                    service.findMostRequestedBook();
+                }
+                if(opt == 12){
+                    break;
+                }
+                if (opt < 0 || opt > 12) {
+                    System.out.println("The entered option is invalid!");
+                }
+
+                System.out.print("Press enter to continue . . . ");
+                try
+                {
+                    System.in.read();
+                }
+                catch(Exception e)
+                {
+                    System.out.print("Error continuing with enter!");
+                }
+                opt = 0;
+            }
         }
+
+        catch (InputMismatchException exception) {
+            System.out.println("Invalid input! You have to enter a number");
+        }
+
 
     }
 }
