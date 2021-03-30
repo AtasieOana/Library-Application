@@ -154,7 +154,7 @@ public class Main {
             if(opt == 12){
                 break;
             }
-            if (opt < 0 || opt > 11) {
+            if (opt < 0 || opt > 12) {
                 System.out.println("The entered option is invalid!");
             }
 
