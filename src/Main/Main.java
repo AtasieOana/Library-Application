@@ -160,14 +160,12 @@ public class Main {
                     System.out.println("The entered option is invalid!");
                 }
 
-                System.out.print("Press enter to continue . . . ");
-                try
+                System.out.print("Write next to continue . . . \n");
+                String aux = scan.nextLine();
+                while (!aux.equals("next"))
                 {
-                    System.in.read();
-                }
-                catch(Exception e)
-                {
-                    System.out.print("Error continuing with enter!");
+                    System.out.print("Write next to continue!\n");
+                    aux = scan.nextLine();
                 }
                 opt = 0;
             }
