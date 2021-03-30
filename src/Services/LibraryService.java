@@ -228,6 +228,7 @@ public class LibraryService {
         Reader reader = library.findReaderByName(lastNameReader, firstNameReader);
         if(!librarian.equals(new Librarian()) && !reader.equals(new Reader())) {
             boolean found = false;
+            boolean stock = true;
             LibraryAuthor libraryAuthor = library.checkAuthor(author);
             LibraryBook book = new LibraryBook();
             if (libraryAuthor.equals(new LibraryAuthor()))
@@ -242,6 +243,7 @@ public class LibraryService {
                             book = libraryBook;
                             libraryBook.setNumberOfCopies(libraryBook.getNumberOfCopies()-1);
                         } else {
+                            stock = false;
                             System.out.println("The book is no longer in stock!");
                         }
                         break;
@@ -257,14 +259,15 @@ public class LibraryService {
                     library.addLoan(loan);
                 }
                 else{
-                    System.out.println("The book doesn't exit in the library!");
-                    RequiredBook requiredBook = library.findRequiredBook(name);
-                    if (requiredBook.getName().equals("")) {
-                        RequiredBook requiredBook1= new RequiredBook(name, author, yearBook, 1);
-                        library.addRequiredBook(requiredBook1);
-                    }
-                    else {
-                        requiredBook.increaseTheNumberOfRequests();
+                    if(stock) {
+                        System.out.println("The book doesn't exit in the library!");
+                        RequiredBook requiredBook = library.findRequiredBook(name);
+                        if (requiredBook.getName().equals("")) {
+                            RequiredBook requiredBook1 = new RequiredBook(name, author, yearBook, 1);
+                            library.addRequiredBook(requiredBook1);
+                        } else {
+                            requiredBook.increaseTheNumberOfRequests();
+                        }
                     }
                 }
             }
