@@ -31,7 +31,7 @@ public class Main {
         library.addSection(section);
         /** adding books to the library */
         LibraryBook libraryBook = new LibraryBook( "The Mysterious Affair at Styles", 298,
-                1920, "Engleza", author, section, 1);
+                1920, "Engleza", author, section, 2);
         LibraryBook libraryBook1 = new LibraryBook( "Eve's Diary", 157,
                 1906, "Engleza", author1, section, 10);
         library.addBookAtAuthor(author, libraryBook);
