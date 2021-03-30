@@ -116,8 +116,13 @@ public class LibraryService {
             }
 
         if (found) {
+            boolean exist = false;
             for (LibraryBook libraryBook : libraryBookTreeSet) {
                 System.out.println(libraryBook);
+                exist = true;
+            }
+            if(!exist){
+                System.out.println("Section is empty!");
             }
         } else {
             System.out.println("Section doesn't exist!");
