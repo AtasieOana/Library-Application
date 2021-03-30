@@ -160,11 +160,11 @@ public class Main {
                     System.out.println("The entered option is invalid!");
                 }
 
-                System.out.print("Write next to continue . . . \n");
+                System.out.print("Write the word 'next' to continue . . . \n");
                 String aux = scan.nextLine();
                 while (!aux.equals("next"))
                 {
-                    System.out.print("Write next to continue!\n");
+                    System.out.print("Write the word 'next' to continue!\n");
                     aux = scan.nextLine();
                 }
                 opt = 0;
