@@ -27,7 +27,7 @@ public class Main {
         LibraryAuthor author1 = new LibraryAuthor("Twain", "Mark");
         library.addAuthor(author1);
         /** adding sections */
-        Section section = new Section(SectionType.FictionBooks);
+        Section section = new Section(SectionType.FICTIONAL);
         library.addSection(section);
         /** adding books to the library */
         LibraryBook libraryBook = new LibraryBook( "The Mysterious Affair at Styles", 298,
@@ -95,13 +95,13 @@ public class Main {
             }
             if (opt == 1) {
                 LibraryAuthor author = new LibraryAuthor("Eminescu", "Mihai");
-                Section section = new Section(SectionType.PoemsBook);
+                Section section = new Section(SectionType.POEMS);
                 service.addBookInLibrary("Luceafarul", 10, 1883,
                         "Romana", author, section, 4);
             }
             if (opt == 2) {
                 LibraryAuthor author = new LibraryAuthor("Eminescu", "Mihai");
-                Section section = new Section(SectionType.PoemsBook);
+                Section section = new Section(SectionType.POEMS);
                 LibraryBook book = new LibraryBook("Luceafarul", 10, 1883,
                         "Romana", author, section, 4);
                 service.removeBookFromLibrary(book);
@@ -111,7 +111,7 @@ public class Main {
                 service.findBooksFromAuthor(author1);
             }
             if (opt == 4){
-                Section section = new Section(SectionType.PoemsBook);
+                Section section = new Section(SectionType.POEMS);
                 service.findBooksFromSection(section);
             }
             if(opt == 5){

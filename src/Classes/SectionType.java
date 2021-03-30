@@ -2,11 +2,11 @@ package Classes;
 
 public enum SectionType {
 
-    FictionBooks,
-    ReferenceMaterials,
-    News,
-    ChildrenBooks,
-    NonfictionBooks,
-    PoemsBook
+    FICTIONAL,
+    REFERENCE,
+    NEWS,
+    CHILDREN,
+    NONFICTION,
+    POEMS
 
 }
