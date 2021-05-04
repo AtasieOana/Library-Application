@@ -107,6 +107,13 @@ public class Library {
     }
 
     /**
+     * Method for adding a new reader to the library
+     **/
+    public void addReader(Reader reader) {
+        readers.add(reader);
+    }
+
+    /**
      * Method for removing a loan
      **/
     public void removeLoan(Loan loan) {

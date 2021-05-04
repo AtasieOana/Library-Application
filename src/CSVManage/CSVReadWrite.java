@@ -1,7 +1,6 @@
 package CSVManage;
-import Classes.Librarian;
+import Classes.*;
 import Classes.Reader;
-import Classes.RequiredBook;
 import Services.HelperService;
 
 import java.io.*;
@@ -74,6 +73,86 @@ public final class CSVReadWrite {
                         objects.add((T) librarian);
                     }
                 }
+                case "author" -> {
+                    for (String line : fileContent) {
+                        String[] elements = line.split(",");
+                        String lastName = elements[0];
+                        String firstName = elements[1];
+                        TreeSet<LibraryBook> books = new TreeSet<>();
+                        LibraryAuthor libraryAuthor = new LibraryAuthor(lastName, firstName, books);
+                        objects.add((T) libraryAuthor);
+                    }
+                }
+
+                case "section" -> {
+                    for (String line : fileContent) {
+                        String[] elements = line.split(",");
+                        String sectionType = elements[0];
+                        switch (sectionType.toUpperCase()){
+                            case "FICTIONAL" -> {
+                                Section section = new Section(SectionType.FICTIONAL);
+                                objects.add((T) section);
+                            }
+                            case "REFERENCE" -> {
+                                Section section = new Section(SectionType.REFERENCE);
+                                objects.add((T) section);
+                            }
+                            case "NEWS" -> {
+                                Section section = new Section(SectionType.NEWS);
+                                objects.add((T) section);
+                            }
+                            case "CHILDREN" -> {
+                                Section section = new Section(SectionType.CHILDREN);
+                                objects.add((T) section);
+                            }
+                            case "NONFICTION" -> {
+                                Section section = new Section(SectionType.NONFICTION);
+                                objects.add((T) section);
+                            }
+                            case "POEMS" -> {
+                                Section section = new Section(SectionType.POEMS);
+                                objects.add((T) section);
+                            }
+
+                        }
+                    }
+                }
+                case "librarybook" -> {
+                    for (String line : fileContent) {
+                        String[] elements = line.split(",");
+                        String name = elements[0];
+                        int numberOfPages = Integer.parseInt(elements[1]);
+                        int yearOfPublication = Integer.parseInt(elements[2]);
+                        String language = elements[3];
+                        LibraryAuthor libraryAuthor = new LibraryAuthor(elements[4], elements[5]);
+                        String sectionType = elements[6];
+                        Section section = new Section();
+                        switch (sectionType.toUpperCase()) {
+                            case "FICTIONAL" -> {
+                                section = new Section(SectionType.FICTIONAL);
+                            }
+                            case "REFERENCE" -> {
+                                section = new Section(SectionType.REFERENCE);
+                            }
+                            case "NEWS" -> {
+                                section = new Section(SectionType.NEWS);
+                            }
+                            case "CHILDREN" -> {
+                                section = new Section(SectionType.CHILDREN);
+                            }
+                            case "NONFICTION" -> {
+                                section = new Section(SectionType.NONFICTION);
+                            }
+                            case "POEMS" -> {
+                                section = new Section(SectionType.POEMS);
+                            }
+                        }
+                        int numberOfCopies = Integer.parseInt(elements[7]);
+                        LibraryBook libraryBook = new LibraryBook(name, numberOfPages, yearOfPublication, language,
+                                libraryAuthor, section, numberOfCopies);
+                        objects.add((T) libraryBook);
+                    }
+                }
             }
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -125,6 +204,28 @@ public final class CSVReadWrite {
                     writer.append(String.valueOf((librarian.getSalary())));
                     writer.append("\n");
                 }
+                case "author" -> {
+                    LibraryAuthor libraryAuthor = (LibraryAuthor) object;
+                    writer.append(libraryAuthor.getLastName());
+                    writer.append(",");
+                    writer.append(libraryAuthor.getFirstName());
+                    writer.append(",");
+                    writer.append((libraryAuthor.getBooksTitle()));
+                    writer.append("\n");
+                }
+                case "section" -> {
+                    Section section = (Section) object;
+                    writer.append(section.getSectionType().toString());
+                    writer.append(",");
+                    String books = section.getBooksTitle();
+                    if (books.equals("")) {
+                        writer.append("/");
+                    }else{
+                        writer.append(books);
+                    }
+                    writer.append("\n");
+                }
+
             }
         } catch (IOException exception) {
             exception.printStackTrace();

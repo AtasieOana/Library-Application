@@ -17,30 +17,35 @@ public class Main {
 
         Library library = new Library();
         CSVReadWrite read = CSVReadWrite.getInstance();
-        /* adding librarians */
-        Librarian librarian1 = new Librarian("Mircea", "Mihai",  HelperService.makeDate(2000, 1, 21),
-                "Adresa X", 1600);
-        Librarian librarian2 = new Librarian("Ionel", "Maria", HelperService.makeDate(1989, 9, 6),
-                "Adresa Y", 2000);
-        library.addLibrarian(librarian1);
-        library.addLibrarian(librarian2);
-        /* adding authors to the library **/
-        LibraryAuthor author = new LibraryAuthor("Christie", "Agatha");
-        library.addAuthor(author);
-        LibraryAuthor author1 = new LibraryAuthor("Twain", "Mark");
-        library.addAuthor(author1);
-        /* adding sections */
-        Section section = new Section(SectionType.FICTIONAL);
-        library.addSection(section);
-        /* adding books to the library */
-        LibraryBook libraryBook = new LibraryBook( "The Mysterious Affair at Styles", 298,
-                1920, "Engleza", author, section, 2);
-        LibraryBook libraryBook1 = new LibraryBook( "Eve's Diary", 157,
-                1906, "Engleza", author1, section, 10);
-        library.addBookAtAuthor(author, libraryBook);
-        library.addBookInSection(section, libraryBook);
-        library.addBookAtAuthor(author1, libraryBook1);
-        library.addBookInSection(section, libraryBook1);
+        /* adding initial librarians */
+        ArrayList<Librarian> librarians = CSVReadWrite.readObjects("Library-Application/Librarian.csv", "Librarian");
+        for(Librarian l: librarians){
+            library.addLibrarian(l);
+        }
+        /* adding initial readers */
+        ArrayList<Reader> readers = CSVReadWrite.readObjects("Library-Application/Reader.csv", "Reader");
+        for(Reader r: readers){
+            library.addReader(r);
+        }
+        /* adding initial authors **/
+        ArrayList<LibraryAuthor> libraryAuthors = CSVReadWrite.readObjects("Library-Application/LibraryAuthor.csv",
+                                            "LibraryAuthor");
+        for(LibraryAuthor la: libraryAuthors){
+            library.addAuthor(la);
+        }
+        /* adding initial sections */
+        ArrayList<Section> sections = CSVReadWrite.readObjects("Library-Application/Section.csv",
+                "Section");
+        for(Section s: sections){
+            library.addSection(s);
+        }
+        /* adding initial books */
+        ArrayList<LibraryBook> libraryBooks = CSVReadWrite.readObjects("Library-Application/LibraryBook.csv",
+                "LibraryBook");
+        for(LibraryBook lb: libraryBooks){
+            library.addBookInSection(lb.getSection(),lb);
+            library.addBookAtAuthor(lb.getAuthor(),lb);
+        }
         /* adding required book */
         Author a = new Author("Wilde","Oscar");
         RequiredBook requiredBook = new RequiredBook("The Happy Prince and Other Tales", a,

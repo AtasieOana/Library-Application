@@ -39,6 +39,15 @@ public class Section implements Comparable<Section> {
         this.books = books;
     }
 
+    public String getBooksTitle(){
+        StringBuilder booksTitle = new StringBuilder();
+        for(LibraryBook lb: books){
+            booksTitle.append(lb.getName());
+            booksTitle.append(";");
+        }
+        return booksTitle.toString();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
