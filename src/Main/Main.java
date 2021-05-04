@@ -16,6 +16,7 @@ public class Main {
     private static Library CreateLibraryFromCSV(){
 
         Library library = new Library();
+        CSVReadWrite read = CSVReadWrite.getInstance();
         /* adding librarians */
         Librarian librarian1 = new Librarian("Mircea", "Mihai",  HelperService.makeDate(2000, 1, 21),
                 "Adresa X", 1600);
@@ -75,10 +76,10 @@ public class Main {
 
         Scanner scan = new Scanner(System.in);
         LibraryService service = new LibraryService(CreateLibraryFromCSV());
-        CSVReadWrite readWrite = CSVReadWrite.getInstance();
+        CSVReadWrite write = CSVReadWrite.getInstance();
 
         try {
-            int opt = (int) Options();
+            int opt = Options();
             CSVAuditService writeAudit = CSVAuditService.getInstance();
             while (opt != -1) {
                 if (opt == 0) {
