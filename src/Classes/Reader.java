@@ -1,5 +1,7 @@
 package Classes;
 
+import Services.HelperService;
+
 import java.util.*;
 import java.util.regex.PatternSyntaxException;
 
@@ -26,6 +28,10 @@ public class Reader {
         this.CNP = CNP;
         this.address = address;
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getType(){
+        return "Reader";
     }
 
     public String getLastName() {
@@ -76,7 +82,6 @@ public class Reader {
         this.phoneNumber = phoneNumber;
 
     }
-
 
     @Override
     public boolean equals(Object o) {

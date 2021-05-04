@@ -1,23 +1,25 @@
 package Main;
 
+import CSVManage.CSVAuditService;
 import Classes.*;
+import Services.HelperService;
 import Services.LibraryService;
+import CSVManage.CSVReadWrite;
 
 import java.util.*;
-import java.util.Calendar;
 
 public class Main {
 
     /**
-     * Creating the initial library
+     * Creating the initial library using the CSV files
      */
-    private static Library CreateLibrary(){
+    private static Library CreateLibraryFromCSV(){
 
         Library library = new Library();
         /** adding librarians */
-        Librarian librarian1 = new Librarian("Mircea", "Mihai",  makeDate(2000, 1, 21),
+        Librarian librarian1 = new Librarian("Mircea", "Mihai",  HelperService.makeDate(2000, 1, 21),
                 "Adresa X", 1600);
-        Librarian librarian2 = new Librarian("Ionel", "Maria", makeDate(1989, 9, 6),
+        Librarian librarian2 = new Librarian("Ionel", "Maria", HelperService.makeDate(1989, 9, 6),
                 "Adresa Y", 2000);
         library.addLibrarian(librarian1);
         library.addLibrarian(librarian2);
@@ -48,21 +50,6 @@ public class Main {
     }
 
     /**
-     * Creating a date with the given year, month and day
-     */
-    private static Date makeDate(int year, int month, int day){
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month);
-        calendar.set(Calendar.DATE, day);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        return calendar.getTime();
-    }
-
-    /**
      * Illustrating the actions that can be done in the library
      */
     private static int Options() {
@@ -87,10 +74,12 @@ public class Main {
     public static void main(String[] args){
 
         Scanner scan = new Scanner(System.in);
-        LibraryService service = new LibraryService(CreateLibrary());
+        LibraryService service = new LibraryService(CreateLibraryFromCSV());
+        CSVReadWrite readWrite = CSVReadWrite.getInstance();
+
         try {
             int opt = (int) Options();
-
+            CSVAuditService writeAudit = CSVAuditService.getInstance();
             while (opt != -1) {
                 if (opt == 0) {
                     opt = Options();
@@ -100,6 +89,7 @@ public class Main {
                     Section section = new Section(SectionType.POEMS);
                     service.addBookInLibrary("Luceafarul", 10, 1883,
                             "Romana", author, section, 4);
+                    writeAudit.writeCSV("Adding a book in the library");
                 }
                 if (opt == 2) {
                     LibraryAuthor author = new LibraryAuthor("Eminescu", "Mihai");
@@ -107,6 +97,7 @@ public class Main {
                     LibraryBook book = new LibraryBook("Luceafarul", 10, 1883,
                             "Romana", author, section, 4);
                     service.removeBookFromLibrary(book);
+                    writeAudit.writeCSV("Removing a book from the library");
                 }
                 if (opt == 3) {
                     LibraryAuthor author1 = new LibraryAuthor("Eminescu", "Mihai");
@@ -120,12 +111,12 @@ public class Main {
                     service.findBooksFromLibrary();
                 }
                 if(opt == 6 ){
-                    Reader reader = new Reader("Gica","Valentin", makeDate(2000, 11, 21),
+                    Reader reader = new Reader("Gica","Valentin", HelperService.makeDate(2000, 11, 21),
                             "6130110018580", "Strada X", "0756146777");
                     service.addReader(reader);
                 }
                 if(opt == 7){
-                    Reader reader = new Reader("Gica","Valentin", makeDate(2000, 11, 21),
+                    Reader reader = new Reader("Gica","Valentin", HelperService.makeDate(2000, 11, 21),
                             "6130110018580", "Strada X", "0756146777");
                     service.removeReader(reader);
                 }
@@ -174,7 +165,6 @@ public class Main {
         catch (InputMismatchException exception) {
             System.out.println("Invalid input! You have to enter a number");
         }
-
 
     }
 }
