@@ -18,37 +18,33 @@ public class Main {
         Library library = new Library();
         CSVReadWrite read = CSVReadWrite.getInstance();
         /* adding initial librarians */
-        ArrayList<Librarian> librarians = CSVReadWrite.readObjects("Library-Application/Librarian.csv", "Librarian");
+        ArrayList<Librarian> librarians = CSVReadWrite.readObjects("Librarian.csv", "Librarian");
         for(Librarian l: librarians){
             library.addLibrarian(l);
         }
         /* adding initial readers */
-        ArrayList<Reader> readers = CSVReadWrite.readObjects("Library-Application/Reader.csv", "Reader");
+        ArrayList<Reader> readers = CSVReadWrite.readObjects("Reader.csv", "Reader");
         for(Reader r: readers){
             library.addReader(r);
         }
         /* adding initial authors **/
-        ArrayList<LibraryAuthor> libraryAuthors = CSVReadWrite.readObjects("Library-Application/LibraryAuthor.csv",
-                                            "LibraryAuthor");
+        ArrayList<LibraryAuthor> libraryAuthors = CSVReadWrite.readObjects("LibraryAuthor.csv","LibraryAuthor");
         for(LibraryAuthor la: libraryAuthors){
             library.addAuthor(la);
         }
         /* adding initial sections */
-        ArrayList<Section> sections = CSVReadWrite.readObjects("Library-Application/Section.csv",
-                "Section");
+        ArrayList<Section> sections = CSVReadWrite.readObjects("Section.csv", "Section");
         for(Section s: sections){
             library.addSection(s);
         }
         /* adding initial books */
-        ArrayList<LibraryBook> libraryBooks = CSVReadWrite.readObjects("Library-Application/LibraryBook.csv",
-                "LibraryBook");
+        ArrayList<LibraryBook> libraryBooks = CSVReadWrite.readObjects("LibraryBook.csv","LibraryBook");
         for(LibraryBook lb: libraryBooks){
             library.addBookInSection(lb.getSection(),lb);
             library.addBookAtAuthor(lb.getAuthor(),lb);
         }
         /* adding initial required book */
-        ArrayList<RequiredBook> requiredBook = CSVReadWrite.readObjects("Library-Application/RequiredBook.csv",
-                "RequiredBook");
+        ArrayList<RequiredBook> requiredBook = CSVReadWrite.readObjects("RequiredBook.csv","RequiredBook");
         for(RequiredBook rb: requiredBook){
             library.addRequiredBook(rb);
         }
@@ -108,27 +104,34 @@ public class Main {
                 if (opt == 3) {
                     LibraryAuthor author1 = new LibraryAuthor("Eminescu", "Mihai");
                     service.findBooksFromAuthor(author1);
+                    writeAudit.writeCSV("See all books written by an author");
                 }
                 if (opt == 4){
                     Section section = new Section(SectionType.POEMS);
                     service.findBooksFromSection(section);
+                    writeAudit.writeCSV("See all the books in a section");
+
                 }
                 if(opt == 5){
                     service.findBooksFromLibrary();
+                    writeAudit.writeCSV("See all the books in the library");
                 }
                 if(opt == 6 ){
                     Reader reader = new Reader("Gica","Valentin", HelperService.makeDate(2000, 11, 21),
                             "6130110018580", "Strada X", "0756146777");
                     service.addReader(reader);
+                    writeAudit.writeCSV("Adding a new reader");
                 }
                 if(opt == 7){
                     Reader reader = new Reader("Gica","Valentin", HelperService.makeDate(2000, 11, 21),
                             "6130110018580", "Strada X", "0756146777");
                     service.removeReader(reader);
+                    writeAudit.writeCSV("Removing a new reader");
                 }
                 if(opt == 8){
                     LibraryAuthor author = new LibraryAuthor("Eminescu", "Mihai");
                     service.removeAuthor(author);
+                    writeAudit.writeCSV("Removing an author from the library");
                 }
                 if(opt == 9){
                     Author author = new Author("Christie", "Agatha");
@@ -140,17 +143,21 @@ public class Main {
                     int year = 1920;
                     service.borrowBook(bookName, author, firstNameReader, lastNameReader,
                             firstNameLibrarian,lastNameLibrarian,year);
+                    writeAudit.writeCSV("Borrowing a book");
                 }
                 if(opt == 10){
                     String bookName = "The Mysterious Affair at Styles";
                     String firstNameReader = "Valentin";
                     String lastNameReader = "Gica";
                     service.returnBook(bookName, firstNameReader, lastNameReader);
+                    writeAudit.writeCSV("Returning a book");
                 }
                 if(opt == 11){
                     service.findMostRequestedBook();
+                    writeAudit.writeCSV("Finding the most requested book");
                 }
                 if(opt == 12){
+                    writeAudit.writeCSV("Ending program");
                     break;
                 }
                 if (opt < 0 || opt > 12) {
