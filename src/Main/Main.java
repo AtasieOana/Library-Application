@@ -46,13 +46,13 @@ public class Main {
             library.addBookInSection(lb.getSection(),lb);
             library.addBookAtAuthor(lb.getAuthor(),lb);
         }
-        /* adding required book */
-        Author a = new Author("Wilde","Oscar");
-        RequiredBook requiredBook = new RequiredBook("The Happy Prince and Other Tales", a,
-                1888, 1);
-        library.addRequiredBook(requiredBook);
+        /* adding initial required book */
+        ArrayList<RequiredBook> requiredBook = CSVReadWrite.readObjects("Library-Application/RequiredBook.csv",
+                "RequiredBook");
+        for(RequiredBook rb: requiredBook){
+            library.addRequiredBook(rb);
+        }
         return library;
-
     }
 
     /**

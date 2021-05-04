@@ -225,6 +225,25 @@ public final class CSVReadWrite {
                     }
                     writer.append("\n");
                 }
+                case "librarybook" -> {
+                    LibraryBook libraryBook = (LibraryBook) object;
+                    writer.append(libraryBook.getName());
+                    writer.append(",");
+                    writer.append(String.valueOf(libraryBook.getNumberOfPages()));
+                    writer.append(",");
+                    writer.append(String.valueOf(libraryBook.getYearOfPublication()));
+                    writer.append(",");
+                    writer.append(libraryBook.getLanguage());
+                    writer.append(",");
+                    writer.append(libraryBook.getAuthor().getLastName());
+                    writer.append(",");
+                    writer.append(libraryBook.getAuthor().getFirstName());
+                    writer.append(",");
+                    writer.append(libraryBook.getSection().getSectionType().toString());
+                    writer.append(",");
+                    writer.append(String.valueOf(libraryBook.getNumberOfCopies()));
+                    writer.append("\n");
+                }
 
             }
         } catch (IOException exception) {
