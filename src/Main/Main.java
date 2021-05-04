@@ -16,22 +16,22 @@ public class Main {
     private static Library CreateLibraryFromCSV(){
 
         Library library = new Library();
-        /** adding librarians */
+        /* adding librarians */
         Librarian librarian1 = new Librarian("Mircea", "Mihai",  HelperService.makeDate(2000, 1, 21),
                 "Adresa X", 1600);
         Librarian librarian2 = new Librarian("Ionel", "Maria", HelperService.makeDate(1989, 9, 6),
                 "Adresa Y", 2000);
         library.addLibrarian(librarian1);
         library.addLibrarian(librarian2);
-        /** adding authors to the library */
+        /* adding authors to the library **/
         LibraryAuthor author = new LibraryAuthor("Christie", "Agatha");
         library.addAuthor(author);
         LibraryAuthor author1 = new LibraryAuthor("Twain", "Mark");
         library.addAuthor(author1);
-        /** adding sections */
+        /* adding sections */
         Section section = new Section(SectionType.FICTIONAL);
         library.addSection(section);
-        /** adding books to the library */
+        /* adding books to the library */
         LibraryBook libraryBook = new LibraryBook( "The Mysterious Affair at Styles", 298,
                 1920, "Engleza", author, section, 2);
         LibraryBook libraryBook1 = new LibraryBook( "Eve's Diary", 157,
@@ -40,7 +40,7 @@ public class Main {
         library.addBookInSection(section, libraryBook);
         library.addBookAtAuthor(author1, libraryBook1);
         library.addBookInSection(section, libraryBook1);
-        /** adding required book */
+        /* adding required book */
         Author a = new Author("Wilde","Oscar");
         RequiredBook requiredBook = new RequiredBook("The Happy Prince and Other Tales", a,
                 1888, 1);

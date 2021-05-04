@@ -24,6 +24,10 @@ public final class CSVReadWrite {
     private static ArrayList<String> readCSV(String FilePath) {
         ArrayList<String> read = new ArrayList<>();
         try (BufferedReader buffer = new BufferedReader(new FileReader(FilePath))) {
+            /**
+             * it skips the first line because it contains the column names
+             */
+            buffer.readLine();
             String line = buffer.readLine();
             while (line != null) {
                 read.add(line);
