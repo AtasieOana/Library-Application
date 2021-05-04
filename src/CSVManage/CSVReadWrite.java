@@ -20,7 +20,7 @@ public final class CSVReadWrite {
         return instance;
     }
 
-    private static ArrayList<String> readCSV(String FilePath) {
+    private ArrayList<String> readCSV(String FilePath) {
         ArrayList<String> read = new ArrayList<>();
         try (BufferedReader buffer = new BufferedReader(new FileReader(FilePath))) {
             /**
@@ -39,7 +39,7 @@ public final class CSVReadWrite {
 
     }
 
-    public static <T> ArrayList<T> readObjects(String FilePath, String objectOption){
+    public <T> ArrayList<T> readObjects(String FilePath, String objectOption){
         ArrayList<T> objects = new ArrayList<T>();
         ArrayList<String> fileContent = readCSV(FilePath);
         try{
@@ -73,7 +73,7 @@ public final class CSVReadWrite {
                         objects.add((T) librarian);
                     }
                 }
-                case "author" -> {
+                case "libraryauthor" -> {
                     for (String line : fileContent) {
                         String[] elements = line.split(",");
                         String lastName = elements[0];
@@ -88,33 +88,9 @@ public final class CSVReadWrite {
                     for (String line : fileContent) {
                         String[] elements = line.split(",");
                         String sectionType = elements[0];
-                        switch (sectionType.toUpperCase()){
-                            case "FICTIONAL" -> {
-                                Section section = new Section(SectionType.FICTIONAL);
-                                objects.add((T) section);
-                            }
-                            case "REFERENCE" -> {
-                                Section section = new Section(SectionType.REFERENCE);
-                                objects.add((T) section);
-                            }
-                            case "NEWS" -> {
-                                Section section = new Section(SectionType.NEWS);
-                                objects.add((T) section);
-                            }
-                            case "CHILDREN" -> {
-                                Section section = new Section(SectionType.CHILDREN);
-                                objects.add((T) section);
-                            }
-                            case "NONFICTION" -> {
-                                Section section = new Section(SectionType.NONFICTION);
-                                objects.add((T) section);
-                            }
-                            case "POEMS" -> {
-                                Section section = new Section(SectionType.POEMS);
-                                objects.add((T) section);
-                            }
+                        Section section = HelperService.createSectionWithSectionType(sectionType);
+                        objects.add((T) section);
 
-                        }
                     }
                 }
                 case "librarybook" -> {
@@ -126,27 +102,7 @@ public final class CSVReadWrite {
                         String language = elements[3];
                         LibraryAuthor libraryAuthor = new LibraryAuthor(elements[4], elements[5]);
                         String sectionType = elements[6];
-                        Section section = new Section();
-                        switch (sectionType.toUpperCase()) {
-                            case "FICTIONAL" -> {
-                                section = new Section(SectionType.FICTIONAL);
-                            }
-                            case "REFERENCE" -> {
-                                section = new Section(SectionType.REFERENCE);
-                            }
-                            case "NEWS" -> {
-                                section = new Section(SectionType.NEWS);
-                            }
-                            case "CHILDREN" -> {
-                                section = new Section(SectionType.CHILDREN);
-                            }
-                            case "NONFICTION" -> {
-                                section = new Section(SectionType.NONFICTION);
-                            }
-                            case "POEMS" -> {
-                                section = new Section(SectionType.POEMS);
-                            }
-                        }
+                        Section section = HelperService.createSectionWithSectionType(elements[7]);
                         int numberOfCopies = Integer.parseInt(elements[7]);
                         LibraryBook libraryBook = new LibraryBook(name, numberOfPages, yearOfPublication, language,
                                 libraryAuthor, section, numberOfCopies);
@@ -161,7 +117,7 @@ public final class CSVReadWrite {
     }
 
 
-    public static <T> void writeCSV(String FilePath, T object) {
+    public <T> void writeCSV(String FilePath, T object) {
         try (FileWriter writer = new FileWriter(FilePath, true)) {
             switch (object.getClass().getSimpleName().toLowerCase()) {
                 case "reader" -> {

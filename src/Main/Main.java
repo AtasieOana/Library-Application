@@ -18,33 +18,33 @@ public class Main {
         Library library = new Library();
         CSVReadWrite read = CSVReadWrite.getInstance();
         /* adding initial librarians */
-        ArrayList<Librarian> librarians = CSVReadWrite.readObjects("Librarian.csv", "Librarian");
+        ArrayList<Librarian> librarians = read.readObjects("Librarian.csv", "Librarian");
         for(Librarian l: librarians){
             library.addLibrarian(l);
         }
         /* adding initial readers */
-        ArrayList<Reader> readers = CSVReadWrite.readObjects("Reader.csv", "Reader");
+        ArrayList<Reader> readers = read.readObjects("Reader.csv", "Reader");
         for(Reader r: readers){
             library.addReader(r);
         }
         /* adding initial authors **/
-        ArrayList<LibraryAuthor> libraryAuthors = CSVReadWrite.readObjects("LibraryAuthor.csv","LibraryAuthor");
+        ArrayList<LibraryAuthor> libraryAuthors = read.readObjects("LibraryAuthor.csv","LibraryAuthor");
         for(LibraryAuthor la: libraryAuthors){
             library.addAuthor(la);
         }
         /* adding initial sections */
-        ArrayList<Section> sections = CSVReadWrite.readObjects("Section.csv", "Section");
+        ArrayList<Section> sections = read.readObjects("Section.csv", "Section");
         for(Section s: sections){
             library.addSection(s);
         }
         /* adding initial books */
-        ArrayList<LibraryBook> libraryBooks = CSVReadWrite.readObjects("LibraryBook.csv","LibraryBook");
+        ArrayList<LibraryBook> libraryBooks = read.readObjects("LibraryBook.csv","LibraryBook");
         for(LibraryBook lb: libraryBooks){
             library.addBookInSection(lb.getSection(),lb);
             library.addBookAtAuthor(lb.getAuthor(),lb);
         }
         /* adding initial required book */
-        ArrayList<RequiredBook> requiredBook = CSVReadWrite.readObjects("RequiredBook.csv","RequiredBook");
+        ArrayList<RequiredBook> requiredBook = read.readObjects("RequiredBook.csv","RequiredBook");
         for(RequiredBook rb: requiredBook){
             library.addRequiredBook(rb);
         }
@@ -87,10 +87,28 @@ public class Main {
                     opt = Options();
                 }
                 if (opt == 1) {
-                    LibraryAuthor author = new LibraryAuthor("Eminescu", "Mihai");
-                    Section section = new Section(SectionType.POEMS);
-                    service.addBookInLibrary("Luceafarul", 10, 1883,
-                            "Romana", author, section, 4);
+                    System.out.println("Enter the name of the book:");
+                    String name = scan.nextLine();
+                    System.out.println("Enter the number of pages in the book:");
+                    int numberOfPages = scan.nextInt();
+                    System.out.println("Enter the year of publication:");
+                    int year = scan.nextInt();
+                    scan.nextLine();
+                    System.out.println("Enter the language of the book:");
+                    String language = scan.nextLine();
+                    // LibraryAuthor author = new LibraryAuthor("Eminescu", "Mihai");
+                    System.out.println("Enter the author's last name:");
+                    String authorLastName = scan.nextLine();
+                    System.out.println("Enter the author's first name:");
+                    String authorFirstName = scan.nextLine();
+                    LibraryAuthor author = new LibraryAuthor(authorLastName, authorFirstName);
+                    System.out.println("Enter the section type:");
+                    String sectionType = scan.nextLine();
+                    Section section = HelperService.createSectionWithSectionType(sectionType);
+                    System.out.println("Enter the number of copies:");
+                    int numberOfCopies = scan.nextInt();
+                    scan.nextLine();
+                    service.addBookInLibrary(name, numberOfPages, year, language, author, section, numberOfCopies);
                     writeAudit.writeCSV("Adding a book in the library");
                 }
                 if (opt == 2) {

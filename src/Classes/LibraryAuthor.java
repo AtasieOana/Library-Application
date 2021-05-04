@@ -55,7 +55,7 @@ public class LibraryAuthor extends Author implements Comparable<LibraryAuthor>{
 
     @Override
     public int compareTo(LibraryAuthor author) {
-        if (this.getFirstName().equals(author.getFirstName())) {
+        if (this.getFirstName().equalsIgnoreCase(author.getFirstName())) {
             return this.getLastName().compareTo(author.getLastName());
         }
         return this.getFirstName().compareTo(author.getFirstName());

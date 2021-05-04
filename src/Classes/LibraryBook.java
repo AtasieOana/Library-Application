@@ -1,5 +1,7 @@
 package Classes;
 
+import java.util.Locale;
+
 public class LibraryBook extends Book implements Comparable<LibraryBook> {
 
     private LibraryAuthor author;
@@ -47,7 +49,7 @@ public class LibraryBook extends Book implements Comparable<LibraryBook> {
 
     @Override
     public int compareTo(LibraryBook libraryBook) {
-        if(this.getName().equals(libraryBook.getName())) {
+        if(this.getName().equalsIgnoreCase(libraryBook.getName())) {
             if (this.author.equals(libraryBook.author)) {
                 if (this.section.equals(libraryBook.section)) {
                     return this.numberOfCopies - libraryBook.numberOfCopies;

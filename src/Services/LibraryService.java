@@ -1,5 +1,6 @@
 package Services;
 
+import CSVManage.CSVReadWrite;
 import Classes.*;
 
 import java.util.*;
@@ -8,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 public class LibraryService {
 
     private Library library;
+    private final CSVReadWrite write = CSVReadWrite.getInstance();
 
     public LibraryService(){
         this.library = new Library();
@@ -34,14 +36,17 @@ public class LibraryService {
                                  LibraryAuthor libraryAuthor, Section section, int numberOfCopies){
         if(!library.findSection(section)){
             library.addSection(section);
+            write.writeCSV("Section.csv", section);
         }
         if(!library.findAuthor(libraryAuthor)){
             library.addAuthor(libraryAuthor);
+            write.writeCSV("LibraryAuthor.csv", libraryAuthor);
         }
         LibraryBook book = new LibraryBook(name, numberOfPages, yearOfPublication, language, libraryAuthor,
                 section, numberOfCopies);
         library.addBookInSection(section, book);
         library.addBookAtAuthor(libraryAuthor, book);
+        write.writeCSV("LibraryBook.csv", book);
         System.out.println("The book was added!");
     }
 
