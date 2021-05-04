@@ -56,7 +56,7 @@ public final class CSVReadWrite {
                         objects.add((T) reader);
                     }
                 }
-                case "librarian" ->{
+                case "librarian" -> {
                     for (String line : fileContent) {
                         String[] elements = line.split(",");
                         String lastName = elements[0];
