@@ -247,6 +247,7 @@ public final class CSVReadWrite {
                         for (String i : read) {
                             if (numberLine != writerLine) {
                                 writer.append(i);
+                                writer.append("\n");
                             }
                             else{
                                 if(!libraryAuthor.getBooksTitle().equals("")){
@@ -256,9 +257,9 @@ public final class CSVReadWrite {
                                     writer.append(elements[1]);
                                     writer.append(",");
                                     writer.append((libraryAuthor.getBooksTitle()));
+                                    writer.append("\n");
                                 }
                             }
-                            writer.append("\n");
                             writerLine+=1;
                         }
                     }
@@ -309,8 +310,8 @@ public final class CSVReadWrite {
                         for (String i : read) {
                             if (numberLine != writerLine) {
                                 writer.append(i);
+                                writer.append("\n");
                             }
-                            writer.append("\n");
                             writerLine+=1;
                         }
                     }
