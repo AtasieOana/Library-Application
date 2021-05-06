@@ -1,5 +1,7 @@
 package Classes;
 
+import CSVManage.CSVReadWrite;
+
 import java.util.*;
 
 
@@ -7,6 +9,7 @@ public class Section implements Comparable<Section> {
 
     private SectionType sectionType;
     private TreeSet<LibraryBook> books;
+    private final CSVReadWrite write = CSVReadWrite.getInstance();
 
     public Section(){
         sectionType = null;
@@ -90,6 +93,7 @@ public class Section implements Comparable<Section> {
      **/
     public void addBook(LibraryBook libraryBook) {
         books.add(libraryBook);
+        write.modifyCVS("Section.csv",this);
     }
 
     /**
@@ -97,6 +101,7 @@ public class Section implements Comparable<Section> {
      **/
     public void removeBook(LibraryBook libraryBook){
         books.remove(libraryBook);
+        write.deleteFromCSV("Section.csv",this);
     }
 
 }

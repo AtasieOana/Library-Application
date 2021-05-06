@@ -10,11 +10,11 @@ public final class CSVReadWrite {
 
     private static CSVReadWrite instance = null;
 
-    private CSVReadWrite(){
+    private CSVReadWrite() {
     }
 
-    public static CSVReadWrite getInstance(){
-        if(instance == null){
+    public static CSVReadWrite getInstance() {
+        if (instance == null) {
             instance = new CSVReadWrite();
         }
         return instance;
@@ -39,10 +39,10 @@ public final class CSVReadWrite {
 
     }
 
-    public <T> ArrayList<T> readObjects(String FilePath, String objectOption){
+    public <T> ArrayList<T> readObjects(String FilePath, String objectOption) {
         ArrayList<T> objects = new ArrayList<T>();
         ArrayList<String> fileContent = readCSV(FilePath);
-        try{
+        try {
             switch (objectOption.toLowerCase()) {
                 case "reader" -> {
                     for (String line : fileContent) {
@@ -176,7 +176,7 @@ public final class CSVReadWrite {
                     String books = section.getBooksTitle();
                     if (books.equals("")) {
                         writer.append("/");
-                    }else{
+                    } else {
                         writer.append(books);
                     }
                     writer.append("\n");
@@ -210,8 +210,8 @@ public final class CSVReadWrite {
     /**
      * Method to delete an object from the CSV or to update some elements
      */
-    public <T> void deleteFromCSV(String FilePath, T object){
-        switch (object.getClass().getSimpleName().toLowerCase()){
+    public <T> void deleteFromCSV(String FilePath, T object) {
+        switch (object.getClass().getSimpleName().toLowerCase()) {
             case "libraryauthor" -> {
                 LibraryAuthor libraryAuthor = (LibraryAuthor) object;
                 ArrayList<String> read = new ArrayList<>();
@@ -219,7 +219,7 @@ public final class CSVReadWrite {
                 int writerLine = 1;
                 boolean ok = false;
                 String firstLine = "";
-                try(BufferedReader reader = new BufferedReader(new FileReader(FilePath))) {
+                try (BufferedReader reader = new BufferedReader(new FileReader(FilePath))) {
                     firstLine = reader.readLine();
                     String line = reader.readLine();
                     while (line != null) {
@@ -227,9 +227,8 @@ public final class CSVReadWrite {
                         if (elements[0].toLowerCase().equals(libraryAuthor.getLastName().toLowerCase()) &&
                                 elements[1].toLowerCase().equals(libraryAuthor.getFirstName().toLowerCase())) {
                             ok = true;
-                        }
-                        else{
-                            if(!ok) {
+                        } else {
+                            if (!ok) {
                                 numberLine += 1;
                             }
                         }
@@ -240,17 +239,16 @@ public final class CSVReadWrite {
                     exception.printStackTrace();
                 }
 
-                try(FileWriter writer = new FileWriter(FilePath, false)){
-                    if(ok) {
+                try (FileWriter writer = new FileWriter(FilePath, false)) {
+                    if (ok) {
                         writer.write(firstLine);
                         writer.write("\n");
                         for (String i : read) {
                             if (numberLine != writerLine) {
                                 writer.append(i);
                                 writer.append("\n");
-                            }
-                            else{
-                                if(!libraryAuthor.getBooksTitle().equals("")){
+                            } else {
+                                if (!libraryAuthor.getBooksTitle().equals("")) {
                                     String[] elements = i.split(",");
                                     writer.append(elements[0]);
                                     writer.append(",");
@@ -260,7 +258,57 @@ public final class CSVReadWrite {
                                     writer.append("\n");
                                 }
                             }
-                            writerLine+=1;
+                            writerLine += 1;
+                        }
+                    }
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+            }
+
+            case "section" -> {
+                Section section = (Section) object;
+                ArrayList<String> read = new ArrayList<>();
+                int numberLine = 1;
+                int writerLine = 1;
+                boolean ok = false;
+                String firstLine = "";
+                try (BufferedReader reader = new BufferedReader(new FileReader(FilePath))) {
+                    firstLine = reader.readLine();
+                    String line = reader.readLine();
+                    while (line != null) {
+                        String[] elements = line.split(",");
+                        if (elements[0].equalsIgnoreCase(section.getSectionType().toString())) {
+                            ok = true;
+                        } else {
+                            if (!ok) {
+                                numberLine += 1;
+                            }
+                        }
+                        read.add(line);
+                        line = reader.readLine();
+                    }
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+
+                try (FileWriter writer = new FileWriter(FilePath, false)) {
+                    if (ok) {
+                        writer.write(firstLine);
+                        writer.write("\n");
+                        for (String i : read) {
+                            if (numberLine != writerLine) {
+                                writer.append(i);
+                                writer.append("\n");
+                            } else {
+                                String[] elements = i.split(",");
+                                writer.append(elements[0].toUpperCase());
+                                writer.append(",");
+                                writer.append((section.getBooksTitle()));
+                                writer.append("\n");
+
+                            }
+                            writerLine += 1;
                         }
                     }
                 } catch (IOException exception) {
@@ -280,7 +328,7 @@ public final class CSVReadWrite {
                 int writerLine = 1;
                 boolean ok = false;
                 String firstLine = "";
-                try(BufferedReader reader = new BufferedReader(new FileReader(FilePath))) {
+                try (BufferedReader reader = new BufferedReader(new FileReader(FilePath))) {
                     firstLine = reader.readLine();
                     String line = reader.readLine();
                     while (line != null) {
@@ -290,9 +338,8 @@ public final class CSVReadWrite {
                                 libraryBook.getAuthor().getLastName().equalsIgnoreCase(elements[4]) &&
                                 libraryBook.getAuthor().getFirstName().equalsIgnoreCase(elements[5])) {
                             ok = true;
-                        }
-                        else{
-                            if(!ok) {
+                        } else {
+                            if (!ok) {
                                 numberLine += 1;
                             }
                         }
@@ -303,8 +350,8 @@ public final class CSVReadWrite {
                     exception.printStackTrace();
                 }
 
-                try(FileWriter writer = new FileWriter(FilePath, false)){
-                    if(ok) {
+                try (FileWriter writer = new FileWriter(FilePath, false)) {
+                    if (ok) {
                         writer.write(firstLine);
                         writer.write("\n");
                         for (String i : read) {
@@ -312,7 +359,7 @@ public final class CSVReadWrite {
                                 writer.append(i);
                                 writer.append("\n");
                             }
-                            writerLine+=1;
+                            writerLine += 1;
                         }
                     }
                 } catch (IOException exception) {
@@ -325,4 +372,113 @@ public final class CSVReadWrite {
 
     }
 
+    /**
+     * When a new book is added, for the author of the book and the section,
+     * the books written in CSV corresponding to the authors in the library and sections are updated.
+     */
+    public <T> void modifyCVS(String FilePath, T object) {
+        switch (object.getClass().getSimpleName().toLowerCase()) {
+            case "libraryauthor" -> {
+                LibraryAuthor libraryAuthor = (LibraryAuthor) object;
+                ArrayList<String> read = new ArrayList<>();
+                int numberLine = 1;
+                int writerLine = 1;
+                boolean ok = false;
+                String firstLine = "";
+                try (BufferedReader reader = new BufferedReader(new FileReader(FilePath))) {
+                    firstLine = reader.readLine();
+                    String line = reader.readLine();
+                    while (line != null) {
+                        String[] elements = line.split(",");
+                        if (elements[0].toLowerCase().equals(libraryAuthor.getLastName().toLowerCase()) &&
+                                elements[1].toLowerCase().equals(libraryAuthor.getFirstName().toLowerCase())) {
+                            ok = true;
+                        } else {
+                            if (!ok) {
+                                numberLine += 1;
+                            }
+                        }
+                        read.add(line);
+                        line = reader.readLine();
+                    }
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+
+                try (FileWriter writer = new FileWriter(FilePath, false)) {
+                    if (ok) {
+                        writer.write(firstLine);
+                        writer.append("\n");
+                        for (String i : read) {
+                            if (numberLine != writerLine) {
+                                writer.write(i);
+                            } else {
+                                String[] elements = i.split(",");
+                                writer.append(elements[0]);
+                                writer.append(",");
+                                writer.append(elements[1]);
+                                writer.append(",");
+                                writer.append((libraryAuthor.getBooksTitle()));
+                            }
+                            writer.append("\n");
+                            writerLine += 1;
+                        }
+                    }
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+
+            }
+
+            case "section" -> {
+                Section section = (Section) object;
+                ArrayList<String> read = new ArrayList<>();
+                int numberLine = 1;
+                int writerLine = 1;
+                boolean ok = false;
+                String firstLine = "";
+                try (BufferedReader reader = new BufferedReader(new FileReader(FilePath))) {
+                    firstLine = reader.readLine();
+                    String line = reader.readLine();
+                    while (line != null) {
+                        String[] elements = line.split(",");
+                        if (section.getSectionType().toString().equalsIgnoreCase(elements[0])) {
+                            ok = true;
+                        } else {
+                            if (!ok) {
+                                numberLine += 1;
+                            }
+                        }
+                        read.add(line);
+                        line = reader.readLine();
+                    }
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+
+                try (FileWriter writer = new FileWriter(FilePath, false)) {
+                    if (ok) {
+                        writer.write(firstLine);
+                        writer.append("\n");
+                        for (String i : read) {
+                            if (numberLine != writerLine) {
+                                writer.write(i);
+                            } else {
+                                String[] elements = i.split(",");
+                                writer.append(elements[0].toUpperCase());
+                                writer.append(",");
+                                writer.append((section.getBooksTitle()));
+                            }
+                            writer.append("\n");
+                            writerLine += 1;
+                        }
+                    }
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+
+            }
+        }
+
+    }
 }

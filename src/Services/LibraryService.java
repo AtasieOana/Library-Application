@@ -119,7 +119,6 @@ public class LibraryService {
             for (LibraryBook libraryBook : libraryBookTreeSet) {
                 System.out.println(libraryBook);
             }
-           author.modifyCVS();
         }
         else{
             System.out.println("Author doesn't exist!");
