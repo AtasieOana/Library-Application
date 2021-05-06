@@ -540,8 +540,7 @@ public final class CSVReadWrite {
     }
 
     /**
-     * When a new book is added, for the author of the book and the section,
-     * the books written in CSV corresponding to the authors in the library and sections are updated.
+     * Method to change the number of books in the library books or the required books
      */
     public <T> void updateCVS(String FilePath, T object, String Option) {
         switch (object.getClass().getSimpleName().toLowerCase()) {
