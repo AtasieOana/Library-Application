@@ -259,9 +259,7 @@ public class LibraryService {
             boolean stock = true;
             LibraryAuthor libraryAuthor = library.checkAuthor(author);
             LibraryBook book = new LibraryBook();
-            if (libraryAuthor.equals(new LibraryAuthor()))
-                System.out.println("The author is not currently in the library.");
-            else {
+            if (!libraryAuthor.equals(new LibraryAuthor())){
                 TreeSet<LibraryBook> libraryBookTreeSet = findBooksFromAuthor(libraryAuthor);
                 for (LibraryBook libraryBook : libraryBookTreeSet) {
                     if (libraryBook.getName().equals(name) && libraryBook.getYearOfPublication() == yearBook) {
@@ -269,7 +267,7 @@ public class LibraryService {
                             System.out.println("The loan will be completed!");
                             found = true;
                             book = libraryBook;
-                            libraryBook.setNumberOfCopies(libraryBook.getNumberOfCopies()-1);
+                            libraryBook.setNumberOfCopies(libraryBook.getNumberOfCopies() - 1);
                         } else {
                             stock = false;
                             System.out.println("The book is no longer in stock!");
@@ -277,28 +275,28 @@ public class LibraryService {
                         break;
                     }
                 }
-                if(found){
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.set(Calendar.YEAR, 2021);
-                    calendar.set(Calendar.MONTH, 2);
-                    calendar.set(Calendar.DATE, 14);
-                    Date date = calendar.getTime();
-                    Loan loan = new Loan(book, reader, librarian, date);
-                    library.addLoan(loan);
-                    write.updateCVS("LibraryBook.csv", loan.getBook(),"Minus");
-                }
-                else{
-                    if(stock) {
-                        System.out.println("The book doesn't exit in the library!");
-                        RequiredBook requiredBook = library.findRequiredBook(name);
-                        if (requiredBook.getName().equals("")) {
-                            RequiredBook requiredBook1 = new RequiredBook(name, author, yearBook, 1);
-                            library.addRequiredBook(requiredBook1);
-                            write.writeCSV("RequiredBook.csv", requiredBook1);
-                        } else {
-                            requiredBook.increaseTheNumberOfRequests();
-                            write.updateCVS("RequiredBook.csv", requiredBook, "Add");
-                        }
+            }
+            if(found){
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.YEAR, 2021);
+                calendar.set(Calendar.MONTH, 2);
+                calendar.set(Calendar.DATE, 14);
+                Date date = calendar.getTime();
+                Loan loan = new Loan(book, reader, librarian, date);
+                library.addLoan(loan);
+                write.updateCVS("LibraryBook.csv", loan.getBook(),"Minus");
+            }
+            else{
+                if(stock) {
+                    System.out.println("The book doesn't exit in the library!");
+                    RequiredBook requiredBook = library.findRequiredBook(name);
+                    if (requiredBook.getName().equals("")) {
+                        RequiredBook requiredBook1 = new RequiredBook(name, author, yearBook, 1);
+                        library.addRequiredBook(requiredBook1);
+                        write.writeCSV("RequiredBook.csv", requiredBook1);
+                    } else {
+                        requiredBook.increaseTheNumberOfRequests();
+                        write.updateCVS("RequiredBook.csv", requiredBook, "Add");
                     }
                 }
             }

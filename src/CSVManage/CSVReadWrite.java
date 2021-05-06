@@ -626,8 +626,8 @@ public final class CSVReadWrite {
                     String line = reader.readLine();
                     while (line != null) {
                         String[] elements = line.split(",");
-                        if (elements[0].equalsIgnoreCase(rb.getName()) && elements[4].equalsIgnoreCase(rb.getAuthor().getLastName()) &&
-                                elements[5].equalsIgnoreCase(rb.getAuthor().getFirstName())) {
+                        if (elements[0].equalsIgnoreCase(rb.getName()) && elements[1].equalsIgnoreCase(rb.getAuthor().getLastName()) &&
+                                elements[2].equalsIgnoreCase(rb.getAuthor().getFirstName())) {
                             ok = true;
                         } else {
                             if (!ok) {
