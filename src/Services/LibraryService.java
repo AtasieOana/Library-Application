@@ -59,31 +59,45 @@ public class LibraryService {
      * If the author of the book has no other book in the library then it will be deleted.
      * The book will be removed from the section to which it belonged.
      */
-    public void removeBookFromLibrary(LibraryBook book){
+    public void removeBookFromLibrary(String name, String firstName, String lastName, int year){
 
-        boolean found = false;
+        boolean foundAuthor= false;
+        boolean foundBook= false;
         LibraryAuthor libraryAuthor = new LibraryAuthor();
-        for (LibraryAuthor author : library.getLibraryAuthors())
-            if (author.equals(book.getAuthor())) {
+        for (LibraryAuthor author : library.getLibraryAuthors()) {
+            if (author.getFirstName().equalsIgnoreCase(firstName) && author.getLastName().equalsIgnoreCase(lastName)) {
                 libraryAuthor = author;
-                found = true;
+                foundAuthor = true;
                 break;
             }
-        TreeSet<LibraryBook> libraryBookTreeSet = libraryAuthor.getBooks();
-        libraryAuthor.removeBook(book);
-        if(libraryBookTreeSet.isEmpty()){
-            library.getLibraryAuthors().remove(libraryAuthor);
         }
-        for (Section section : library.getSections())
-            if (section.equals(book.getSection())) {
-                section.removeBook(book);
-                break;
+        if(foundAuthor) {
+            LibraryBook libraryBook = new LibraryBook();
+            TreeSet<LibraryBook> libraryBookTreeSet = libraryAuthor.getBooks();
+            for (LibraryBook lb : libraryBookTreeSet) {
+                if (lb.getName().equalsIgnoreCase(name) && (lb.getYearOfPublication() == year)) {
+                    libraryBook = lb;
+                    foundBook = true;
+                }
             }
-        if(found){
-            System.out.println("The book was removed!");
+            if (foundBook) {
+                libraryAuthor.removeBook(libraryBook);
+                if (libraryBookTreeSet.isEmpty()) {
+                    library.getLibraryAuthors().remove(libraryAuthor);
+                }
+                for (Section section : library.getSections())
+                    if (section.equals(libraryBook.getSection())) {
+                        section.removeBook(libraryBook);
+                        break;
+                    }
+                write.deleteFromCSV("LibraryBook.csv", libraryBook);
+            }
+            else {
+                System.out.println("The book doesn't exit!");
+            }
         }
-        else {
-            System.out.println("The book doesn't exit!");
+        else{
+            System.out.println("The author doesn't exit!");
         }
 
     }

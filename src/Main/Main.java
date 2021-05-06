@@ -87,38 +87,11 @@ public class Main {
                     opt = Options();
                 }
                 if (opt == 1) {
-                    System.out.println("Enter the name of the book:");
-                    String name = scan.nextLine();
-                    System.out.println("Enter the number of pages in the book:");
-                    int numberOfPages = scan.nextInt();
-                    System.out.println("Enter the year of publication:");
-                    int year = scan.nextInt();
-                    scan.nextLine();
-                    System.out.println("Enter the language of the book:");
-                    String language = scan.nextLine();
-                    System.out.println("Enter the author's last name:");
-                    String authorLastName = scan.nextLine();
-                    System.out.println("Enter the author's first name:");
-                    String authorFirstName = scan.nextLine();
-                    LibraryAuthor author = new LibraryAuthor(authorLastName, authorFirstName);
-                    System.out.println("Enter the section type:");
-                    String sectionType = scan.nextLine();
-                    Section section = HelperService.createSectionWithSectionType(sectionType);
-                    if(section == null){
-                        break;
-                    }
-                    System.out.println("Enter the number of copies:");
-                    int numberOfCopies = scan.nextInt();
-                    scan.nextLine();
-                    service.addBookInLibrary(name, numberOfPages, year, language, author, section, numberOfCopies);
+                    Option1(service);
                     writeAudit.writeCSV("Adding a book in the library");
                 }
                 if (opt == 2) {
-                    LibraryAuthor author = new LibraryAuthor("Eminescu", "Mihai");
-                    Section section = new Section(SectionType.POEMS);
-                    LibraryBook book = new LibraryBook("Luceafarul", 10, 1883,
-                            "Romana", author, section, 4);
-                    service.removeBookFromLibrary(book);
+                    Option2(service);
                     writeAudit.writeCSV("Removing a book from the library");
                 }
                 if (opt == 3) {
@@ -204,4 +177,44 @@ public class Main {
         }
 
     }
+
+    public static void Option1(LibraryService service){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter the name of the book:");
+        String name = scan.nextLine();
+        System.out.println("Enter the number of pages in the book:");
+        int numberOfPages = scan.nextInt();
+        System.out.println("Enter the year of publication:");
+        int year = scan.nextInt();
+        scan.nextLine();
+        System.out.println("Enter the language of the book:");
+        String language = scan.nextLine();
+        System.out.println("Enter the author's last name:");
+        String authorLastName = scan.nextLine();
+        System.out.println("Enter the author's first name:");
+        String authorFirstName = scan.nextLine();
+        LibraryAuthor author = new LibraryAuthor(authorLastName, authorFirstName);
+        System.out.println("Enter the section type:");
+        String sectionType = scan.nextLine();
+        Section section = HelperService.createSectionWithSectionType(sectionType);
+        System.out.println("Enter the number of copies:");
+        int numberOfCopies = scan.nextInt();
+        scan.nextLine();
+        service.addBookInLibrary(name, numberOfPages, year, language, author, section, numberOfCopies);
+    }
+
+    public static void Option2(LibraryService service){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter the name of the book:");
+        String name = scan.nextLine();
+        System.out.println("Enter the author's last name:");
+        String authorLastName = scan.nextLine();
+        System.out.println("Enter the author's first name:");
+        String authorFirstName = scan.nextLine();
+        System.out.println("Enter the year of publication:");
+        int year = scan.nextInt();
+        scan.nextLine();
+        service.removeBookFromLibrary(name, authorFirstName, authorLastName, year);
+    }
+
 }

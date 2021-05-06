@@ -219,7 +219,7 @@ public final class CSVReadWrite {
                 int writerLine = 1;
                 boolean ok = false;
                 String firstLine = "";
-                try(BufferedReader reader = new BufferedReader(new FileReader("LibraryAuthor.csv"))) {
+                try(BufferedReader reader = new BufferedReader(new FileReader(FilePath))) {
                     firstLine = reader.readLine();
                     String line = reader.readLine();
                     while (line != null) {
@@ -240,13 +240,13 @@ public final class CSVReadWrite {
                     exception.printStackTrace();
                 }
 
-                try(FileWriter writer = new FileWriter("LibraryAuthor.csv", false)){
+                try(FileWriter writer = new FileWriter(FilePath, false)){
                     if(ok) {
                         writer.write(firstLine);
                         writer.write("\n");
                         for (String i : read) {
                             if (numberLine != writerLine) {
-                                writer.write(i);
+                                writer.append(i);
                             }
                             else{
                                 if(!libraryAuthor.getBooksTitle().equals("")){
@@ -273,7 +273,50 @@ public final class CSVReadWrite {
             }
 
             case "librarybook" -> {
+                LibraryBook libraryBook = (LibraryBook) object;
+                ArrayList<String> read = new ArrayList<>();
+                int numberLine = 1;
+                int writerLine = 1;
+                boolean ok = false;
+                String firstLine = "";
+                try(BufferedReader reader = new BufferedReader(new FileReader(FilePath))) {
+                    firstLine = reader.readLine();
+                    String line = reader.readLine();
+                    while (line != null) {
+                        String[] elements = line.split(",");
+                        if (elements[0].toLowerCase().equals(libraryBook.getName().toLowerCase()) &&
+                                (Integer.parseInt(elements[2]) == libraryBook.getYearOfPublication()) &&
+                                libraryBook.getAuthor().getLastName().equalsIgnoreCase(elements[4]) &&
+                                libraryBook.getAuthor().getFirstName().equalsIgnoreCase(elements[5])) {
+                            ok = true;
+                        }
+                        else{
+                            if(!ok) {
+                                numberLine += 1;
+                            }
+                        }
+                        read.add(line);
+                        line = reader.readLine();
+                    }
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
 
+                try(FileWriter writer = new FileWriter(FilePath, false)){
+                    if(ok) {
+                        writer.write(firstLine);
+                        writer.write("\n");
+                        for (String i : read) {
+                            if (numberLine != writerLine) {
+                                writer.append(i);
+                            }
+                            writer.append("\n");
+                            writerLine+=1;
+                        }
+                    }
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
             }
 
         }

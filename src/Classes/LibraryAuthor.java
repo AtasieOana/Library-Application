@@ -86,7 +86,7 @@ public class LibraryAuthor extends Author implements Comparable<LibraryAuthor>{
      **/
     public void removeBook(LibraryBook libraryBook){
         books.remove(libraryBook);
-        write.deleteFromCSV("LibraryAuthor",this);
+        write.deleteFromCSV("LibraryAuthor.csv",this);
     }
 
     /**
