@@ -218,11 +218,14 @@ public class Library {
     /**
      * Method for finding a loan by the reader's name and the name of the book
      */
-    public Loan findLoan(String readerFirstName, String readerLastName, String bookName){
+    public Loan findLoan(String readerFirstName, String readerLastName, String bookName, String lastNameAuthor, String firstNameAuthor){
         for (Loan loan : loans)
             if (loan.getReader().getFirstName().equals(readerFirstName) &&
-                    loan.getReader().getLastName().equals(readerLastName) &&
-                    loan.getBook().getName().equals(bookName)) {
+                    loan.getReader().getLastName().equalsIgnoreCase(readerLastName) &&
+                    loan.getBook().getName().equalsIgnoreCase(bookName) &&
+                    loan.getBook().getAuthor().getLastName().equalsIgnoreCase(lastNameAuthor) &&
+                    loan.getBook().getAuthor().getFirstName().equals(firstNameAuthor)
+            ) {
                 return loan;
 
             }

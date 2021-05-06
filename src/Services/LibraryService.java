@@ -313,9 +313,9 @@ public class LibraryService {
     /**
      *  Returning a book;
      */
-    public void returnBook(String name, String firstNameReader, String lastNameReader) {
+    public void returnBook(String name, String lastNameAuthor, String firstNameAuthor, String lastNameReader, String firstNameReader) {
 
-        Loan loan = library.findLoan(firstNameReader, lastNameReader, name);
+        Loan loan = library.findLoan(firstNameReader, lastNameReader, name, lastNameAuthor, firstNameAuthor);
         if (loan.getLoanDate() == null) {
             System.out.println("Loan doesn't exist!");
         } else {

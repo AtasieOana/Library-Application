@@ -120,22 +120,11 @@ public class Main {
                     writeAudit.writeCSV("Removing an author from the library");
                 }
                 if(opt == 9){
-                    Author author = new Author("Christie", "Agatha");
-                    String bookName = "The Mysterious Affair at Styles";
-                    String firstNameReader = "Valentin";
-                    String lastNameReader = "Gica";
-                    String firstNameLibrarian = "Mihai";
-                    String lastNameLibrarian ="Mircea";
-                    int year = 1920;
-                    service.borrowBook(bookName, author, firstNameReader, lastNameReader,
-                            firstNameLibrarian,lastNameLibrarian,year);
+                    Option9(service);
                     writeAudit.writeCSV("Borrowing a book");
                 }
                 if(opt == 10){
-                    String bookName = "The Mysterious Affair at Styles";
-                    String firstNameReader = "Valentin";
-                    String lastNameReader = "Gica";
-                    service.returnBook(bookName, firstNameReader, lastNameReader);
+                    Option10(service);
                     writeAudit.writeCSV("Returning a book");
                 }
                 if(opt == 11){
@@ -281,5 +270,44 @@ public class Main {
         String authorFirstName = scan.nextLine();
         LibraryAuthor author = new LibraryAuthor(authorLastName, authorFirstName);
         service.removeAuthor(author);
+    }
+
+    /* Borrowing a book */
+    private static void Option9(LibraryService service) {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter the author's last name:");
+        String authorLastName = scan.nextLine();
+        System.out.println("Enter the author's first name:");
+        String authorFirstName = scan.nextLine();
+        Author author = new Author(authorLastName, authorFirstName);
+        System.out.println("Enter the name of the book:");
+        String bookName = scan.nextLine();
+        System.out.println("Enter the reader's last name:");
+        String lastNameReader = scan.nextLine();
+        System.out.println("Enter the reader's first name:");
+        String firstNameReader = scan.nextLine();
+        System.out.println("Enter the librarian's last name:");
+        String firstNameLibrarian = scan.nextLine();
+        System.out.println("Enter the librarian's first name:");
+        String lastNameLibrarian = scan.nextLine();
+        System.out.println("Enter the year of publication:");
+        int year = scan.nextInt();
+        service.borrowBook(bookName, author, firstNameReader, lastNameReader, firstNameLibrarian, lastNameLibrarian, year);
+    }
+
+    private static void Option10(LibraryService service) {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter the author's last name:");
+        String authorLastName = scan.nextLine();
+        System.out.println("Enter the author's first name:");
+        String authorFirstName = scan.nextLine();
+        Author author = new Author(authorLastName, authorFirstName);
+        System.out.println("Enter the name of the book:");
+        String bookName = scan.nextLine();
+        System.out.println("Enter the reader's last name:");
+        String lastNameReader = scan.nextLine();
+        System.out.println("Enter the reader's first name:");
+        String firstNameReader = scan.nextLine();
+        service.returnBook(bookName, authorLastName, authorFirstName, lastNameReader, firstNameReader);
     }
 }
