@@ -41,7 +41,7 @@ public class Author{
             return false;
         }
         Author author = (Author) o;
-        return Objects.equals(lastName, author.lastName) && Objects.equals(firstName, author.firstName);
+        return lastName.equalsIgnoreCase(author.lastName) && firstName.equalsIgnoreCase(author.firstName);
     }
 
     @Override

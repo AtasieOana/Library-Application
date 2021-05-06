@@ -96,7 +96,6 @@ public class Main {
                     scan.nextLine();
                     System.out.println("Enter the language of the book:");
                     String language = scan.nextLine();
-                    // LibraryAuthor author = new LibraryAuthor("Eminescu", "Mihai");
                     System.out.println("Enter the author's last name:");
                     String authorLastName = scan.nextLine();
                     System.out.println("Enter the author's first name:");
@@ -105,6 +104,9 @@ public class Main {
                     System.out.println("Enter the section type:");
                     String sectionType = scan.nextLine();
                     Section section = HelperService.createSectionWithSectionType(sectionType);
+                    if(section == null){
+                        break;
+                    }
                     System.out.println("Enter the number of copies:");
                     int numberOfCopies = scan.nextInt();
                     scan.nextLine();
@@ -120,8 +122,12 @@ public class Main {
                     writeAudit.writeCSV("Removing a book from the library");
                 }
                 if (opt == 3) {
-                    LibraryAuthor author1 = new LibraryAuthor("Eminescu", "Mihai");
-                    service.findBooksFromAuthor(author1);
+                    System.out.println("Enter the author's last name:");
+                    String authorLastName = scan.nextLine();
+                    System.out.println("Enter the author's first name:");
+                    String authorFirstName = scan.nextLine();
+                    LibraryAuthor author = new LibraryAuthor(authorLastName, authorFirstName);
+                    service.findBooksFromAuthor(author);
                     writeAudit.writeCSV("See all books written by an author");
                 }
                 if (opt == 4){

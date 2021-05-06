@@ -61,7 +61,7 @@ public class LibraryBook extends Book implements Comparable<LibraryBook> {
             }
         }
         else{
-            return this.getName().compareTo(libraryBook.getName());
+            return this.getName().compareToIgnoreCase(libraryBook.getName());
         }
     }
 

@@ -88,6 +88,7 @@ public final class CSVReadWrite {
                     for (String line : fileContent) {
                         String[] elements = line.split(",");
                         String sectionType = elements[0];
+                        System.out.println(sectionType);
                         Section section = HelperService.createSectionWithSectionType(sectionType);
                         objects.add((T) section);
 
@@ -101,7 +102,6 @@ public final class CSVReadWrite {
                         int yearOfPublication = Integer.parseInt(elements[2]);
                         String language = elements[3];
                         LibraryAuthor libraryAuthor = new LibraryAuthor(elements[4], elements[5]);
-                        String sectionType = elements[6];
                         Section section = HelperService.createSectionWithSectionType(elements[7]);
                         int numberOfCopies = Integer.parseInt(elements[7]);
                         LibraryBook libraryBook = new LibraryBook(name, numberOfPages, yearOfPublication, language,
@@ -160,7 +160,7 @@ public final class CSVReadWrite {
                     writer.append(String.valueOf((librarian.getSalary())));
                     writer.append("\n");
                 }
-                case "author" -> {
+                case "libraryauthor" -> {
                     LibraryAuthor libraryAuthor = (LibraryAuthor) object;
                     writer.append(libraryAuthor.getLastName());
                     writer.append(",");
@@ -205,6 +205,80 @@ public final class CSVReadWrite {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
+    }
+
+    /**
+     * Method to delete an object from the CSV or to update some elements
+     */
+    public <T> void deleteFromCSV(String FilePath, T object){
+        switch (object.getClass().getSimpleName().toLowerCase()){
+            case "libraryauthor" -> {
+                LibraryAuthor libraryAuthor = (LibraryAuthor) object;
+                ArrayList<String> read = new ArrayList<>();
+                int numberLine = 1;
+                int writerLine = 1;
+                boolean ok = false;
+                String firstLine = "";
+                try(BufferedReader reader = new BufferedReader(new FileReader("LibraryAuthor.csv"))) {
+                    firstLine = reader.readLine();
+                    String line = reader.readLine();
+                    while (line != null) {
+                        String[] elements = line.split(",");
+                        if (elements[0].toLowerCase().equals(libraryAuthor.getLastName().toLowerCase()) &&
+                                elements[1].toLowerCase().equals(libraryAuthor.getFirstName().toLowerCase())) {
+                            ok = true;
+                        }
+                        else{
+                            if(!ok) {
+                                numberLine += 1;
+                            }
+                        }
+                        read.add(line);
+                        line = reader.readLine();
+                    }
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+
+                try(FileWriter writer = new FileWriter("LibraryAuthor.csv", false)){
+                    if(ok) {
+                        writer.write(firstLine);
+                        writer.write("\n");
+                        for (String i : read) {
+                            if (numberLine != writerLine) {
+                                writer.write(i);
+                            }
+                            else{
+                                if(!libraryAuthor.getBooksTitle().equals("")){
+                                    String[] elements = i.split(",");
+                                    writer.append(elements[0]);
+                                    writer.append(",");
+                                    writer.append(elements[1]);
+                                    writer.append(",");
+                                    writer.append((libraryAuthor.getBooksTitle()));
+                                }
+                            }
+                            writer.append("\n");
+                            writerLine+=1;
+                        }
+                    }
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+            }
+
+            case "reader" -> {
+
+
+            }
+
+            case "librarybook" -> {
+
+            }
+
+        }
+
+
     }
 
 }

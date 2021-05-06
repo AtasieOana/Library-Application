@@ -2,9 +2,14 @@ package Services;
 
 import CSVManage.CSVReadWrite;
 import Classes.*;
+import Classes.Reader;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.io.*;
+
 
 public class LibraryService {
 
@@ -100,7 +105,7 @@ public class LibraryService {
             for (LibraryBook libraryBook : libraryBookTreeSet) {
                 System.out.println(libraryBook);
             }
-
+           author.modifyCVS();
         }
         else{
             System.out.println("Author doesn't exist!");
