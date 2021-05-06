@@ -39,6 +39,6 @@ The following classes were used in the system:
 
 ## Stage II
 
-**Extending the project from the first stage by using files:**
+**Extending the project from the first stage by using files** \
 **Performing an audit service**
 
