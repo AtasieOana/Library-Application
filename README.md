@@ -42,3 +42,10 @@ The following classes were used in the system:
 **Extending the project from the first stage by using files** \
 **Performing an audit service**
 
+During this stage, CSV files were created for the following classes:
+* Librarian (Columns: last name, first name, date of birth, address, phone number);
+* Library Author (Columns: last name, first name, book titles written by him);
+* Library Book (Columns: book name, number of pages, year of publication, language, author's last name, author's first name, section type, number of copies);
+* Reader (Columns: last name, first name, date of birth, CNP, address, phone number);
+* Requested book (Columns: book name, author's last name, author's first name, year of publication, number of requests);
+* Section (Columns: section type, section book titles);
