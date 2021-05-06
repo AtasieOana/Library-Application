@@ -39,7 +39,7 @@ The following classes were used in the system:
 
 ## Stage II
 
-- [x] **Extending the project from the first stage by using files** 
+- [x] **Extending the project from the first stage by using CSV files** 
 
 During this stage, CSV files were created for the following classes:
 * Librarian 
