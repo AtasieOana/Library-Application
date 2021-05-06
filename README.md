@@ -63,6 +63,7 @@ Also, a generic singleton service was created for reading and writing from CSV w
 * *updateBooksInCVS* - updates the titles of the books in the section or from the library author
 * *updateNumberInCSV* - updates by adding or subtracting the number of required books or the number of books in the library
 
-**Performing an audit service** \
+
+**Performing an audit service** 
 
 Each time one of the features from the first stage takes place, the name of the action and the time at which the action took place are written in the [Audit.csv](https://github.com/AtasieOana/Library-Application/blob/main/Audit.csv) file.
