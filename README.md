@@ -3,7 +3,7 @@
 
 ## Stage I
 
-**Defining the system and implementing an application based on it**
+- [x] **Defining the system and implementing an application based on it**
 
 The following classes were used in the system:
 * Library
@@ -15,7 +15,7 @@ The following classes were used in the system:
 * Loan
 * LibraryService
 
-**Features**
+- [x] **Features**
 
 * Adding a book in the library;
     * If the author of the book is not in the library, then it is added.
@@ -39,7 +39,7 @@ The following classes were used in the system:
 
 ## Stage II
 
-**Extending the project from the first stage by using files** 
+- [x] **Extending the project from the first stage by using files** 
 
 During this stage, CSV files were created for the following classes:
 * Librarian 
@@ -64,6 +64,6 @@ Also, a generic singleton service was created for reading and writing from CSV w
 * *updateNumberInCSV* - updates by adding or subtracting the number of required books or the number of books in the library
 
 
-**Performing an audit service** 
+- [x] **Performing an audit service** 
 
 Each time one of the features from the first stage takes place, the name of the action and the time at which the action took place are written in the [Audit.csv](https://github.com/AtasieOana/Library-Application/blob/main/Audit.csv) file.
