@@ -78,7 +78,7 @@ public class LibraryAuthor extends Author implements Comparable<LibraryAuthor>{
      **/
     public void addBook(LibraryBook libraryBook){
         books.add(libraryBook);
-        write.modifyCVS("LibraryAuthor.csv",this);
+        write.updateBooksInCVS("LibraryAuthor.csv",this);
     }
 
     /**

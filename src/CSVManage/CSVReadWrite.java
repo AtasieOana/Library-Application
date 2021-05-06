@@ -434,7 +434,7 @@ public final class CSVReadWrite {
      * When a new book is added, for the author of the book and the section,
      * the books written in CSV corresponding to the authors in the library and sections are updated.
      */
-    public <T> void modifyCVS(String FilePath, T object) {
+    public <T> void updateBooksInCVS(String FilePath, T object) {
         switch (object.getClass().getSimpleName().toLowerCase()) {
             case "libraryauthor" -> {
                 LibraryAuthor libraryAuthor = (LibraryAuthor) object;
@@ -542,7 +542,7 @@ public final class CSVReadWrite {
     /**
      * Method to change the number of books for the library books or the required books
      */
-    public <T> void updateCVS(String FilePath, T object, String Option) {
+    public <T> void updateNumberInCSV(String FilePath, T object, String Option) {
         switch (object.getClass().getSimpleName().toLowerCase()) {
             case "librarybook" -> {
                 LibraryBook lb = (LibraryBook) object;
@@ -596,12 +596,11 @@ public final class CSVReadWrite {
                                 writer.append(",");
                                 if(Option.equalsIgnoreCase("add")) {
                                     writer.append(String.valueOf(Integer.parseInt(elements[7]) + 1));
-                                    writer.append("\n");
                                 }
                                 else{
                                     writer.append(String.valueOf(Integer.parseInt(elements[7]) - 1));
-                                    writer.append("\n");
                                 }
+                                writer.append("\n");
                             }
                             writer.append("\n");
                             writerLine += 1;
