@@ -154,7 +154,6 @@ public class Library {
      **/
     public void addBookInSection(Section section, LibraryBook book) {
         boolean found = false;
-
         for (Section sec : sections) {
             if (sec.equals(section)) {
                 sec.addBook(book);

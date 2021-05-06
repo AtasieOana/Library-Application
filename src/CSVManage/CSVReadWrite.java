@@ -87,8 +87,7 @@ public final class CSVReadWrite {
                 case "section" -> {
                     for (String line : fileContent) {
                         String[] elements = line.split(",");
-                        String sectionType = elements[0];
-                        System.out.println(sectionType);
+                        String sectionType = elements[0].toUpperCase();
                         Section section = HelperService.createSectionWithSectionType(sectionType);
                         objects.add((T) section);
 
@@ -102,7 +101,7 @@ public final class CSVReadWrite {
                         int yearOfPublication = Integer.parseInt(elements[2]);
                         String language = elements[3];
                         LibraryAuthor libraryAuthor = new LibraryAuthor(elements[4], elements[5]);
-                        Section section = HelperService.createSectionWithSectionType(elements[7]);
+                        Section section = HelperService.createSectionWithSectionType(elements[6]);
                         int numberOfCopies = Integer.parseInt(elements[7]);
                         LibraryBook libraryBook = new LibraryBook(name, numberOfPages, yearOfPublication, language,
                                 libraryAuthor, section, numberOfCopies);
