@@ -46,6 +46,10 @@ public class HelperService<T> {
             case "POEMS" -> {
                 section = new Section(SectionType.POEMS);
             }
+            default -> {
+                System.out.println("Section Type is wrong!");
+                System.exit(0);
+            }
         }
         return section;
     }
