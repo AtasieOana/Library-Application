@@ -23,9 +23,7 @@ public final class CSVReadWrite {
     private ArrayList<String> readCSV(String FilePath) {
         ArrayList<String> read = new ArrayList<>();
         try (BufferedReader buffer = new BufferedReader(new FileReader(FilePath))) {
-            /**
-             * it skips the first line because it contains the column names
-             */
+            /* it skips the first line because it contains the column names */
             buffer.readLine();
             String line = buffer.readLine();
             while (line != null) {
@@ -40,7 +38,7 @@ public final class CSVReadWrite {
     }
 
     public <T> ArrayList<T> readObjects(String FilePath, String objectOption) {
-        ArrayList<T> objects = new ArrayList<T>();
+        ArrayList<T> objects = new ArrayList<>();
         ArrayList<String> fileContent = readCSV(FilePath);
         try {
             switch (objectOption.toLowerCase()) {
@@ -223,8 +221,8 @@ public final class CSVReadWrite {
                     String line = reader.readLine();
                     while (line != null) {
                         String[] elements = line.split(",");
-                        if (elements[0].toLowerCase().equals(libraryAuthor.getLastName().toLowerCase()) &&
-                                elements[1].toLowerCase().equals(libraryAuthor.getFirstName().toLowerCase())) {
+                        if (elements[0].equalsIgnoreCase(libraryAuthor.getLastName()) &&
+                                elements[1].equalsIgnoreCase(libraryAuthor.getFirstName())) {
                             ok = true;
                         } else {
                             if (!ok) {
@@ -298,15 +296,13 @@ public final class CSVReadWrite {
                         for (String i : read) {
                             if (numberLine != writerLine) {
                                 writer.append(i);
-                                writer.append("\n");
                             } else {
                                 String[] elements = i.split(",");
                                 writer.append(elements[0].toUpperCase());
                                 writer.append(",");
                                 writer.append((section.getBooksTitle()));
-                                writer.append("\n");
-
                             }
+                            writer.append("\n");
                             writerLine += 1;
                         }
                     }
@@ -327,8 +323,8 @@ public final class CSVReadWrite {
                     String line = reader.readLine();
                     while (line != null) {
                         String[] elements = line.split(",");
-                        if (elements[0].toLowerCase().equals(readerObj.getLastName().toLowerCase()) &&
-                                elements[1].toLowerCase().equals(readerObj.getFirstName().toLowerCase()) &&
+                        if (elements[0].equalsIgnoreCase(readerObj.getLastName()) &&
+                                elements[1].equalsIgnoreCase(readerObj.getFirstName()) &&
                                 elements[3].equals(readerObj.getCNP())) {
                             ok = true;
                         } else {
@@ -373,7 +369,7 @@ public final class CSVReadWrite {
                     String line = reader.readLine();
                     while (line != null) {
                         String[] elements = line.split(",");
-                        if (elements[0].toLowerCase().equals(libraryBook.getName().toLowerCase()) &&
+                        if (elements[0].equalsIgnoreCase(libraryBook.getName()) &&
                                 (Integer.parseInt(elements[2]) == libraryBook.getYearOfPublication()) &&
                                 libraryBook.getAuthor().getLastName().equalsIgnoreCase(elements[4]) &&
                                 libraryBook.getAuthor().getFirstName().equalsIgnoreCase(elements[5])) {
@@ -427,8 +423,8 @@ public final class CSVReadWrite {
                     String line = reader.readLine();
                     while (line != null) {
                         String[] elements = line.split(",");
-                        if (elements[0].toLowerCase().equals(libraryAuthor.getLastName().toLowerCase()) &&
-                                elements[1].toLowerCase().equals(libraryAuthor.getFirstName().toLowerCase())) {
+                        if (elements[0].equalsIgnoreCase(libraryAuthor.getLastName()) &&
+                                elements[1].equalsIgnoreCase(libraryAuthor.getFirstName())) {
                             ok = true;
                         } else {
                             if (!ok) {
