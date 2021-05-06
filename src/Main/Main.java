@@ -96,28 +96,23 @@ public class Main {
                 }
                 if (opt == 3) {
                     Option3(service);
-                    writeAudit.writeCSV("See all books written by an author");
+                    writeAudit.writeCSV("Seeing all books written by an author");
                 }
                 if (opt == 4){
-                    Section section = new Section(SectionType.POEMS);
-                    service.findBooksFromSection(section);
-                    writeAudit.writeCSV("See all the books in a section");
+                    Option4(service);
+                    writeAudit.writeCSV("Seeing all the books in a section");
 
                 }
                 if(opt == 5){
-                    service.findBooksFromLibrary();
-                    writeAudit.writeCSV("See all the books in the library");
+                    Option5(service);
+                    writeAudit.writeCSV("Seeing all the books in the library");
                 }
-                if(opt == 6 ){
-                    Reader reader = new Reader("Gica","Valentin", HelperService.makeDate(2000, 11, 21),
-                            "6130110018580", "Strada X", "0756146777");
-                    service.addReader(reader);
+                if(opt == 6){
+                    Option6(service);
                     writeAudit.writeCSV("Adding a new reader");
                 }
                 if(opt == 7){
-                    Reader reader = new Reader("Gica","Valentin", HelperService.makeDate(2000, 11, 21),
-                            "6130110018580", "Strada X", "0756146777");
-                    service.removeReader(reader);
+                    Option7(service);
                     writeAudit.writeCSV("Removing a new reader");
                 }
                 if(opt == 8){
@@ -173,7 +168,8 @@ public class Main {
 
     }
 
-    public static void Option1(LibraryService service){
+    /* Adding a book in the library */
+    private static void Option1(LibraryService service){
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter the name of the book:");
         String name = scan.nextLine();
@@ -198,7 +194,8 @@ public class Main {
         service.addBookInLibrary(name, numberOfPages, year, language, author, section, numberOfCopies);
     }
 
-    public static void Option2(LibraryService service){
+    /* Removing a book from the library */
+    private static void Option2(LibraryService service){
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter the name of the book:");
         String name = scan.nextLine();
@@ -212,7 +209,8 @@ public class Main {
         service.removeBookFromLibrary(name, authorFirstName, authorLastName, year);
     }
 
-    public static void Option3(LibraryService service){
+    /* Seeing all books written by an author */
+    private static void Option3(LibraryService service){
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter the author's last name:");
         String authorLastName = scan.nextLine();
@@ -222,4 +220,56 @@ public class Main {
         service.findBooksFromAuthor(author);
     }
 
+    /* Seeing all the books in a section */
+    private static void Option4(LibraryService service){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter the section type:");
+        String sectionType = scan.nextLine();
+        Section section = HelperService.createSectionWithSectionType(sectionType);
+        service.findBooksFromSection(section);
+    }
+
+    /* Seeing all the books in the library */
+    private static void Option5(LibraryService service){
+        service.findBooksFromLibrary();
+    }
+
+    /* Adding a new reader*/
+    private static void Option6(LibraryService service) {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter the reader's last name:");
+        String lastName = scan.nextLine();
+        System.out.println("Enter the reader's first name:");
+        String firstName = scan.nextLine();
+        System.out.println("Enter the birth year of the reader:");
+        int year = scan.nextInt();
+        scan.nextLine();
+        System.out.println("Enter the birth month of the reader:");
+        int month = scan.nextInt();
+        scan.nextLine();
+        System.out.println("Enter the birth day of the reader::");
+        int day = scan.nextInt();
+        scan.nextLine();
+        Date date = HelperService.makeDate(year, month, day);
+        System.out.println("Enter the reader's CNP:");
+        String CNP = scan.nextLine();
+        System.out.println("Enter the reader's address:");
+        String address = scan.nextLine();
+        System.out.println("Enter the reader's phone number:");
+        String phoneNumber = scan.nextLine();
+        Reader reader = new Reader(lastName,firstName, date, CNP, address, phoneNumber);
+        service.addReader(reader);
+    }
+
+    /* Removing a reader*/
+    private static void Option7(LibraryService service) {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter the reader's last name:");
+        String lastName = scan.nextLine();
+        System.out.println("Enter the reader's first name:");
+        String firstName = scan.nextLine();
+        System.out.println("Enter the reader's CNP:");
+        String CNP = scan.nextLine();
+        service.removeReader(lastName, firstName, CNP);
+    }
 }

@@ -179,19 +179,23 @@ public class LibraryService {
         ArrayList<Reader> allReaders = library.getReaders();
         allReaders.add(reader);
         library.setReaders(allReaders);
+        write.writeCSV("Reader.csv",reader);
         System.out.println("The reader has been added!");
     }
 
     /**
      * Removing a reader;
      */
-    public void removeReader(Reader reader){
+    public void removeReader(String lastName, String firstName, String CNP){
         boolean found = false;
         ArrayList<Reader> allReaders = library.getReaders();
         Iterator<Reader> iterator = allReaders.iterator();
+        Reader reader = new Reader();
         while (iterator.hasNext()) {
             Reader r = iterator.next();
-            if (r.equals(reader)) {
+            if (r.getLastName().equalsIgnoreCase(lastName) && r.getFirstName().equalsIgnoreCase(firstName)
+                    && r.getCNP().equals(CNP)) {
+                reader = r;
                 iterator.remove();
                 found = true;
             }
@@ -201,6 +205,7 @@ public class LibraryService {
         }
         else{
             System.out.println("The reader has been removed!");
+            write.deleteFromCSV("Reader.csv", reader);
         }
     }
 

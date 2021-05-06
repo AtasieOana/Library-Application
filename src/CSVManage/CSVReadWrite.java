@@ -316,7 +316,48 @@ public final class CSVReadWrite {
             }
 
             case "reader" -> {
+                Reader readerObj = (Reader) object;
+                ArrayList<String> read = new ArrayList<>();
+                int numberLine = 1;
+                int writerLine = 1;
+                boolean ok = false;
+                String firstLine = "";
+                try (BufferedReader reader = new BufferedReader(new FileReader(FilePath))) {
+                    firstLine = reader.readLine();
+                    String line = reader.readLine();
+                    while (line != null) {
+                        String[] elements = line.split(",");
+                        if (elements[0].toLowerCase().equals(readerObj.getLastName().toLowerCase()) &&
+                                elements[1].toLowerCase().equals(readerObj.getFirstName().toLowerCase()) &&
+                                elements[3].equals(readerObj.getCNP())) {
+                            ok = true;
+                        } else {
+                            if (!ok) {
+                                numberLine += 1;
+                            }
+                        }
+                        read.add(line);
+                        line = reader.readLine();
+                    }
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
 
+                try (FileWriter writer = new FileWriter(FilePath, false)) {
+                    if (ok) {
+                        writer.write(firstLine);
+                        writer.write("\n");
+                        for (String i : read) {
+                            if (numberLine != writerLine) {
+                                writer.append(i);
+                                writer.append("\n");
+                                writerLine += 1;
+                            }
+                        }
+                    }
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
 
             }
 
@@ -365,10 +406,7 @@ public final class CSVReadWrite {
                     exception.printStackTrace();
                 }
             }
-
         }
-
-
     }
 
     /**
