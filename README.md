@@ -44,14 +44,14 @@ The following classes were used in the system:
 
 During this stage, CSV files were created for the following classes:
 * Librarian 
-   * Columns: last name, first name, date of birth, address, phone number;
+   * *Columns:* last name, first name, date of birth, address, phone number;
 * Library Author 
-   * Columns: last name, first name, book titles written by him;
+   * *Columns:* last name, first name, book titles written by him;
 * Library Book 
-   * Columns: book name, number of pages, year of publication, language, author's last name, author's first name, section type, number of copies;
+   * *Columns:* book name, number of pages, year of publication, language, author's last name, author's first name, section type, number of copies;
 * Reader 
-   * Columns: last name, first name, date of birth, CNP, address, phone number;
+   * *Columns:* last name, first name, date of birth, CNP, address, phone number;
 * Requested book 
-   * Columns: book name, author's last name, author's first name, year of publication, number of requests;
+   * *Columns:* book name, author's last name, author's first name, year of publication, number of requests;
 * Section 
-   * Columns: section type, section book titles.
+   * *Columns:* section type, section book titles.
