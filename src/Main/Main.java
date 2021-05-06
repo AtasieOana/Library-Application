@@ -128,7 +128,7 @@ public class Main {
                     writeAudit.writeCSV("Returning a book");
                 }
                 if(opt == 11){
-                    service.findMostRequestedBook();
+                    Option11(service);
                     writeAudit.writeCSV("Finding the most requested book");
                 }
                 if(opt == 12){
@@ -235,7 +235,7 @@ public class Main {
         System.out.println("Enter the birth month of the reader:");
         int month = scan.nextInt();
         scan.nextLine();
-        System.out.println("Enter the birth day of the reader::");
+        System.out.println("Enter the birth day of the reader:");
         int day = scan.nextInt();
         scan.nextLine();
         Date date = HelperService.makeDate(year, month, day);
@@ -310,4 +310,10 @@ public class Main {
         String firstNameReader = scan.nextLine();
         service.returnBook(bookName, authorLastName, authorFirstName, lastNameReader, firstNameReader);
     }
+
+    /* Finding the most requested book */
+    private static void Option11(LibraryService service) {
+        service.findMostRequestedBook();
+    }
+
 }
