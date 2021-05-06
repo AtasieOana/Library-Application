@@ -95,12 +95,7 @@ public class Main {
                     writeAudit.writeCSV("Removing a book from the library");
                 }
                 if (opt == 3) {
-                    System.out.println("Enter the author's last name:");
-                    String authorLastName = scan.nextLine();
-                    System.out.println("Enter the author's first name:");
-                    String authorFirstName = scan.nextLine();
-                    LibraryAuthor author = new LibraryAuthor(authorLastName, authorFirstName);
-                    service.findBooksFromAuthor(author);
+                    Option3(service);
                     writeAudit.writeCSV("See all books written by an author");
                 }
                 if (opt == 4){
@@ -215,6 +210,16 @@ public class Main {
         int year = scan.nextInt();
         scan.nextLine();
         service.removeBookFromLibrary(name, authorFirstName, authorLastName, year);
+    }
+
+    public static void Option3(LibraryService service){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter the author's last name:");
+        String authorLastName = scan.nextLine();
+        System.out.println("Enter the author's first name:");
+        String authorFirstName = scan.nextLine();
+        LibraryAuthor author = new LibraryAuthor(authorLastName, authorFirstName);
+        service.findBooksFromAuthor(author);
     }
 
 }
