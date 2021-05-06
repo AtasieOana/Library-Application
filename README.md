@@ -40,7 +40,6 @@ The following classes were used in the system:
 ## Stage II
 
 **Extending the project from the first stage by using files** \
-**Performing an audit service**
 
 During this stage, CSV files were created for the following classes:
 * Librarian 
@@ -55,3 +54,13 @@ During this stage, CSV files were created for the following classes:
    * *Columns:* book name, author's last name, author's first name, year of publication, number of requests;
 * Section 
    * *Columns:* section type, section book titles.
+
+Also, a generic singleton service was created for reading and writing from CSV which includes the following methods:
+* *readCSV* - read the entire contents of the file;
+* *readObjects* - transforms the read content into objects of a certain type received as a parameter;
+* *writeCSV* - write an object to a file;
+* *deleteFromCSV* - delete entire lines or only certain elements of the columns in the file;
+* *updateBooksInCVS* - updates the titles of the books in the section or from the library author
+* *updateNumberInCSV* - updates by adding or subtracting the number of required books or the number of books in the library
+
+**Performing an audit service**
