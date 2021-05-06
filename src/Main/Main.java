@@ -116,8 +116,7 @@ public class Main {
                     writeAudit.writeCSV("Removing a new reader");
                 }
                 if(opt == 8){
-                    LibraryAuthor author = new LibraryAuthor("Eminescu", "Mihai");
-                    service.removeAuthor(author);
+                    Option8(service);
                     writeAudit.writeCSV("Removing an author from the library");
                 }
                 if(opt == 9){
@@ -271,5 +270,16 @@ public class Main {
         System.out.println("Enter the reader's CNP:");
         String CNP = scan.nextLine();
         service.removeReader(lastName, firstName, CNP);
+    }
+
+    /* Removing an author from the library */
+    private static void Option8(LibraryService service){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter the author's last name:");
+        String authorLastName = scan.nextLine();
+        System.out.println("Enter the author's first name:");
+        String authorFirstName = scan.nextLine();
+        LibraryAuthor author = new LibraryAuthor(authorLastName, authorFirstName);
+        service.removeAuthor(author);
     }
 }

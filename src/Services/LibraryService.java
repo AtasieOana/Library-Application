@@ -220,6 +220,7 @@ public class LibraryService {
             if (la.equals(libraryAuthor)) {
                 TreeSet<LibraryBook> libraryBookTreeSet = la.getBooks();
                 for(LibraryBook libraryBook:libraryBookTreeSet){
+                    write.deleteFromCSV("LibraryBook.csv", libraryBook);
                     for (Section section : library.getSections()){
                         if (section.equals(libraryBook.getSection())) {
                             section.removeBook(libraryBook);
@@ -235,6 +236,8 @@ public class LibraryService {
         }
         else{
             System.out.println("The author has been deleted!");
+            write.deleteFromCSV("LibraryAuthor.csv", libraryAuthor);
+
         }
 
     }
