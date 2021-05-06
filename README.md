@@ -36,3 +36,9 @@ The following classes were used in the system:
      * If a book that is not in the library is requested, then it will be added to the list of required books;
 * Returning a book;
 * Find the most requested book;
+
+## Stage II
+
+**Extending the project from the first stage by using files:**
+**Performing an audit service**
+
