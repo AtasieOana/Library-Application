@@ -90,11 +90,11 @@ public class LibraryService {
                 write.deleteFromCSV("LibraryBook.csv", libraryBook);
             }
             else {
-                System.out.println("The book doesn't exit!");
+                System.out.println("The book doesn't exist!");
             }
         }
         else{
-            System.out.println("The author doesn't exit!");
+            System.out.println("The author doesn't exist!");
         }
 
     }

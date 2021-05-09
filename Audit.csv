@@ -58,3 +58,30 @@ Returning a book,2021-05-09 14:24:24.429
 Borrowing a book,2021-05-09 15:08:27.83
 Returning a book,2021-05-09 15:09:17.471
 Returning a book,2021-05-09 15:09:35.958
+Adding a book in the library,2021-05-09 15:59:45.807
+Removing a book from the library,2021-05-09 16:00:22.332
+Adding a book in the library,2021-05-09 16:00:46.689
+Removing a book from the library,2021-05-09 16:01:13.524
+Removing a book from the library,2021-05-09 16:01:26.704
+Removing a book from the library,2021-05-09 16:02:23.804
+Seeing all books written by an author,2021-05-09 16:02:45.087
+Seeing all the books in a section,2021-05-09 16:02:56.668
+Seeing all the books in the library,2021-05-09 16:03:01.492
+Adding a new reader,2021-05-09 16:04:37.143
+Removing a new reader,2021-05-09 16:05:02.272
+Removing a new reader,2021-05-09 16:05:17.12
+Removing a new reader,2021-05-09 16:05:38.973
+Removing an author from the library,2021-05-09 16:05:54.721
+Borrowing a book,2021-05-09 16:07:40.52
+Borrowing a book,2021-05-09 16:08:18.078
+Borrowing a book,2021-05-09 16:09:33.801
+Returning a book,2021-05-09 16:09:50.991
+Finding the most requested book,2021-05-09 16:09:55.362
+Borrowing a book,2021-05-09 16:10:58.034
+Borrowing a book,2021-05-09 16:11:30.486
+Borrowing a book,2021-05-09 16:12:14.505
+Returning a book,2021-05-09 16:12:38.02
+Returning a book,2021-05-09 16:12:55.961
+Returning a book,2021-05-09 16:13:20.76
+Finding the most requested book,2021-05-09 16:13:24.939
+Ending program,2021-05-09 16:13:29.147

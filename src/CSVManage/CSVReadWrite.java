@@ -235,36 +235,13 @@ public final class CSVReadWrite {
         switch (object.getClass().getSimpleName().toLowerCase()) {
             case "libraryauthor" -> {
                 LibraryAuthor libraryAuthor = (LibraryAuthor) object;
-                ArrayList<String> read = new ArrayList<>();
-                int numberLine = 1;
                 int writerLine = 1;
-                boolean ok = false;
-                String firstLine = "";
-                try (BufferedReader reader = new BufferedReader(new FileReader(FilePath))) {
-                    firstLine = reader.readLine();
-                    String line = reader.readLine();
-                    while (line != null) {
-                        String[] elements = line.split(",");
-                        if (elements[0].equalsIgnoreCase(libraryAuthor.getLastName()) &&
-                                elements[1].equalsIgnoreCase(libraryAuthor.getFirstName())) {
-                            ok = true;
-                        } else {
-                            if (!ok) {
-                                numberLine += 1;
-                            }
-                        }
-                        read.add(line);
-                        line = reader.readLine();
-                    }
-                } catch (IOException exception) {
-                    exception.printStackTrace();
-                }
-
+                int numberLine = findElement(FilePath,libraryAuthor);
+                ArrayList<String> fileContent = readCSV(FilePath);
                 try (FileWriter writer = new FileWriter(FilePath, false)) {
-                    if (ok) {
-                        writer.write(firstLine);
-                        writer.write("\n");
-                        for (String i : read) {
+                    if (numberLine > 0) {
+                        writer.write("Last Name,First Name,Books Title\n");
+                        for (String i : fileContent) {
                             if (numberLine != writerLine) {
                                 writer.append(i);
                                 writer.append("\n");
@@ -289,35 +266,13 @@ public final class CSVReadWrite {
 
             case "section" -> {
                 Section section = (Section) object;
-                ArrayList<String> read = new ArrayList<>();
-                int numberLine = 1;
                 int writerLine = 1;
-                boolean ok = false;
-                String firstLine = "";
-                try (BufferedReader reader = new BufferedReader(new FileReader(FilePath))) {
-                    firstLine = reader.readLine();
-                    String line = reader.readLine();
-                    while (line != null) {
-                        String[] elements = line.split(",");
-                        if (elements[0].equalsIgnoreCase(section.getSectionType().toString())) {
-                            ok = true;
-                        } else {
-                            if (!ok) {
-                                numberLine += 1;
-                            }
-                        }
-                        read.add(line);
-                        line = reader.readLine();
-                    }
-                } catch (IOException exception) {
-                    exception.printStackTrace();
-                }
-
+                int numberLine = findElement(FilePath,section);
+                ArrayList<String> fileContent = readCSV(FilePath);
                 try (FileWriter writer = new FileWriter(FilePath, false)) {
-                    if (ok) {
-                        writer.write(firstLine);
-                        writer.write("\n");
-                        for (String i : read) {
+                    if (numberLine > 0) {
+                        writer.write("Section Type,Book Titles\n");
+                        for (String i : fileContent) {
                             if (numberLine != writerLine) {
                                 writer.append(i);
                             } else {
@@ -337,37 +292,13 @@ public final class CSVReadWrite {
 
             case "reader" -> {
                 Reader readerObj = (Reader) object;
-                ArrayList<String> read = new ArrayList<>();
-                int numberLine = 1;
                 int writerLine = 1;
-                boolean ok = false;
-                String firstLine = "";
-                try (BufferedReader reader = new BufferedReader(new FileReader(FilePath))) {
-                    firstLine = reader.readLine();
-                    String line = reader.readLine();
-                    while (line != null) {
-                        String[] elements = line.split(",");
-                        if (elements[0].equalsIgnoreCase(readerObj.getLastName()) &&
-                                elements[1].equalsIgnoreCase(readerObj.getFirstName()) &&
-                                elements[3].equals(readerObj.getCNP())) {
-                            ok = true;
-                        } else {
-                            if (!ok) {
-                                numberLine += 1;
-                            }
-                        }
-                        read.add(line);
-                        line = reader.readLine();
-                    }
-                } catch (IOException exception) {
-                    exception.printStackTrace();
-                }
-
+                int numberLine = findElement(FilePath,readerObj);
+                ArrayList<String> fileContent = readCSV(FilePath);
                 try (FileWriter writer = new FileWriter(FilePath, false)) {
-                    if (ok) {
-                        writer.write(firstLine);
-                        writer.write("\n");
-                        for (String i : read) {
+                    if (numberLine > 0) {
+                        writer.write("Last Name,First Name,Date Of Birth,CNP,Address,Phone Number\n");
+                        for (String i : fileContent) {
                             if (numberLine != writerLine) {
                                 writer.append(i);
                                 writer.append("\n");
@@ -383,38 +314,13 @@ public final class CSVReadWrite {
 
             case "librarybook" -> {
                 LibraryBook libraryBook = (LibraryBook) object;
-                ArrayList<String> read = new ArrayList<>();
-                int numberLine = 1;
                 int writerLine = 1;
-                boolean ok = false;
-                String firstLine = "";
-                try (BufferedReader reader = new BufferedReader(new FileReader(FilePath))) {
-                    firstLine = reader.readLine();
-                    String line = reader.readLine();
-                    while (line != null) {
-                        String[] elements = line.split(",");
-                        if (elements[0].equalsIgnoreCase(libraryBook.getName()) &&
-                                (Integer.parseInt(elements[2]) == libraryBook.getYearOfPublication()) &&
-                                libraryBook.getAuthor().getLastName().equalsIgnoreCase(elements[4]) &&
-                                libraryBook.getAuthor().getFirstName().equalsIgnoreCase(elements[5])) {
-                            ok = true;
-                        } else {
-                            if (!ok) {
-                                numberLine += 1;
-                            }
-                        }
-                        read.add(line);
-                        line = reader.readLine();
-                    }
-                } catch (IOException exception) {
-                    exception.printStackTrace();
-                }
-
+                int numberLine = findElement(FilePath,libraryBook);
+                ArrayList<String> fileContent = readCSV(FilePath);
                 try (FileWriter writer = new FileWriter(FilePath, false)) {
-                    if (ok) {
-                        writer.write(firstLine);
-                        writer.write("\n");
-                        for (String i : read) {
+                    if (numberLine > 0) {
+                        writer.write("Name,Number Of Pages,Year Of Publication,Language,Author Last Name,Author First Name,Section Type,Number Of Copies\n");
+                        for (String i : fileContent) {
                             if (numberLine != writerLine) {
                                 writer.append(i);
                                 writer.append("\n");
@@ -437,36 +343,13 @@ public final class CSVReadWrite {
         switch (object.getClass().getSimpleName().toLowerCase()) {
             case "libraryauthor" -> {
                 LibraryAuthor libraryAuthor = (LibraryAuthor) object;
-                ArrayList<String> read = new ArrayList<>();
-                int numberLine = 1;
                 int writerLine = 1;
-                boolean ok = false;
-                String firstLine = "";
-                try (BufferedReader reader = new BufferedReader(new FileReader(FilePath))) {
-                    firstLine = reader.readLine();
-                    String line = reader.readLine();
-                    while (line != null) {
-                        String[] elements = line.split(",");
-                        if (elements[0].equalsIgnoreCase(libraryAuthor.getLastName()) &&
-                                elements[1].equalsIgnoreCase(libraryAuthor.getFirstName())) {
-                            ok = true;
-                        } else {
-                            if (!ok) {
-                                numberLine += 1;
-                            }
-                        }
-                        read.add(line);
-                        line = reader.readLine();
-                    }
-                } catch (IOException exception) {
-                    exception.printStackTrace();
-                }
-
+                int numberLine = findElement(FilePath,libraryAuthor);
+                ArrayList<String> fileContent = readCSV(FilePath);
                 try (FileWriter writer = new FileWriter(FilePath, false)) {
-                    if (ok) {
-                        writer.write(firstLine);
-                        writer.append("\n");
-                        for (String i : read) {
+                    if (numberLine > 0) {
+                        writer.write("Last Name,First Name,Books Title\n");
+                        for (String i : fileContent) {
                             if (numberLine != writerLine) {
                                 writer.write(i);
                             } else {
@@ -488,35 +371,13 @@ public final class CSVReadWrite {
 
             case "section" -> {
                 Section section = (Section) object;
-                ArrayList<String> read = new ArrayList<>();
-                int numberLine = 1;
                 int writerLine = 1;
-                boolean ok = false;
-                String firstLine = "";
-                try (BufferedReader reader = new BufferedReader(new FileReader(FilePath))) {
-                    firstLine = reader.readLine();
-                    String line = reader.readLine();
-                    while (line != null) {
-                        String[] elements = line.split(",");
-                        if (section.getSectionType().toString().equalsIgnoreCase(elements[0])) {
-                            ok = true;
-                        } else {
-                            if (!ok) {
-                                numberLine += 1;
-                            }
-                        }
-                        read.add(line);
-                        line = reader.readLine();
-                    }
-                } catch (IOException exception) {
-                    exception.printStackTrace();
-                }
-
+                int numberLine = findElement(FilePath,section);
+                ArrayList<String> fileContent = readCSV(FilePath);
                 try (FileWriter writer = new FileWriter(FilePath, false)) {
-                    if (ok) {
-                        writer.write(firstLine);
-                        writer.append("\n");
-                        for (String i : read) {
+                    if (numberLine > 0) {
+                        writer.write("Section Type,Book Titles\n");
+                        for (String i : fileContent) {
                             if (numberLine != writerLine) {
                                 writer.write(i);
                             } else {
@@ -545,36 +406,13 @@ public final class CSVReadWrite {
         switch (object.getClass().getSimpleName().toLowerCase()) {
             case "librarybook" -> {
                 LibraryBook lb = (LibraryBook) object;
-                ArrayList<String> read = new ArrayList<>();
-                int numberLine = 1;
                 int writerLine = 1;
-                boolean ok = false;
-                String firstLine = "";
-                try (BufferedReader reader = new BufferedReader(new FileReader(FilePath))) {
-                    firstLine = reader.readLine();
-                    String line = reader.readLine();
-                    while (line != null) {
-                        String[] elements = line.split(",");
-                        if (elements[0].equalsIgnoreCase(lb.getName()) && elements[4].equalsIgnoreCase(lb.getAuthor().getLastName()) &&
-                                elements[5].equalsIgnoreCase(lb.getAuthor().getFirstName())) {
-                            ok = true;
-                        } else {
-                            if (!ok) {
-                                numberLine += 1;
-                            }
-                        }
-                        read.add(line);
-                        line = reader.readLine();
-                    }
-                } catch (IOException exception) {
-                    exception.printStackTrace();
-                }
-
+                int numberLine = findElement(FilePath,lb);
+                ArrayList<String> fileContent = readCSV(FilePath);
                 try (FileWriter writer = new FileWriter(FilePath, false)) {
-                    if (ok) {
-                        writer.write(firstLine);
-                        writer.append("\n");
-                        for (String i : read) {
+                    if (numberLine > 0) {
+                        writer.write("Name,Number Of Pages,Year Of Publication,Language,Author Last Name,Author First Name,Section Type,Number Of Copies\n");
+                        for (String i : fileContent) {
                             if (numberLine != writerLine) {
                                 writer.write(i);
                             } else {
@@ -613,36 +451,13 @@ public final class CSVReadWrite {
 
             case "requiredbook" -> {
                 RequiredBook rb = (RequiredBook) object;
-                ArrayList<String> read = new ArrayList<>();
-                int numberLine = 1;
                 int writerLine = 1;
-                boolean ok = false;
-                String firstLine = "";
-                try (BufferedReader reader = new BufferedReader(new FileReader(FilePath))) {
-                    firstLine = reader.readLine();
-                    String line = reader.readLine();
-                    while (line != null) {
-                        String[] elements = line.split(",");
-                        if (elements[0].equalsIgnoreCase(rb.getName()) && elements[1].equalsIgnoreCase(rb.getAuthor().getLastName()) &&
-                                elements[2].equalsIgnoreCase(rb.getAuthor().getFirstName())) {
-                            ok = true;
-                        } else {
-                            if (!ok) {
-                                numberLine += 1;
-                            }
-                        }
-                        read.add(line);
-                        line = reader.readLine();
-                    }
-                } catch (IOException exception) {
-                    exception.printStackTrace();
-                }
-
+                int numberLine = findElement(FilePath,rb);
+                ArrayList<String> fileContent = readCSV(FilePath);
                 try (FileWriter writer = new FileWriter(FilePath, false)) {
-                    if (ok) {
-                        writer.write(firstLine);
-                        writer.append("\n");
-                        for (String i : read) {
+                    if (numberLine > 0) {
+                        writer.write("Name,Author Last Name,Author First Name,Year Of Publication,Number Of Requests\n");
+                        for (String i : fileContent) {
                             if (numberLine != writerLine) {
                                 writer.write(i);
                             } else {
@@ -668,6 +483,99 @@ public final class CSVReadWrite {
 
             }
         }
+
+    }
+
+    /**
+     * Method to find an object in a CSV file
+     **/
+    private <T> int findElement(String FilePath, T object) {
+        int numberLine = 0;
+        boolean ok = false;
+        try (BufferedReader buffer = new BufferedReader(new FileReader(FilePath))) {
+            /* it skips the first line because it contains the column names */
+            buffer.readLine();
+            switch(object.getClass().getSimpleName().toLowerCase()) {
+                case "libraryauthor" -> {
+                    LibraryAuthor libraryAuthor = (LibraryAuthor) object;
+                    String line = buffer.readLine();
+                    while (line != null) {
+                        if (!ok) {
+                            numberLine += 1;
+                        }
+                        String[] elements = line.split(",");
+                        if (elements[0].equalsIgnoreCase(libraryAuthor.getLastName()) &&
+                                elements[1].equalsIgnoreCase(libraryAuthor.getFirstName())) {
+                            ok = true;
+                        }
+                        line = buffer.readLine();
+                    }
+                }
+                case "librarybook" -> {
+                    LibraryBook lb = (LibraryBook) object;
+                    String line = buffer.readLine();
+                    while (line != null) {
+                        if (!ok) {
+                            numberLine += 1;
+                        }
+                        String[] elements = line.split(",");
+                        if (elements[0].equalsIgnoreCase(lb.getName()) && elements[4].equalsIgnoreCase(lb.getAuthor().getLastName()) &&
+                                elements[5].equalsIgnoreCase(lb.getAuthor().getFirstName())) {
+                            ok = true;
+                        }
+                        line = buffer.readLine();
+                    }
+                }
+                case "requiredbook" -> {
+                    RequiredBook rb = (RequiredBook) object;
+                    String line = buffer.readLine();
+                    while (line != null) {
+                        if (!ok) {
+                            numberLine += 1;
+                        }
+                        String[] elements = line.split(",");
+                        if (elements[0].equalsIgnoreCase(rb.getName()) && elements[1].equalsIgnoreCase(rb.getAuthor().getLastName()) &&
+                                elements[2].equalsIgnoreCase(rb.getAuthor().getFirstName())) {
+                            ok = true;
+                        }
+                        line = buffer.readLine();
+                    }
+                }
+                case "section" -> {
+                    Section section = (Section) object;
+                    String line = buffer.readLine();
+                    while (line != null) {
+                        if (!ok) {
+                            numberLine += 1;
+                        }
+                        String[] elements = line.split(",");
+                        if (section.getSectionType().toString().equalsIgnoreCase(elements[0])) {
+                            ok = true;
+                        }
+                        line = buffer.readLine();
+                    }
+                }
+                case "reader" -> {
+                    Reader reader = (Reader) object;
+                    String line = buffer.readLine();
+                    while (line != null) {
+                        if (!ok) {
+                            numberLine += 1;
+                        }
+                        String[] elements = line.split(",");
+                        if (elements[0].equalsIgnoreCase(reader.getLastName()) &&
+                                elements[1].equalsIgnoreCase(reader.getFirstName()) &&
+                                elements[3].equals(reader.getCNP())) {
+                            ok = true;
+                        }
+                        line = buffer.readLine();
+                    }
+                }
+            }
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+        return numberLine;
 
     }
 
