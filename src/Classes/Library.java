@@ -99,6 +99,7 @@ public class Library {
      **/
     public void addLoan(Loan loan) {
         loans.add(loan);
+
     }
 
     /**

@@ -284,6 +284,7 @@ public class LibraryService {
                 Date date = calendar.getTime();
                 Loan loan = new Loan(book, reader, librarian, date);
                 library.addLoan(loan);
+                write.writeCSV("Loan.csv",loan);
                 write.updateNumberInCSV("LibraryBook.csv", loan.getBook(),"Minus");
             }
             else{
@@ -325,6 +326,7 @@ public class LibraryService {
             long days_diff = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) - Loan.getLoanDays();
             System.out.println("The book was returned with a delay of " + days_diff + " days.");
             loan.getBook().setNumberOfCopies(loan.getBook().getNumberOfCopies() + 1);
+            write.deleteFromCSV("Loan.csv",loan);
             write.updateNumberInCSV("LibraryBook.csv", loan.getBook(),"Add");
             library.removeLoan(loan);
         }

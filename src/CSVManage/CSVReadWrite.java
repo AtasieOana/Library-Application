@@ -223,6 +223,22 @@ public final class CSVReadWrite {
                     writer.append("\n");
                 }
 
+                case "loan" -> {
+                    Loan loan = (Loan) object;
+                    writer.append(loan.getBook().getName());
+                    writer.append(",");
+                    writer.append(loan.getReader().getLastName());
+                    writer.append(",");
+                    writer.append(loan.getReader().getFirstName());
+                    writer.append(",");
+                    writer.append(loan.getLibrarian().getLastName());
+                    writer.append(",");
+                    writer.append(loan.getLibrarian().getFirstName());
+                    writer.append(",");
+                    writer.append(String.valueOf(loan.getLoanDate()));
+                    writer.append("\n");
+                }
+
             }
         } catch (IOException exception) {
             exception.printStackTrace();
@@ -398,6 +414,53 @@ public final class CSVReadWrite {
                                 (Integer.parseInt(elements[2]) == libraryBook.getYearOfPublication()) &&
                                 libraryBook.getAuthor().getLastName().equalsIgnoreCase(elements[4]) &&
                                 libraryBook.getAuthor().getFirstName().equalsIgnoreCase(elements[5])) {
+                            ok = true;
+                        } else {
+                            if (!ok) {
+                                numberLine += 1;
+                            }
+                        }
+                        read.add(line);
+                        line = reader.readLine();
+                    }
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+
+                try (FileWriter writer = new FileWriter(FilePath, false)) {
+                    if (ok) {
+                        writer.write(firstLine);
+                        writer.write("\n");
+                        for (String i : read) {
+                            if (numberLine != writerLine) {
+                                writer.append(i);
+                                writer.append("\n");
+                            }
+                            writerLine += 1;
+                        }
+                    }
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+            }
+
+            case "loan" -> {
+                Loan loan = (Loan) object;
+                ArrayList<String> read = new ArrayList<>();
+                int numberLine = 1;
+                int writerLine = 1;
+                boolean ok = false;
+                String firstLine = "";
+                try (BufferedReader reader = new BufferedReader(new FileReader(FilePath))) {
+                    firstLine = reader.readLine();
+                    String line = reader.readLine();
+                    while (line != null) {
+                        String[] elements = line.split(",");
+                        if (elements[0].equalsIgnoreCase(loan.getBook().getName()) &&
+                                elements[1].equalsIgnoreCase(loan.getReader().getLastName()) &&
+                                elements[2].equalsIgnoreCase(loan.getReader().getFirstName()) &&
+                                elements[3].equalsIgnoreCase(loan.getLibrarian().getLastName()) &&
+                                elements[4].equalsIgnoreCase(loan.getLibrarian().getFirstName())) {
                             ok = true;
                         } else {
                             if (!ok) {
@@ -671,4 +734,5 @@ public final class CSVReadWrite {
         }
 
     }
+
 }
