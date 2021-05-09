@@ -209,10 +209,11 @@ public class Library {
      * Method to find a librarian by its name
      */
     public Librarian findLibrarianByName(String lastname, String firstname) {
-        for (Librarian librarian : librarians)
+        for (Librarian librarian : librarians) {
             if (librarian.getFirstName().equals(firstname) && librarian.getLastName().equals(lastname)) {
                 return librarian;
             }
+        }
         return new Librarian();
     }
 

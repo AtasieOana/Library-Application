@@ -231,7 +231,7 @@ public final class CSVReadWrite {
                     writer.append(",");
                     writer.append(loan.getReader().getFirstName());
                     writer.append(",");
-                    System.out.println(loan.getLibrarian());
+                    System.out.println(loan.getLibrarian().getLastName());
                     writer.append(loan.getLibrarian().getLastName());
                     writer.append(",");
                     writer.append(loan.getLibrarian().getFirstName());

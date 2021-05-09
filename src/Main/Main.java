@@ -282,16 +282,17 @@ public class Main {
         Author author = new Author(authorLastName, authorFirstName);
         System.out.println("Enter the name of the book:");
         String bookName = scan.nextLine();
+        System.out.println("Enter the year of publication:");
+        int year = scan.nextInt();
+        scan.nextLine();
         System.out.println("Enter the reader's last name:");
         String lastNameReader = scan.nextLine();
         System.out.println("Enter the reader's first name:");
         String firstNameReader = scan.nextLine();
         System.out.println("Enter the librarian's last name:");
-        String firstNameLibrarian = scan.nextLine();
-        System.out.println("Enter the librarian's first name:");
         String lastNameLibrarian = scan.nextLine();
-        System.out.println("Enter the year of publication:");
-        int year = scan.nextInt();
+        System.out.println("Enter the librarian's first name:");
+        String firstNameLibrarian = scan.nextLine();
         service.borrowBook(bookName, author, firstNameReader, lastNameReader, firstNameLibrarian, lastNameLibrarian, year);
     }
 
