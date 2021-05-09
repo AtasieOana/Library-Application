@@ -60,9 +60,9 @@ Also, a generic singleton service was created for reading and writing from CSV w
 * *readObjects* - transforms the read content into objects of a certain type received as a parameter;
 * *writeCSV* - write an object to a file;
 * *deleteFromCSV* - delete entire lines or only certain elements of the columns in the file;
-* *updateBooksInCVS* - updates the titles of the books in the section or from the library author
-* *updateNumberInCSV* - updates by adding or subtracting the number of required books or the number of books in the library
-
+* *updateBooksInCVS* - updates the titles of the books in the section or from the library author;
+* *updateNumberInCSV* - updates by adding or subtracting the number of required books or the number of books in the library;
+* *findElement* - find an object in a CSV file.
 
 - [x] **Performing an audit service** 
 
