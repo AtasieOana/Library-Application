@@ -664,7 +664,6 @@ public final class CSVReadWrite {
                                 else{
                                     writer.append(String.valueOf(Integer.parseInt(elements[7]) - 1));
                                 }
-                                writer.append("\n");
                             }
                             writer.append("\n");
                             writerLine += 1;
