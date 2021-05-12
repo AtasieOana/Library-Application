@@ -16,37 +16,86 @@ public class Main {
     private static Library CreateLibraryFromCSV(){
 
         Library library = new Library();
-        CSVReadWrite read = CSVReadWrite.getInstance();
+        CSVReadWrite readWrite = CSVReadWrite.getInstance();
         /* adding initial librarians */
-        ArrayList<Librarian> librarians = read.readObjects("Librarian.csv", "Librarian");
-        for(Librarian l: librarians){
-            library.addLibrarian(l);
+        if(HelperService.checkIfExists("LibrarianWrite.csv")) {
+            ArrayList<Librarian> librarians = readWrite.readObjects("Librarian.csv", "Librarian");
+            for(Librarian l: librarians){
+                library.addLibrarian(l);
+                readWrite.writeCSV("LibrarianWrite.csv",l);
+            }
+        }else {
+            ArrayList<Librarian> librarians = readWrite.readObjects("LibrarianWrite.csv", "Librarian");
+            for(Librarian l: librarians){
+                library.addLibrarian(l);
+            }
         }
         /* adding initial readers */
-        ArrayList<Reader> readers = read.readObjects("Reader.csv", "Reader");
-        for(Reader r: readers){
-            library.addReader(r);
+        if(HelperService.checkIfExists("ReaderWrite.csv")) {
+            ArrayList<Reader> readers = readWrite.readObjects("Reader.csv", "Reader");
+            for(Reader r: readers){
+                library.addReader(r);
+                readWrite.writeCSV("ReaderWrite.csv",r);
+            }
+        }else {
+            ArrayList<Reader> readers = readWrite.readObjects("ReaderWrite.csv", "Reader");
+            for(Reader r: readers){
+                library.addReader(r);
+            }
         }
         /* adding initial authors **/
-        ArrayList<LibraryAuthor> libraryAuthors = read.readObjects("LibraryAuthor.csv","LibraryAuthor");
-        for(LibraryAuthor la: libraryAuthors){
-            library.addAuthor(la);
+        if(HelperService.checkIfExists("LibraryAuthorWrite.csv")) {
+            ArrayList<LibraryAuthor> libraryAuthors = readWrite.readObjects("LibraryAuthor.csv","LibraryAuthor");
+            for(LibraryAuthor la: libraryAuthors){
+                library.addAuthor(la);
+                readWrite.writeCSV("LibraryAuthorWrite.csv",la);
+            }
+        }else {
+            ArrayList<LibraryAuthor> libraryAuthors = readWrite.readObjects("LibraryAuthorWrite.csv","LibraryAuthor");
+            for(LibraryAuthor la: libraryAuthors){
+                library.addAuthor(la);
+            }
         }
         /* adding initial sections */
-        ArrayList<Section> sections = read.readObjects("Section.csv", "Section");
-        for(Section s: sections){
-            library.addSection(s);
+        if(HelperService.checkIfExists("SectionWrite.csv")) {
+            ArrayList<Section> sections = readWrite.readObjects("Section.csv", "Section");
+            for(Section s: sections){
+                library.addSection(s);
+                readWrite.writeCSV("SectionWrite.csv",s);
+            }
+        }else {
+            ArrayList<Section> sections = readWrite.readObjects("SectionWrite.csv", "Section");
+            for(Section s: sections){
+                library.addSection(s);
+            }
         }
         /* adding initial books */
-        ArrayList<LibraryBook> libraryBooks = read.readObjects("LibraryBook.csv","LibraryBook");
-        for(LibraryBook lb: libraryBooks){
-            library.addBookInSection(lb.getSection(),lb);
-            library.addBookAtAuthor(lb.getAuthor(),lb);
+        if(HelperService.checkIfExists("LibraryBookWrite.csv")) {
+            ArrayList<LibraryBook> libraryBooks = readWrite.readObjects("LibraryBook.csv","LibraryBook");
+            for(LibraryBook lb: libraryBooks){
+                readWrite.writeCSV("LibraryBookWrite.csv",lb);
+                library.addBookInSection(lb.getSection(),lb);
+                library.addBookAtAuthor(lb.getAuthor(),lb);
+            }
+        }else {
+            ArrayList<LibraryBook> libraryBooks = readWrite.readObjects("LibraryBookWrite.csv","LibraryBook");
+            for(LibraryBook lb: libraryBooks){
+                library.addBookInSection(lb.getSection(),lb);
+                library.addBookAtAuthor(lb.getAuthor(),lb);
+            }
         }
         /* adding initial required book */
-        ArrayList<RequiredBook> requiredBook = read.readObjects("RequiredBook.csv","RequiredBook");
-        for(RequiredBook rb: requiredBook){
-            library.addRequiredBook(rb);
+        if(HelperService.checkIfExists("RequiredBookWrite.csv")) {
+            ArrayList<RequiredBook> requiredBook = readWrite.readObjects("RequiredBook.csv","RequiredBook");
+            for(RequiredBook rb: requiredBook){
+                library.addRequiredBook(rb);
+                readWrite.writeCSV("RequiredBookWrite.csv",rb);
+            }
+        }else {
+            ArrayList<RequiredBook> requiredBook = readWrite.readObjects("RequiredBookWrite.csv","RequiredBook");
+            for(RequiredBook rb: requiredBook){
+                library.addRequiredBook(rb);
+            }
         }
         return library;
     }
@@ -74,7 +123,7 @@ public class Main {
     }
 
     public static void main(String[] args){
-
+        //filesManage();
         Scanner scan = new Scanner(System.in);
         LibraryService service = new LibraryService(CreateLibraryFromCSV());
         CSVReadWrite write = CSVReadWrite.getInstance();
@@ -316,5 +365,6 @@ public class Main {
     private static void Option11(LibraryService service) {
         service.findMostRequestedBook();
     }
+
 
 }

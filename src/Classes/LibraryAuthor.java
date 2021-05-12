@@ -78,7 +78,7 @@ public class LibraryAuthor extends Author implements Comparable<LibraryAuthor>{
      **/
     public void addBook(LibraryBook libraryBook){
         books.add(libraryBook);
-        write.updateBooksInCVS("LibraryAuthor.csv",this);
+        write.updateBooksInCSV("LibraryAuthorWrite.csv",this);
     }
 
     /**
@@ -86,7 +86,7 @@ public class LibraryAuthor extends Author implements Comparable<LibraryAuthor>{
      **/
     public void removeBook(LibraryBook libraryBook){
         books.remove(libraryBook);
-        write.deleteFromCSV("LibraryAuthor.csv",this);
+        write.deleteFromCSV("LibraryAuthorWrite.csv",this);
     }
 
 

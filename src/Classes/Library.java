@@ -12,6 +12,7 @@ public class Library {
     private ArrayList<Reader> readers;
     private ArrayList<RequiredBook> requiredBooks;
     private ArrayList<Loan> loans;
+    private final CSVReadWrite write = CSVReadWrite.getInstance();
 
     public Library() {
         this.librarians = new ArrayList<>();
@@ -114,6 +115,7 @@ public class Library {
      **/
     public void addReader(Reader reader) {
         readers.add(reader);
+
     }
 
     /**

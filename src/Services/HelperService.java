@@ -1,8 +1,12 @@
 package Services;
 
+import Classes.Book;
 import Classes.Section;
 import Classes.SectionType;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -10,7 +14,7 @@ public class HelperService {
     /**
      * Creating a date with the given year, month and day
      */
-    public static Date makeDate(int year, int month, int day){
+    public static Date makeDate(int year, int month, int day) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, month);
@@ -25,7 +29,7 @@ public class HelperService {
     /**
      * method to create a section with its type given as string
      */
-    public static Section createSectionWithSectionType(String type){
+    public static Section createSectionWithSectionType(String type) {
         Section section = new Section();
         switch (type.toUpperCase()) {
             case "FICTIONAL" -> section = new Section(SectionType.FICTIONAL);
@@ -41,4 +45,15 @@ public class HelperService {
         }
         return section;
     }
+
+    public static Boolean checkIfExists(String FilePath) {
+        File file = new File(FilePath);
+        if (file.isFile()) {
+            if (file.length() < 1) {
+                return Boolean.TRUE;
+            }
+        }
+        return Boolean.FALSE;
+    }
+
 }

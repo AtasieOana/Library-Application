@@ -6,7 +6,7 @@ import Services.HelperService;
 import java.io.*;
 import java.util.*;
 
-public final class CSVReadWrite {
+public class CSVReadWrite {
 
     private static CSVReadWrite instance = null;
 
@@ -126,6 +126,25 @@ public final class CSVReadWrite {
 
 
     public <T> void writeCSV(String FilePath, T object) {
+        try{
+            File file = new File(FilePath);
+            if (file.isFile()) {
+                if (file.length() < 1) {
+                    FileWriter writerFirst = new FileWriter(FilePath, true);
+                        switch (object.getClass().getSimpleName().toLowerCase()) {
+                            case "reader" -> writerFirst.append("Last Name,First Name,Date Of Birth,CNP,Address,Phone Number\n");
+                            case "librarian" -> writerFirst.append("Last Name,First Name,Date Of Birth,Address,Phone Number\n");
+                            case "libraryauthor" -> writerFirst.append("Last Name,First Name,Books Title\n");
+                            case "librarybook" -> writerFirst.append("Name,Number Of Pages,Year Of Publication,Language,Author Last Name,Author First Name,Section Type,Number Of Copies\n");
+                            case "requiredbook" -> writerFirst.append("Name,Author Last Name,Author First Name,Year Of Publication,Number Of Requests\n");
+                            case "section" -> writerFirst.append("Section Type,Book Titles\n");
+                        }
+                    writerFirst.close();
+                }
+            }
+        } catch (IOException exception) {
+        exception.printStackTrace();
+    }
         try (FileWriter writer = new FileWriter(FilePath, true)) {
             switch (object.getClass().getSimpleName().toLowerCase()) {
                 case "reader" -> {
@@ -302,8 +321,8 @@ public final class CSVReadWrite {
                             if (numberLine != writerLine) {
                                 writer.append(i);
                                 writer.append("\n");
-                                writerLine += 1;
                             }
+                            writerLine += 1;
                         }
                     }
                 } catch (IOException exception) {
@@ -339,7 +358,7 @@ public final class CSVReadWrite {
      * When a new book is added, for the author of the book and the section,
      * the books written in CSV corresponding to the authors in the library and sections are updated.
      */
-    public <T> void updateBooksInCVS(String FilePath, T object) {
+    public <T> void updateBooksInCSV(String FilePath, T object) {
         switch (object.getClass().getSimpleName().toLowerCase()) {
             case "libraryauthor" -> {
                 LibraryAuthor libraryAuthor = (LibraryAuthor) object;
@@ -437,7 +456,6 @@ public final class CSVReadWrite {
                                 else{
                                     writer.append(String.valueOf(Integer.parseInt(elements[7]) - 1));
                                 }
-                                writer.append("\n");
                             }
                             writer.append("\n");
                             writerLine += 1;

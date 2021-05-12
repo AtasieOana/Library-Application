@@ -38,17 +38,17 @@ public class LibraryService {
                                  LibraryAuthor libraryAuthor, Section section, int numberOfCopies){
         if(!library.findSection(section)){
             library.addSection(section);
-            write.writeCSV("Section.csv", section);
+            write.writeCSV("SectionWrite.csv", section);
         }
         if(!library.findAuthor(libraryAuthor)){
             library.addAuthor(libraryAuthor);
-            write.writeCSV("LibraryAuthor.csv", libraryAuthor);
+            write.writeCSV("LibraryAuthorWrite.csv", libraryAuthor);
         }
         LibraryBook book = new LibraryBook(name, numberOfPages, yearOfPublication, language, libraryAuthor,
                 section, numberOfCopies);
         library.addBookInSection(section, book);
         library.addBookAtAuthor(libraryAuthor, book);
-        write.writeCSV("LibraryBook.csv", book);
+        write.writeCSV("LibraryBookWrite.csv", book);
         System.out.println("The book was added!");
     }
 
@@ -87,7 +87,7 @@ public class LibraryService {
                         section.removeBook(libraryBook);
                         break;
                     }
-                write.deleteFromCSV("LibraryBook.csv", libraryBook);
+                write.deleteFromCSV("LibraryBookWrite.csv", libraryBook);
             }
             else {
                 System.out.println("The book doesn't exist!");
@@ -176,7 +176,7 @@ public class LibraryService {
         ArrayList<Reader> allReaders = library.getReaders();
         allReaders.add(reader);
         library.setReaders(allReaders);
-        write.writeCSV("Reader.csv",reader);
+        write.writeCSV("ReaderWrite.csv",reader);
         System.out.println("The reader has been added!");
     }
 
@@ -202,7 +202,7 @@ public class LibraryService {
         }
         else{
             System.out.println("The reader has been removed!");
-            write.deleteFromCSV("Reader.csv", reader);
+            write.deleteFromCSV("ReaderWrite.csv", reader);
         }
     }
 
@@ -220,7 +220,7 @@ public class LibraryService {
             if (la.equals(libraryAuthor)) {
                 TreeSet<LibraryBook> libraryBookTreeSet = la.getBooks();
                 for(LibraryBook libraryBook:libraryBookTreeSet){
-                    write.deleteFromCSV("LibraryBook.csv", libraryBook);
+                    write.deleteFromCSV("LibraryBookWrite.csv", libraryBook);
                     for (Section section : library.getSections()){
                         if (section.equals(libraryBook.getSection())) {
                             section.removeBook(libraryBook);
@@ -236,7 +236,7 @@ public class LibraryService {
         }
         else{
             System.out.println("The author has been deleted!");
-            write.deleteFromCSV("LibraryAuthor.csv", libraryAuthor);
+            write.deleteFromCSV("LibraryAuthorWrite.csv", libraryAuthor);
 
         }
 
@@ -254,7 +254,7 @@ public class LibraryService {
          */
         Librarian librarian = library.findLibrarianByName(lastNameLibrarian,firstNameLibrarian);
         Reader reader = library.findReaderByName(lastNameReader, firstNameReader);
-        if(!librarian.equals(new Librarian()) && !reader.equals(new Reader())) {
+        if(!librarian.getLastName().equals("") && !reader.getLastName().equals("")) {
             boolean found = false;
             boolean stock = true;
             LibraryAuthor libraryAuthor = library.checkAuthor(author);
@@ -262,7 +262,7 @@ public class LibraryService {
             if (!libraryAuthor.equals(new LibraryAuthor())){
                 TreeSet<LibraryBook> libraryBookTreeSet = findBooksFromAuthor(libraryAuthor);
                 for (LibraryBook libraryBook : libraryBookTreeSet) {
-                    if (libraryBook.getName().equals(name) && libraryBook.getYearOfPublication() == yearBook) {
+                    if (libraryBook.getName().equalsIgnoreCase(name) && libraryBook.getYearOfPublication() == yearBook) {
                         if (libraryBook.getNumberOfCopies() >= 1) {
                             System.out.println("The loan will be completed!");
                             found = true;
@@ -284,7 +284,7 @@ public class LibraryService {
                 Date date = calendar.getTime();
                 Loan loan = new Loan(book, reader, librarian, date);
                 library.addLoan(loan);
-                write.updateNumberInCSV("LibraryBook.csv", loan.getBook(),"Minus");
+                write.updateNumberInCSV("LibraryBookWrite.csv", loan.getBook(),"Minus");
             }
             else{
                 if(stock) {
@@ -293,16 +293,16 @@ public class LibraryService {
                     if (requiredBook.getName().equals("")) {
                         RequiredBook requiredBook1 = new RequiredBook(name, author, yearBook, 1);
                         library.addRequiredBook(requiredBook1);
-                        write.writeCSV("RequiredBook.csv", requiredBook1);
+                        write.writeCSV("RequiredBookWrite.csv", requiredBook1);
                     } else {
                         requiredBook.increaseTheNumberOfRequests();
-                        write.updateNumberInCSV("RequiredBook.csv", requiredBook, "Add");
+                        write.updateNumberInCSV("RequiredBookWrite.csv", requiredBook, "Add");
                     }
                 }
             }
         }
         else{
-            if(librarian.equals(new Librarian())) {
+            if(librarian.getLastName().equals("")) {
                 System.out.println("The librarian is not registered at the library!");
             }
             else{
@@ -325,7 +325,7 @@ public class LibraryService {
             long days_diff = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) - Loan.getLoanDays();
             System.out.println("The book was returned with a delay of " + days_diff + " days.");
             loan.getBook().setNumberOfCopies(loan.getBook().getNumberOfCopies() + 1);
-            write.updateNumberInCSV("LibraryBook.csv", loan.getBook(),"Add");
+            write.updateNumberInCSV("LibraryBookWrite.csv", loan.getBook(),"Add");
             library.removeLoan(loan);
         }
     }
