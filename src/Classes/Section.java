@@ -93,7 +93,7 @@ public class Section implements Comparable<Section> {
      **/
     public void addBook(LibraryBook libraryBook) {
         books.add(libraryBook);
-        write.updateBooksInCSV("SectionWrite.csv",this);
+        CSVReadWrite.instance.updateBooksInCSV("SectionWrite.csv",this, write);
     }
 
     /**

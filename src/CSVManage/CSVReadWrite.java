@@ -8,7 +8,7 @@ import java.util.*;
 
 public class CSVReadWrite {
 
-    private static CSVReadWrite instance = null;
+    public static CSVReadWrite instance = null;
 
     private CSVReadWrite() {
     }
@@ -355,70 +355,6 @@ public class CSVReadWrite {
     }
 
     /**
-     * When a new book is added, for the author of the book and the section,
-     * the books written in CSV corresponding to the authors in the library and sections are updated.
-     */
-    public <T> void updateBooksInCSV(String FilePath, T object) {
-        switch (object.getClass().getSimpleName().toLowerCase()) {
-            case "libraryauthor" -> {
-                LibraryAuthor libraryAuthor = (LibraryAuthor) object;
-                int writerLine = 1;
-                int numberLine = findElement(FilePath,libraryAuthor);
-                ArrayList<String> fileContent = readCSV(FilePath);
-                try (FileWriter writer = new FileWriter(FilePath, false)) {
-                    if (numberLine > 0) {
-                        writer.write("Last Name,First Name,Books Title\n");
-                        for (String i : fileContent) {
-                            if (numberLine != writerLine) {
-                                writer.write(i);
-                            } else {
-                                String[] elements = i.split(",");
-                                writer.append(elements[0]);
-                                writer.append(",");
-                                writer.append(elements[1]);
-                                writer.append(",");
-                                writer.append((libraryAuthor.getBooksTitle()));
-                            }
-                            writer.append("\n");
-                            writerLine += 1;
-                        }
-                    }
-                } catch (IOException exception) {
-                    exception.printStackTrace();
-                }
-            }
-
-            case "section" -> {
-                Section section = (Section) object;
-                int writerLine = 1;
-                int numberLine = findElement(FilePath,section);
-                ArrayList<String> fileContent = readCSV(FilePath);
-                try (FileWriter writer = new FileWriter(FilePath, false)) {
-                    if (numberLine > 0) {
-                        writer.write("Section Type,Book Titles\n");
-                        for (String i : fileContent) {
-                            if (numberLine != writerLine) {
-                                writer.write(i);
-                            } else {
-                                String[] elements = i.split(",");
-                                writer.append(elements[0].toUpperCase());
-                                writer.append(",");
-                                writer.append((section.getBooksTitle()));
-                            }
-                            writer.append("\n");
-                            writerLine += 1;
-                        }
-                    }
-                } catch (IOException exception) {
-                    exception.printStackTrace();
-                }
-
-            }
-        }
-
-    }
-
-    /**
      * Method to change the number of books for the library books or the required books
      */
     public <T> void updateNumberInCSV(String FilePath, T object, String Option) {
@@ -597,4 +533,70 @@ public class CSVReadWrite {
 
     }
 
+    /**
+     * When a new book is added, for the author of the book and the section,
+     * the books written in CSV corresponding to the authors in the library and sections are updated.
+     * @param FilePath
+     * @param object
+     * @param csvReadWrite
+     */
+    public <T> void updateBooksInCSV(String FilePath, T object, CSVReadWrite csvReadWrite) {
+        switch (object.getClass().getSimpleName().toLowerCase()) {
+            case "libraryauthor" -> {
+                LibraryAuthor libraryAuthor = (LibraryAuthor) object;
+                int writerLine = 1;
+                int numberLine = csvReadWrite.findElement(FilePath,libraryAuthor);
+                ArrayList<String> fileContent = csvReadWrite.readCSV(FilePath);
+                try (FileWriter writer = new FileWriter(FilePath, false)) {
+                    if (numberLine > 0) {
+                        writer.write("Last Name,First Name,Books Title\n");
+                        for (String i : fileContent) {
+                            if (numberLine != writerLine) {
+                                writer.write(i);
+                            } else {
+                                String[] elements = i.split(",");
+                                writer.append(elements[0]);
+                                writer.append(",");
+                                writer.append(elements[1]);
+                                writer.append(",");
+                                writer.append((libraryAuthor.getBooksTitle()));
+                            }
+                            writer.append("\n");
+                            writerLine += 1;
+                        }
+                    }
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+            }
+
+            case "section" -> {
+                Section section = (Section) object;
+                int writerLine = 1;
+                int numberLine = csvReadWrite.findElement(FilePath,section);
+                ArrayList<String> fileContent = csvReadWrite.readCSV(FilePath);
+                try (FileWriter writer = new FileWriter(FilePath, false)) {
+                    if (numberLine > 0) {
+                        writer.write("Section Type,Book Titles\n");
+                        for (String i : fileContent) {
+                            if (numberLine != writerLine) {
+                                writer.write(i);
+                            } else {
+                                String[] elements = i.split(",");
+                                writer.append(elements[0].toUpperCase());
+                                writer.append(",");
+                                writer.append((section.getBooksTitle()));
+                            }
+                            writer.append("\n");
+                            writerLine += 1;
+                        }
+                    }
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+
+            }
+        }
+
+    }
 }

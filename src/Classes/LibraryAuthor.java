@@ -2,10 +2,6 @@ package Classes;
 
 import CSVManage.CSVReadWrite;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.*;
 
 public class LibraryAuthor extends Author implements Comparable<LibraryAuthor>{
@@ -78,7 +74,7 @@ public class LibraryAuthor extends Author implements Comparable<LibraryAuthor>{
      **/
     public void addBook(LibraryBook libraryBook){
         books.add(libraryBook);
-        write.updateBooksInCSV("LibraryAuthorWrite.csv",this);
+        CSVReadWrite.instance.updateBooksInCSV("LibraryAuthorWrite.csv",this, write);
     }
 
     /**
