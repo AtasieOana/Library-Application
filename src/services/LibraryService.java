@@ -1,8 +1,8 @@
-package Services;
+package services;
 
-import CSVManage.CSVReadWrite;
-import Classes.*;
-import Classes.Reader;
+import csvManage.CSVReadWrite;
+import classes.*;
+import classes.Reader;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;

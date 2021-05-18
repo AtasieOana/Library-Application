@@ -1,7 +1,7 @@
-package CSVManage;
-import Classes.*;
-import Classes.Reader;
-import Services.HelperService;
+package csvManage;
+import classes.*;
+import classes.Reader;
+import services.HelperService;
 
 import java.io.*;
 import java.util.*;

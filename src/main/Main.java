@@ -1,10 +1,10 @@
-package Main;
+package main;
 
-import CSVManage.CSVAuditService;
-import Classes.*;
-import Services.HelperService;
-import Services.LibraryService;
-import CSVManage.CSVReadWrite;
+import csvManage.CSVAuditService;
+import classes.*;
+import services.HelperService;
+import services.LibraryService;
+import csvManage.CSVReadWrite;
 
 import java.util.*;
 

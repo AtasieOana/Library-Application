@@ -1,6 +1,6 @@
-package Classes;
+package classes;
 
-import CSVManage.CSVReadWrite;
+import csvManage.CSVReadWrite;
 
 import java.util.*;
 

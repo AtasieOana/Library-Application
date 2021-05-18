@@ -1,12 +1,9 @@
-package Services;
+package services;
 
-import Classes.Book;
-import Classes.Section;
-import Classes.SectionType;
+import classes.Section;
+import classes.SectionType;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 

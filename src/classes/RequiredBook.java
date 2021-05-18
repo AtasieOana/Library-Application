@@ -1,4 +1,4 @@
-package Classes;
+package classes;
 
 public class RequiredBook extends Book implements Comparable<RequiredBook>{
 

@@ -1,6 +1,4 @@
-package Classes;
-
-import java.util.Locale;
+package classes;
 
 public class LibraryBook extends Book implements Comparable<LibraryBook> {
 
