@@ -4,21 +4,21 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Timestamp;
 
-public class CSVAuditService {
+public class AuditService {
 
-    private static CSVAuditService instance = null;
+    private static AuditService instance = null;
 
-    private CSVAuditService(){
+    private AuditService(){
     }
 
-    public static CSVAuditService getInstance(){
+    public static AuditService getInstance(){
         if(instance == null){
-            instance = new CSVAuditService();
+            instance = new AuditService();
         }
         return instance;
     }
 
-    public void writeCSV(String action){
+    public void logAction(String action){
         try (FileWriter writer = new FileWriter("Audit.csv", true);) {
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
             writer.append(action);

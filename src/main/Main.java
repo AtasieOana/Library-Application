@@ -1,6 +1,6 @@
 package main;
 
-import csvManage.CSVAuditService;
+import csvManage.AuditService;
 import classes.*;
 import services.HelperService;
 import services.LibraryService;
@@ -130,58 +130,58 @@ public class Main {
 
         try {
             int opt = Options();
-            CSVAuditService writeAudit = CSVAuditService.getInstance();
+            AuditService writeAudit = AuditService.getInstance();
             while (opt != -1) {
                 if (opt == 0) {
                     opt = Options();
                 }
                 if (opt == 1) {
                     Option1(service);
-                    writeAudit.writeCSV("Adding a book in the library");
+                    writeAudit.logAction("Adding a book in the library");
                 }
                 if (opt == 2) {
                     Option2(service);
-                    writeAudit.writeCSV("Removing a book from the library");
+                    writeAudit.logAction("Removing a book from the library");
                 }
                 if (opt == 3) {
                     Option3(service);
-                    writeAudit.writeCSV("Seeing all books written by an author");
+                    writeAudit.logAction("Seeing all books written by an author");
                 }
                 if (opt == 4){
                     Option4(service);
-                    writeAudit.writeCSV("Seeing all the books in a section");
+                    writeAudit.logAction("Seeing all the books in a section");
 
                 }
                 if(opt == 5){
                     Option5(service);
-                    writeAudit.writeCSV("Seeing all the books in the library");
+                    writeAudit.logAction("Seeing all the books in the library");
                 }
                 if(opt == 6){
                     Option6(service);
-                    writeAudit.writeCSV("Adding a new reader");
+                    writeAudit.logAction("Adding a new reader");
                 }
                 if(opt == 7){
                     Option7(service);
-                    writeAudit.writeCSV("Removing a new reader");
+                    writeAudit.logAction("Removing a new reader");
                 }
                 if(opt == 8){
                     Option8(service);
-                    writeAudit.writeCSV("Removing an author from the library");
+                    writeAudit.logAction("Removing an author from the library");
                 }
                 if(opt == 9){
                     Option9(service);
-                    writeAudit.writeCSV("Borrowing a book");
+                    writeAudit.logAction("Borrowing a book");
                 }
                 if(opt == 10){
                     Option10(service);
-                    writeAudit.writeCSV("Returning a book");
+                    writeAudit.logAction("Returning a book");
                 }
                 if(opt == 11){
                     Option11(service);
-                    writeAudit.writeCSV("Finding the most requested book");
+                    writeAudit.logAction("Finding the most requested book");
                 }
                 if(opt == 12){
-                    writeAudit.writeCSV("Ending program");
+                    writeAudit.logAction("Ending program");
                     break;
                 }
                 if (opt < 0 || opt > 12) {
