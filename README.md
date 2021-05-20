@@ -55,10 +55,9 @@ During this stage, CSV files were created for the following classes:
 * Section 
    * *Columns:* section type, section book titles.
 
-Also, a generic singleton service was created for reading and writing from CSV which includes the following methods:
-* *readCSV* - read the entire contents of the file;
-* *readObjects* - transforms the read content into objects of a certain type received as a parameter;
-* *writeCSV* - write an object to a file;
+Also, for reading and writing from CSV, the generic [CSVReadWrite](https://github.com/AtasieOana/Library-Application/blob/main/src/csvManage/csvReadWrite/CSVReadWrite.java) interface was used which includes the following methods:
+* *readObjects* - read the entire contents of the file and transforms the read content into objects;
+* *writeObjects* - write an object to a file;
 * *deleteFromCSV* - delete entire lines or only certain elements of the columns in the file;
 * *updateBooksInCVS* - updates the titles of the books in the section or from the library author;
 * *updateNumberInCSV* - updates by adding or subtracting the number of required books or the number of books in the library;
@@ -66,4 +65,10 @@ Also, a generic singleton service was created for reading and writing from CSV w
 
 - [x] **Performing an audit service** 
 
-Each time one of the features from the first stage takes place, the name of the action and the time at which the action took place are written in the [Audit.csv](https://github.com/AtasieOana/Library-Application/blob/main/Audit.csv) file.
+Each time one of the features from the first stage takes place, the name of the action and the time at which the action took place are written in the [Audit.csv](https://github.com/AtasieOana/Library-Application/blob/main/src/resources/audit/Audit.csv) file.
+
+## Stage III
+
+- [x] **Making services that expose create, read, update and delete operations for previously defined classes**
+
+Stage II services have been replaced with services to ensure persistence through a database using JDBC.
