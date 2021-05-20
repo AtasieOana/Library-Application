@@ -1,13 +1,10 @@
 package classes;
 
-import csvManage.CSVReadWrite;
-
 import java.util.*;
 
-public class LibraryAuthor extends Author implements Comparable<LibraryAuthor>{
+public class LibraryAuthor extends Author implements Comparable<LibraryAuthor>, CSVCompatible{
 
     private TreeSet<LibraryBook> books;
-    private final CSVReadWrite write = CSVReadWrite.getInstance();
 
     public LibraryAuthor(){
         this.books = new TreeSet<>();
@@ -31,14 +28,6 @@ public class LibraryAuthor extends Author implements Comparable<LibraryAuthor>{
         this.books = books;
     }
 
-    public String getBooksTitle(){
-        StringBuilder booksTitle = new StringBuilder();
-        for(LibraryBook lb: books){
-            booksTitle.append(lb.getName());
-            booksTitle.append(";");
-        }
-        return booksTitle.toString();
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -68,22 +57,5 @@ public class LibraryAuthor extends Author implements Comparable<LibraryAuthor>{
     public String toString() {
         return super.toString();
     }
-
-    /**
-     * Method for adding a book to its author
-     **/
-    public void addBook(LibraryBook libraryBook){
-        books.add(libraryBook);
-        CSVReadWrite.instance.updateBooksInCSV("LibraryAuthorWrite.csv",this, write);
-    }
-
-    /**
-     * Method for removing a book from its author
-     **/
-    public void removeBook(LibraryBook libraryBook){
-        books.remove(libraryBook);
-        write.deleteFromCSV("LibraryAuthorWrite.csv",this);
-    }
-
 
 }

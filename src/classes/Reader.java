@@ -2,7 +2,7 @@ package classes;
 
 import java.util.*;
 
-public class Reader {
+public class Reader implements CSVCompatible{
 
     private String lastName;
     private String firstName;

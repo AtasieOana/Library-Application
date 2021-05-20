@@ -1,6 +1,6 @@
 package classes;
 
-public class RequiredBook extends Book implements Comparable<RequiredBook>{
+public class RequiredBook extends Book implements Comparable<RequiredBook>,CSVCompatible{
 
     private Author author;
     private int numberOfRequests;

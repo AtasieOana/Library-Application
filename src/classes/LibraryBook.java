@@ -1,6 +1,6 @@
 package classes;
 
-public class LibraryBook extends Book implements Comparable<LibraryBook> {
+public class LibraryBook extends Book implements Comparable<LibraryBook>, CSVCompatible {
 
     private LibraryAuthor author;
     private Section section;

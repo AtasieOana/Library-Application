@@ -2,7 +2,7 @@ package classes;
 
 import java.util.Date;
 
-public class Librarian {
+public class Librarian implements CSVCompatible {
 
     private String lastName;
     private String firstName;

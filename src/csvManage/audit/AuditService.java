@@ -1,4 +1,4 @@
-package csvManage;
+package csvManage.audit;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,7 +19,7 @@ public class AuditService {
     }
 
     public void logAction(String action){
-        try (FileWriter writer = new FileWriter("Audit.csv", true);) {
+        try (FileWriter writer = new FileWriter("src/resources/audit/Audit.csv", true)) {
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
             writer.append(action);
             writer.append(",");

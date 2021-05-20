@@ -1,15 +1,12 @@
 package classes;
 
-import csvManage.CSVReadWrite;
-
 import java.util.*;
 
 
-public class Section implements Comparable<Section> {
+public class Section implements Comparable<Section>, CSVCompatible{
 
     private SectionType sectionType;
     private TreeSet<LibraryBook> books;
-    private final CSVReadWrite write = CSVReadWrite.getInstance();
 
     public Section(){
         sectionType = null;
@@ -42,15 +39,6 @@ public class Section implements Comparable<Section> {
         this.books = books;
     }
 
-    public String getBooksTitle(){
-        StringBuilder booksTitle = new StringBuilder();
-        for(LibraryBook lb: books){
-            booksTitle.append(lb.getName());
-            booksTitle.append(";");
-        }
-        return booksTitle.toString();
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -78,30 +66,5 @@ public class Section implements Comparable<Section> {
         return "sectionType=" + sectionType;
     }
 
-    /**
-     * Method to find a book in the section
-     **/
-    public boolean findBook(LibraryBook book){
-        if(books.isEmpty()){
-            return false;
-        }
-        return books.contains(book);
-    }
-
-    /**
-     * Method for adding a book to its section
-     **/
-    public void addBook(LibraryBook libraryBook) {
-        books.add(libraryBook);
-        CSVReadWrite.instance.updateBooksInCSV("SectionWrite.csv",this, write);
-    }
-
-    /**
-     * Method for removing a book from its section
-     **/
-    public void removeBook(LibraryBook libraryBook){
-        books.remove(libraryBook);
-        write.deleteFromCSV("SectionWrite.csv",this);
-    }
 
 }
