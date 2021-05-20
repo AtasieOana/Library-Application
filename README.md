@@ -67,7 +67,7 @@ Also, for reading and writing from CSV, the generic [CSVReadWrite](https://githu
 
 Each time one of the features from the first stage takes place, the name of the action and the time at which the action took place are written in the [Audit.csv](https://github.com/AtasieOana/Library-Application/blob/main/src/resources/audit/Audit.csv) file.
 
-## Stage II
+## Stage III
 
 - [x] **Making services that expose create, read, update and delete operations for previously defined classes**
 
