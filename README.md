@@ -35,7 +35,8 @@ The following classes were used in the system:
 * Borrowing a book;
      * If a book that is not in the library is requested, then it will be added to the list of required books;
 * Returning a book;
-* Find the most requested book;
+* Finding the most requested book;
+* Updating last name for reader;
 
 ## Stage II
 
