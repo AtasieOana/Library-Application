@@ -56,4 +56,11 @@ public class RequiredBookService {
         }
     }
 
+    /**
+     * Method for removing the required books with the fewest requests
+     */
+    public void removeRequestBooks(){
+        requiredBookRepository.removeRequiredBooksFromDatabase();
+    }
+
 }

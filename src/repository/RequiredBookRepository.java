@@ -58,21 +58,20 @@ public class RequiredBookRepository {
         return null;
     }
 
-    /** Method for removing a required book object from the database **/
-    public void removeRequiredBookFromDatabase(int  id) {
-        String deleteSql = "DELETE FROM requiredBooks WHERE idRequiredBook=?";
+    /** Method for removing the required books with the fewest requests from the database **/
+    public void removeRequiredBooksFromDatabase() {
+        int mini = getMinimumRequests();
+        String deleteSql = "DELETE FROM requiredBooks WHERE numberOfRequests=?";
         Connection databaseConnection = DatabaseConfig.getDatabaseConnection();
         try {
-            RequiredBook requiredBook = getRequiredBookFromDatabase(id);
-            if(requiredBook != null) {
-                PreparedStatement preparedStatement = databaseConnection.prepareStatement(deleteSql);
-                preparedStatement.setInt(1, id);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                System.out.println("The required book with id:" + id + " was removed!");
+            PreparedStatement preparedStatement = databaseConnection.prepareStatement(deleteSql);
+            if(mini == -1){
+                System.out.println("No requested book!");
+                return;
             }
-            else{
-                System.out.println("The required book with id:" + id + " doesn't exist in library!!");
-            }
+            preparedStatement.setInt(1, mini);
+            int resultSet = preparedStatement.executeUpdate();
+            System.out.println("The required books with the fewest requests was removed!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -123,5 +122,22 @@ public class RequiredBookRepository {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private int getMinimumRequests(){
+        String selectSql = "SELECT numberOfRequests FROM requiredBooks WHERE numberOfRequests = (SELECT min(numberOfRequests)"+
+                "FROM requiredBooks)";
+
+        Connection databaseConnection = DatabaseConfig.getDatabaseConnection();
+        try {
+            PreparedStatement preparedStatement = databaseConnection.prepareStatement(selectSql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 }

@@ -41,7 +41,8 @@ public class Menu {
         System.out.println("13. Add a librarian in the library;");
         System.out.println("14. Remove a librarian from the library;");
         System.out.println("15. Update last name for librarian;");
-        System.out.println("16. End program");
+        System.out.println("16. Remove the required books with the fewest requests");
+        System.out.println("17. End program");
         System.out.println("Choose one of the above options:");
         return scanner.nextInt();
     }
@@ -130,10 +131,14 @@ public class Menu {
                     writeAudit.logAction("Updating last name for librarian");
                 }
                 if(opt == 16){
+                    requiredBookService.removeRequestBooks();
+                    writeAudit.logAction("Removing the required books with the fewest requests");
+                }
+                if(opt == 17){
                     writeAudit.logAction("Ending program");
                     break;
                 }
-                if (opt < 0 || opt > 16) {
+                if (opt < 0 || opt > 17) {
                     System.out.println("The entered option is invalid!");
                 }
 
