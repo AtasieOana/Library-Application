@@ -1,18 +1,22 @@
 package services;
 
-import classes.Library;
-import classes.RequiredBook;
+import classes.*;
 import csvManage.csvReadWrite.RequiredBookReadWrite;
+import repository.AuthorRepository;
+import repository.RequiredBookRepository;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class RequiredBookService {
     private static RequiredBookService INSTANCE = null;
-    private final RequiredBookReadWrite requiredBookReadWrite;
     private static LibraryService libraryService;
+    private final RequiredBookRepository requiredBookRepository = new RequiredBookRepository();
+    private final AuthorRepository authorRepository = new AuthorRepository();
 
 
     private RequiredBookService() {
-        requiredBookReadWrite = RequiredBookReadWrite.getInstance();
         libraryService = LibraryService.getInstance();
     }
     public static synchronized RequiredBookService getInstance() {
@@ -22,39 +26,33 @@ public class RequiredBookService {
         return INSTANCE;
     }
 
-    public Library addInitialRequiredBooks(Library library){
-        if(HelperService.checkIfExists("src/resources/writeCSV/RequiredBookWrite.csv")) {
-            ArrayList<RequiredBook> requiredBook = requiredBookReadWrite.readObjects();
-            for(RequiredBook rb: requiredBook){
-                libraryService.addRequiredBook(library, rb);
-                requiredBookReadWrite.writeObjects(rb);
-            }
-        }else {
-            ArrayList<RequiredBook> requiredBook = requiredBookReadWrite.readObjectsAgain();
-            for(RequiredBook rb: requiredBook){
-                libraryService.addRequiredBook(library,rb);
-            }
+    public ArrayList<RequiredBook> createFirstRequiredBooks() {
+        Author author = authorRepository.getAuthorByName("Wilde", "Oscar");
+        if(author == null){
+            authorRepository.insertAuthorInDatabase(new Author("Wilde", "Oscar"));
         }
-        return library;
+        RequiredBook requiredBook = new RequiredBook("The Happy Prince and Other Tales",author,
+                2000,5);
+        return new ArrayList<>(Collections.singletonList(requiredBook));
+    }
+
+    public void addInitialRequiredBooks(){
+        ArrayList<RequiredBook> requiredBooks = createFirstRequiredBooks();
+        for(RequiredBook rb: requiredBooks){
+            libraryService.addRequiredBook(rb);
+        }
     }
 
     /**
      *  Find the most requested book;
      */
-    public void findMostRequestedBook(Library library) {
-        int number = 0;
-        RequiredBook max = new RequiredBook();
-        for (RequiredBook requiredBook : library.getRequiredBooks()){
-            if (requiredBook.getNumberOfRequests() > number) {
-                number = requiredBook.getNumberOfRequests();
-                max = requiredBook;
-            }
-        }
-        if(number == 0){
-            System.out.println("No book required!");
+    public void findMostRequestedBook() {
+        RequiredBook rb = requiredBookRepository.getMostRequiredBook();
+        if(rb == null){
+            System.out.println("No required book!");
         }
         else {
-            System.out.println(max);
+            System.out.println(rb);
         }
     }
 

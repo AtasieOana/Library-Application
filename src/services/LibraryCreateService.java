@@ -1,7 +1,5 @@
 package services;
 
-import classes.*;
-
 public class LibraryCreateService {
 
     private static LibraryCreateService INSTANCE = null;
@@ -28,22 +26,20 @@ public class LibraryCreateService {
     }
 
     /**
-     * Creating the initial library using the CSV files
+     * Creating the initial library
      */
-    public Library CreateLibraryFromCSV(){
-        Library library = new Library();
+    public void CreateLibraryFromDatabase(){
         /* adding initial librarians */
-        library = librarianService.addInitialLibrarians(library);
+        librarianService.addInitialLibrarians();
         /* adding initial readers */
-        library = readerService.addInitialReaders(library);
+        readerService.addInitialReaders();
         /* adding initial authors **/
-        library = libraryAuthorService.addInitialLibraryAuthors(library);
+        libraryAuthorService.addInitialLibraryAuthors();
         /* adding initial sections */
-        library = sectionService.addInitialSections(library);
+        sectionService.addInitialSections();
         /* adding initial books */
-        library = libraryBookService.addInitialLibraryBooks(library);
+        libraryBookService.addInitialLibraryBooks();
         /* adding initial required book */
-        library = requiredBookService.addInitialRequiredBooks(library);
-        return library;
+        requiredBookService.addInitialRequiredBooks();
     }
 }

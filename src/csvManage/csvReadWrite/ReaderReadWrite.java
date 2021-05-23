@@ -44,7 +44,7 @@ public class ReaderReadWrite implements CSVReadWrite<Reader>{
         String CNP = elements[3];
         String address = elements[4];
         String phoneNumber = elements[5];
-        return new Reader(lastName, firstName, dateOfBirth, CNP, address, phoneNumber);
+        return new Reader(CNP,lastName, firstName, dateOfBirth,  address, phoneNumber);
     }
 
     @Override

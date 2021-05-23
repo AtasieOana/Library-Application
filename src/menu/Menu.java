@@ -1,6 +1,6 @@
 package menu;
 
-import classes.Library;
+import config.DatabaseSetup;
 import csvManage.audit.AuditService;
 import services.*;
 
@@ -11,13 +11,14 @@ public class Menu {
 
     private static SectionService sectionService;
     private static ReaderService readerService;
-    private static Library library;
     private static AuditService writeAudit;
     private static RequiredBookService requiredBookService;
     private static LibraryAuthorService libraryAuthorService;
     private static LibraryBookService libraryBookService;
     private static LoanService loanService;
     private static LibraryService libraryService;
+    private static DatabaseSetup databaseSetup;
+
 
     /**
      * Illustrating the actions that can be done in the library
@@ -41,9 +42,7 @@ public class Menu {
     }
 
     private static void initialise(){
-        LibraryCreateService libraryCreateService = LibraryCreateService.getInstance();
         sectionService = SectionService.getInstance();
-        library = libraryCreateService.CreateLibraryFromCSV();
         readerService = ReaderService.getInstance();
         writeAudit = AuditService.getInstance();
         requiredBookService = RequiredBookService.getInstance();
@@ -51,11 +50,13 @@ public class Menu {
         loanService = LoanService.getInstance();
         libraryService = LibraryService.getInstance();
         libraryBookService = LibraryBookService.getInstance();
+        databaseSetup = new DatabaseSetup();
     }
 
     public static void startApp(){
         Scanner scan = new Scanner(System.in);
         initialise();
+        databaseSetup.setUp();
         try {
             int opt = Options();
             while (opt != -1) {
@@ -63,47 +64,47 @@ public class Menu {
                     opt = Options();
                 }
                 if (opt == 1) {
-                    libraryBookService.addBookFromInput(library);
+                    libraryBookService.addBookFromInput();
                     writeAudit.logAction("Adding a book in the library");
                 }
                 if (opt == 2) {
-                    libraryBookService.removeBookFromInput(library);
+                    libraryBookService.removeBookFromInput();
                     writeAudit.logAction("Removing a book from the library");
                 }
                 if (opt == 3) {
-                    libraryAuthorService.seeAllBooks(library);
+                    libraryAuthorService.seeAllBooks();
                     writeAudit.logAction("Seeing all books written by an author");
                 }
                 if (opt == 4){
-                    sectionService.seeAllBooks(library);
+                    sectionService.seeAllBooks();
                     writeAudit.logAction("Seeing all the books in a section");
                 }
                 if(opt == 5){
-                    libraryService.seeAllBookInLibrary(library);
+                    libraryService.seeAllBookInLibrary();
                     writeAudit.logAction("Seeing all the books in the library");
                 }
                 if(opt == 6){
-                    readerService.addNewReaderFromInput(library);
+                    readerService.addNewReaderFromInput();
                     writeAudit.logAction("Adding a new reader");
                 }
                 if(opt == 7){
-                    readerService.removeReaderFromInput(library);
+                    readerService.removeReaderFromInput();
                     writeAudit.logAction("Removing a reader");
                 }
                 if(opt == 8){
-                    libraryAuthorService.removeAuthorFromInput(library);
+                    libraryAuthorService.removeAuthorFromInput();
                     writeAudit.logAction("Removing an author from the library");
                 }
                 if(opt == 9){
-                    loanService.borrowBookFromInput(library);
+                    loanService.borrowBookFromInput();
                     writeAudit.logAction("Borrowing a book");
                 }
                 if(opt == 10){
-                    loanService.returnBookFromInput(library);
+                    loanService.returnBookFromInput();
                     writeAudit.logAction("Returning a book");
                 }
                 if(opt == 11){
-                    requiredBookService.findMostRequestedBook(library);
+                    requiredBookService.findMostRequestedBook();
                     writeAudit.logAction("Finding the most requested book");
                 }
                 if(opt == 12){

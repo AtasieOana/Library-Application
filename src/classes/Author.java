@@ -4,16 +4,33 @@ import java.util.Objects;
 
 public class Author{
 
+    private int idAuthor;
     private String lastName;
     private String firstName;
 
-    public Author(){
-        this("","");
+
+    public Author() {
+        this(0,"","");
     }
 
     public Author(String lastName, String firstName) {
         this.lastName = lastName;
         this.firstName = firstName;
+    }
+
+    public Author(int idAuthor, String lastName, String firstName) {
+        this.idAuthor = idAuthor;
+        this.lastName = lastName;
+        this.firstName = firstName;
+    }
+
+
+    public int getIdAuthor() {
+        return idAuthor;
+    }
+
+    public void setIdAuthor(int idAuthor) {
+        this.idAuthor = idAuthor;
     }
 
     public String getLastName() {

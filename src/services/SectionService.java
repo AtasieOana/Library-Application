@@ -1,21 +1,19 @@
 package services;
 
-import classes.Library;
-import classes.LibraryBook;
-import classes.Section;
-import csvManage.csvReadWrite.SectionReadWrite;
+import classes.*;
+import repository.SectionRepository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.TreeSet;
 
 public class SectionService {
     private static SectionService INSTANCE = null;
-    private final SectionReadWrite sectionReadWrite;
     private static LibraryService libraryService;
+    private final SectionRepository sectionRepository = new SectionRepository();
 
     private SectionService() {
-        sectionReadWrite = SectionReadWrite.getInstance();
         libraryService = LibraryService.getInstance();
     }
     public static synchronized SectionService getInstance() {
@@ -25,25 +23,23 @@ public class SectionService {
         return INSTANCE;
     }
 
-    public Library addInitialSections(Library library){
-        if(HelperService.checkIfExists("src/resources/writeCSV/SectionWrite.csv")) {
-            ArrayList<Section> sections = sectionReadWrite.readObjects();
-            for(Section s: sections){
-                libraryService.addSection(library, s);
-                sectionReadWrite.writeObjects(s);
-            }
-        }else {
-            ArrayList<Section> sections = sectionReadWrite.readObjectsAgain();
-            for(Section s: sections){
-                libraryService.addSection(library, s);
-            }
+    public ArrayList<Section> createFirstSections(){
+        Section section1 = new Section(SectionType.POEMS);
+        Section section2 = new Section(SectionType.FICTIONAL);
+        return new ArrayList<>(Arrays.asList(section1, section2));
+    }
+
+    public void addInitialSections() {
+        ArrayList<Section> sections = createFirstSections();
+        for (Section s : sections) {
+            libraryService.addSection(s);
         }
-        return library;
     }
 
     public String getBooksTitle(Section section){
         StringBuilder booksTitle = new StringBuilder();
-        for(LibraryBook lb: section.getBooks()){
+        TreeSet<LibraryBook> libraryBookTreeSet= sectionRepository.findAllBookFromSection(section.getSectionType().toString());
+        for(LibraryBook lb: libraryBookTreeSet){
             booksTitle.append(lb.getName());
             booksTitle.append(";");
         }
@@ -67,7 +63,6 @@ public class SectionService {
         TreeSet<LibraryBook> libraryBookTreeSet = section.getBooks();
         libraryBookTreeSet.add(libraryBook);
         section.setBooks(libraryBookTreeSet);
-        sectionReadWrite.updateBookInObjectFromCSV(section);
     }
 
     /**
@@ -77,44 +72,31 @@ public class SectionService {
         TreeSet<LibraryBook> libraryBookTreeSet = section.getBooks();
         libraryBookTreeSet.remove(libraryBook);
         section.setBooks(libraryBookTreeSet);
-        sectionReadWrite.deleteFromCSV(section);
     }
 
 
     /**
      *  See all the books in a section;
      */
-    private void findBooksFromSection(Library library, Section section) {
-        boolean found = false;
-        TreeSet<LibraryBook> libraryBookTreeSet = new TreeSet<>();
-        for (Section sec : library.getSections())
-            if (sec.equals(section)) {
-                libraryBookTreeSet = sec.getBooks();
-                found = true;
-            }
-
-        if (found) {
-            boolean exist = false;
-            for (LibraryBook libraryBook : libraryBookTreeSet) {
-                System.out.println(libraryBook);
-                exist = true;
-            }
-            if(!exist){
-                System.out.println("Section is empty!");
-            }
-        } else {
+    private void findBooksFromSection(Section section) {
+        TreeSet<LibraryBook> lb = sectionRepository.findAllBookFromSection(section.getSectionType().toString());
+        if(lb ==null){
             System.out.println("Section doesn't exist!");
+            return;
+        }
+        for(LibraryBook b:lb){
+            System.out.println(b);
         }
     }
 
     /**
      * Seeing all the books in a section received as input
      **/
-    public void seeAllBooks(Library library){
+    public void seeAllBooks(){
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter the section type:");
         String sectionType = scan.nextLine();
         Section section = HelperService.createSectionWithSectionType(sectionType);
-        findBooksFromSection(library, section);
+        findBooksFromSection(section);
     }
 }

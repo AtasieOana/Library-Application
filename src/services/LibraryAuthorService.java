@@ -1,26 +1,19 @@
 package services;
 
 import classes.*;
-import csvManage.csvReadWrite.LibraryAuthorReadWrite;
-import csvManage.csvReadWrite.LibraryBookReadWrite;
+import repository.LibraryAuthorRepository;
+import repository.LibraryBookRepository;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Scanner;
-import java.util.TreeSet;
+import java.util.*;
 
 public class LibraryAuthorService {
     private static LibraryAuthorService INSTANCE = null;
-    private final LibraryAuthorReadWrite libraryAuthorReadWrite;
-    private final SectionService sectionService;
-    private final LibraryBookReadWrite libraryBookReadWrite;
     private static LibraryService libraryService;
+    private final LibraryAuthorRepository libraryAuthorRepository = new LibraryAuthorRepository();
+    private final LibraryBookRepository libraryBookRepository = new LibraryBookRepository();
 
 
     private LibraryAuthorService() {
-        libraryAuthorReadWrite = LibraryAuthorReadWrite.getInstance();
-        sectionService = SectionService.getInstance();
-        libraryBookReadWrite = LibraryBookReadWrite.getInstance();
         libraryService = LibraryService.getInstance();
     }
     public static synchronized LibraryAuthorService getInstance() {
@@ -30,79 +23,51 @@ public class LibraryAuthorService {
         return INSTANCE;
     }
 
-    public Library addInitialLibraryAuthors(Library library){
-        if(HelperService.checkIfExists("src/resources/writeCSV/LibraryAuthorWrite.csv")) {
-            ArrayList<LibraryAuthor> libraryAuthors = libraryAuthorReadWrite.readObjects();
-            for(LibraryAuthor la: libraryAuthors){
-                libraryService.addAuthor(library,la);
-                libraryAuthorReadWrite.writeObjects(la);
-            }
-        }else {
-            ArrayList<LibraryAuthor> libraryAuthors = libraryAuthorReadWrite.readObjectsAgain();
-            for(LibraryAuthor la: libraryAuthors){
-                libraryService.addAuthor(library,la);
-            }
+    public ArrayList<LibraryAuthor> createFirstAuthors() {
+        LibraryAuthor libraryAuthor1 = new LibraryAuthor("Twain", "Mark");
+        LibraryAuthor libraryAuthor2 = new LibraryAuthor("Christie", "Agatha");
+        return new ArrayList<>(Arrays.asList(libraryAuthor1,libraryAuthor2));
+    }
+
+    public void addInitialLibraryAuthors(){
+        ArrayList<LibraryAuthor> libraryAuthors = createFirstAuthors();
+        for(LibraryAuthor la: libraryAuthors){
+            libraryService.addAuthor(la);
         }
-        return library;
     }
 
     /**
      * See all books written by an author
      */
-    public TreeSet<LibraryBook> findBooksFromAuthor(Library library, LibraryAuthor author){
-        boolean found = false;
-        TreeSet<LibraryBook> libraryBookTreeSet = new TreeSet<>();
-        for(LibraryAuthor la: library.getLibraryAuthors())
-            if(la.equals(author)){
-                libraryBookTreeSet = la.getBooks();
-                found = true;
-            }
-        if(found) {
-            for (LibraryBook libraryBook : libraryBookTreeSet) {
-                System.out.println(libraryBook);
-            }
-        }
-        else{
+    public void findBooksFromAuthor(LibraryAuthor author){
+        TreeSet<LibraryBook> lb = libraryAuthorRepository.findAllBookFromAuthor(author.getIdAuthor());
+        if(lb ==null){
             System.out.println("Author doesn't exist!");
+            return;
         }
-        return libraryBookTreeSet;
+        for(LibraryBook b:lb){
+            System.out.println(b);
+        }
     }
 
     /**
      * Removing an author from the library;
      * When the author is removed, the books written by him are also removed.
      */
-    private void removeAuthor(Library library,LibraryAuthor libraryAuthor){
-        boolean found = false;
-        TreeSet<LibraryAuthor> allLibraryAuthors = library.getLibraryAuthors();
-        Iterator<LibraryAuthor> iterator = allLibraryAuthors.iterator();
-        while (iterator.hasNext()) {
-            LibraryAuthor la = iterator.next();
-            if (la.equals(libraryAuthor)) {
-                TreeSet<LibraryBook> libraryBookTreeSet = la.getBooks();
-                for(LibraryBook libraryBook:libraryBookTreeSet){
-                    libraryBookReadWrite.deleteFromCSV(libraryBook);
-                    for (Section section : library.getSections()){
-                        if (section.equals(libraryBook.getSection())) {
-                            sectionService.removeBook(section, libraryBook); }
-                    }
-                }
-                iterator.remove();
-                found = true;
+    private void removeAuthor(LibraryAuthor libraryAuthor){
+        TreeSet<LibraryBook> libraryBookTreeSet= libraryAuthorRepository.findAllBookFromAuthor(libraryAuthor.getIdAuthor());
+        if(libraryBookTreeSet != null) {
+            for(LibraryBook libraryBook:libraryBookTreeSet){
+                libraryBookRepository.removeLibraryBookFromDatabase(libraryBook.getIdLibraryBook());
             }
         }
-        if(!found){
-            System.out.println("Author doesn't exist!");
-        }
-        else{
-            System.out.println("The author has been deleted!");
-            libraryAuthorReadWrite.deleteFromCSV(libraryAuthor);
-        }
+        libraryAuthorRepository.removeLibraryAuthorFromDatabase(libraryAuthor.getIdAuthor());
     }
 
     public String getBooksTitle(LibraryAuthor libraryAuthor){
         StringBuilder booksTitle = new StringBuilder();
-        for(LibraryBook lb: libraryAuthor.getBooks()){
+        TreeSet<LibraryBook> libraryBookTreeSet= libraryAuthorRepository.findAllBookFromAuthor(libraryAuthor.getIdAuthor());
+        for(LibraryBook lb: libraryBookTreeSet){
             booksTitle.append(lb.getName());
             booksTitle.append(";");
         }
@@ -116,7 +81,6 @@ public class LibraryAuthorService {
         TreeSet<LibraryBook> libraryBookTreeSet = libraryAuthor.getBooks();
         libraryBookTreeSet.add(libraryBook);
         libraryAuthor.setBooks(libraryBookTreeSet);
-        libraryAuthorReadWrite.updateBookInObjectFromCSV(libraryAuthor);
     }
 
     /**
@@ -126,28 +90,35 @@ public class LibraryAuthorService {
         TreeSet<LibraryBook> libraryBookTreeSet = libraryAuthor.getBooks();
         libraryBookTreeSet.remove(libraryBook);
         libraryAuthor.setBooks(libraryBookTreeSet);
-        libraryAuthorReadWrite.deleteFromCSV(libraryAuthor);
     }
 
     /* Removing an author from the library read from console */
-    public void removeAuthorFromInput(Library library){
+    public void removeAuthorFromInput(){
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter the author's last name:");
         String authorLastName = scan.nextLine();
         System.out.println("Enter the author's first name:");
         String authorFirstName = scan.nextLine();
-        LibraryAuthor author = new LibraryAuthor(authorLastName, authorFirstName);
-        removeAuthor(library, author);
+        LibraryAuthor author = libraryAuthorRepository.getLibraryAuthorByName(authorLastName, authorFirstName);
+        if(author == null){
+            System.out.println("Author doesn't exist in the library!");
+            return;
+        }
+        removeAuthor(author);
     }
 
     /* Seeing all books written by an author read from console */
-    public void seeAllBooks(Library library){
+    public void seeAllBooks(){
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter the author's last name:");
         String authorLastName = scan.nextLine();
         System.out.println("Enter the author's first name:");
         String authorFirstName = scan.nextLine();
-        LibraryAuthor author = new LibraryAuthor(authorLastName, authorFirstName);
-        findBooksFromAuthor(library, author);
+        LibraryAuthor author = libraryAuthorRepository.getLibraryAuthorByName(authorLastName, authorFirstName);
+        if(author == null){
+            System.out.println("Author doesn't exist in the library!");
+            return;
+        }
+        findBooksFromAuthor(author);
     }
 }

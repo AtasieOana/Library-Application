@@ -1,7 +1,10 @@
 package classes;
 
+import java.sql.Date;
+
 public class LibraryBook extends Book implements Comparable<LibraryBook>, CSVCompatible {
 
+    private int idLibraryBook;
     private LibraryAuthor author;
     private Section section;
     private int numberOfCopies;
@@ -19,6 +22,15 @@ public class LibraryBook extends Book implements Comparable<LibraryBook>, CSVCom
         this.author = author;
         this.section = section;
         this.numberOfCopies = numberOfCopies;
+    }
+
+    public LibraryBook(int idLibraryBook, String name,int numberOfPages, int yearOfPublication, String language,
+                       LibraryAuthor author, Section section, int numberOfCopies) {
+        super(name, numberOfPages, yearOfPublication, language);
+        this.author = author;
+        this.section = section;
+        this.numberOfCopies = numberOfCopies;
+        this.idLibraryBook = idLibraryBook;
     }
 
     public LibraryAuthor getAuthor() {
@@ -45,6 +57,14 @@ public class LibraryBook extends Book implements Comparable<LibraryBook>, CSVCom
         this.numberOfCopies = numberOfCopies;
     }
 
+    public int getIdLibraryBook() {
+        return idLibraryBook;
+    }
+
+    public void setIdLibraryBook(int idLibraryBook) {
+        this.idLibraryBook = idLibraryBook;
+    }
+
     @Override
     public int compareTo(LibraryBook libraryBook) {
         if(this.getName().equalsIgnoreCase(libraryBook.getName())) {
@@ -65,11 +85,11 @@ public class LibraryBook extends Book implements Comparable<LibraryBook>, CSVCom
 
     @Override
     public String toString() {
-        return super.toString() +
-                "      author: " + author + ",\n" +
-                "      section: " + section + ",\n" +
-                "      numberOfCopies=" + numberOfCopies;
+        return "LibraryBook{" +
+                "idLibraryBook=" + idLibraryBook +
+                ", author=" + author +
+                ", section=" + section +
+                ", numberOfCopies=" + numberOfCopies +
+                '}';
     }
-
-
 }

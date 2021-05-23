@@ -53,4 +53,8 @@ public class HelperService {
         return Boolean.FALSE;
     }
 
+    public static java.sql.Date fromDateUtilToDateSql(Date date){
+        return new java.sql.Date(date.getTime());
+    }
+
 }

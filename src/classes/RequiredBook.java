@@ -4,6 +4,7 @@ public class RequiredBook extends Book implements Comparable<RequiredBook>,CSVCo
 
     private Author author;
     private int numberOfRequests;
+    private int idRequiredBook;
 
     public RequiredBook(){
         author = new Author();
@@ -20,6 +21,21 @@ public class RequiredBook extends Book implements Comparable<RequiredBook>,CSVCo
         super(name, numberOfPages, yearOfPublication, language);
         this.author = author;
         this.numberOfRequests = numberOfRequests;
+    }
+
+    public RequiredBook(int idRequiredBook, String name, int numberOfPages, int yearOfPublication, String language, Author author, int numberOfRequests) {
+        super(name, numberOfPages, yearOfPublication, language);
+        this.author = author;
+        this.numberOfRequests = numberOfRequests;
+        this.idRequiredBook = idRequiredBook;
+    }
+
+    public int getIdRequiredBook() {
+        return idRequiredBook;
+    }
+
+    public void setIdRequiredBook(int idRequiredBook) {
+        this.idRequiredBook = idRequiredBook;
     }
 
     public Author getAuthor() {

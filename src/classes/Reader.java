@@ -12,11 +12,11 @@ public class Reader implements CSVCompatible{
     private String phoneNumber;
 
     public Reader(){
-        this("", "", null, "", "", "");
+        this("", "", "", null, "", "");
 
     }
 
-    public Reader(String lastName, String firstName, Date dateOfBirth, String CNP, String address,
+    public Reader(String CNP, String lastName, String firstName, Date dateOfBirth,  String address,
                   String phoneNumber) {
         this.lastName = lastName;
         this.firstName = firstName;

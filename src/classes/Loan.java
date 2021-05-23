@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Loan {
 
+    private int idLoan;
     private LibraryBook book;
     private Reader reader;
     private Librarian librarian;
@@ -18,6 +19,22 @@ public class Loan {
         this.reader = reader;
         this.librarian = librarian;
         this.loanDate = loanDate;
+    }
+
+    public Loan(int idLoan, LibraryBook book, Reader reader, Librarian librarian, Date loanDate) {
+        this.idLoan = idLoan;
+        this.book = book;
+        this.reader = reader;
+        this.librarian = librarian;
+        this.loanDate = loanDate;
+    }
+
+    public int getIdLoan() {
+        return idLoan;
+    }
+
+    public void setIdLoan(int idLoan) {
+        this.idLoan = idLoan;
     }
 
     public LibraryBook getBook() {

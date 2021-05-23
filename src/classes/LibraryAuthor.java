@@ -20,6 +20,10 @@ public class LibraryAuthor extends Author implements Comparable<LibraryAuthor>, 
         this.books = books;
     }
 
+    public LibraryAuthor(int idLibraryAuthor, String lastName, String firstName) {
+        super(idLibraryAuthor, lastName, firstName);
+    }
+
     public TreeSet<LibraryBook> getBooks() {
         return books;
     }
@@ -30,27 +34,25 @@ public class LibraryAuthor extends Author implements Comparable<LibraryAuthor>, 
 
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        return super.equals(o);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), books);
-    }
-
-    @Override
     public int compareTo(LibraryAuthor author) {
         if (this.getFirstName().equalsIgnoreCase(author.getFirstName())) {
             return this.getLastName().compareToIgnoreCase(author.getLastName());
         }
         return this.getFirstName().compareToIgnoreCase(author.getFirstName());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        LibraryAuthor that = (LibraryAuthor) o;
+        return Objects.equals(books, that.books);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), books);
     }
 
     @Override
