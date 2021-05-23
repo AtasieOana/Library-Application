@@ -90,4 +90,20 @@ public class ReaderRepository {
         }
     }
 
+    /** Method for modifying the last name of a reader **/
+    public void updateLastName(String newLastName, String cnp) {
+        String updateCopiesSql = "UPDATE readers SET lastName=? WHERE cnp=?";
+
+        Connection databaseConnection = DatabaseConfig.getDatabaseConnection();
+        try {
+            PreparedStatement preparedStatement = databaseConnection.prepareStatement(updateCopiesSql);
+            preparedStatement.setString(1, newLastName);
+            preparedStatement.setString(2, cnp);
+            preparedStatement.executeUpdate();
+            System.out.println("Reader with CNP: " + cnp + " was modified!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

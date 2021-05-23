@@ -81,4 +81,25 @@ public class ReaderService {
             libraryService.addReader(r);
         }
     }
+
+    /* Update the name of a reader*/
+    public void modifyReader(Reader reader, String newLastName){
+        readerRepository.updateLastName(newLastName,reader.getCNP());
+    }
+
+    /* Update the last name of a reader from input*/
+    public void modifyReaderFromInput(){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter the reader's CNP:");
+        String CNP = scan.nextLine();
+        System.out.println("Enter the new last name for reader:");
+        String newLastName = scan.nextLine();
+        Reader reader = readerRepository.getReaderFromDatabase(CNP);
+        if(reader == null){
+            System.out.println("The reader is not registered at the library!");
+        }
+        else {
+            modifyReader(reader, newLastName);
+        }
+    }
 }

@@ -75,10 +75,13 @@ public class LibraryBookService {
         }else{
             authorDB = libraryAuthorRepository.getLibraryAuthorByName(libraryAuthor.getLastName(),libraryAuthor.getFirstName());
         }
-        Section sectionDB = sectionRepository.getSectionFromDatabase(section.getSectionType().toString());
         LibraryBook book = new LibraryBook(name, numberOfPages, yearOfPublication, language, authorDB,
                 section, numberOfCopies);
-        libraryBookRepository.insertLibraryBookInDatabase(book);
+        if(libraryBookRepository.getLibraryBookByName(name,libraryAuthor.getLastName(),libraryAuthor.getFirstName(),yearOfPublication)!=null){
+            System.out.println("The book is already in library!");
+        }else {
+            libraryBookRepository.insertLibraryBookInDatabase(book);
+        }
     }
 
     /** Remove a book from the library;

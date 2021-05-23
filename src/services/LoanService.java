@@ -44,11 +44,7 @@ public class LoanService {
                     if (lb.getNumberOfCopies() >= 1) {
                         System.out.println("The loan will be completed!");
                         lb.setNumberOfCopies(lb.getNumberOfCopies() - 1);
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.set(Calendar.YEAR, 2021);
-                        calendar.set(Calendar.MONTH, 2);
-                        calendar.set(Calendar.DATE, 14);
-                        Date date = calendar.getTime();
+                        Date date = new Date();
                         Loan loan = new Loan(lb, reader, librarian, date);
                         libraryService.addLoan(loan);
                         libraryBookRepository.updateNumberOfCopies(lb.getNumberOfCopies(),lb.getIdLibraryBook());
@@ -57,6 +53,7 @@ public class LoanService {
                         System.out.println("The book is no longer in stock!");
                     }
                 } else{
+                    System.out.println("The book doesn't exist in the library!");
                     RequiredBook requiredBook = libraryService.findRequiredBook(name);
                     if (requiredBook == null) {
                         RequiredBook requiredBook1 = new RequiredBook(name, author, yearBook, 1);
@@ -94,8 +91,9 @@ public class LoanService {
             long diff = d1.getTime() - loan.getLoanDate().getTime();
             long days_diff = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) - Loan.getLoanDays();
             System.out.println("The book was returned with a delay of " + days_diff + " days.");
-            loan.getBook().setNumberOfCopies(loan.getBook().getNumberOfCopies() + 1);
-            libraryBookRepository.updateNumberOfCopies(loan.getBook().getNumberOfCopies(),loan.getIdLoan());
+            LibraryBook lb = loan.getBook();
+            lb.setNumberOfCopies(lb.getNumberOfCopies() + 1);
+            libraryBookRepository.updateNumberOfCopies(lb.getNumberOfCopies(),loan.getBook().getIdLibraryBook());
             libraryService.removeLoan(loan);
         }
     }

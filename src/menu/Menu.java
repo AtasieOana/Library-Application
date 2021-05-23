@@ -36,7 +36,8 @@ public class Menu {
         System.out.println("9. Borrow a book;");
         System.out.println("10. Return a book");
         System.out.println("11. Find the most requested book;");
-        System.out.println("12. End program");
+        System.out.println("12. Update last name for reader;");
+        System.out.println("13. End program");
         System.out.println("Choose one of the above options:");
         return scanner.nextInt();
     }
@@ -108,10 +109,14 @@ public class Menu {
                     writeAudit.logAction("Finding the most requested book");
                 }
                 if(opt == 12){
+                    readerService.modifyReaderFromInput();
+                    writeAudit.logAction("Updating last name for reader");
+                }
+                if(opt == 13){
                     writeAudit.logAction("Ending program");
                     break;
                 }
-                if (opt < 0 || opt > 12) {
+                if (opt < 0 || opt > 13) {
                     System.out.println("The entered option is invalid!");
                 }
 

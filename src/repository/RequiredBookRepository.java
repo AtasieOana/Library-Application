@@ -111,7 +111,7 @@ public class RequiredBookRepository {
 
     /** Method for getting a required book object from the database **/
     public RequiredBook getRequiredBookByName(String name) {
-        String selectSql = "SELECT idRequiredBook FROM requiredBooks WHERE name=?";
+        String selectSql = "SELECT * FROM requiredBooks WHERE name=?";
 
         Connection databaseConnection = DatabaseConfig.getDatabaseConnection();
         try {

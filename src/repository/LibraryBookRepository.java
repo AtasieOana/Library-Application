@@ -2,7 +2,6 @@ package repository;
 
 import classes.LibraryAuthor;
 import classes.LibraryBook;
-import classes.Section;
 import config.DatabaseConfig;
 
 import java.sql.*;
