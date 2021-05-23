@@ -18,6 +18,7 @@ public class Menu {
     private static LoanService loanService;
     private static LibraryService libraryService;
     private static DatabaseSetup databaseSetup;
+    private static LibrarianService librarianService;
 
 
     /**
@@ -37,7 +38,10 @@ public class Menu {
         System.out.println("10. Return a book");
         System.out.println("11. Find the most requested book;");
         System.out.println("12. Update last name for reader;");
-        System.out.println("13. End program");
+        System.out.println("13. Add a librarian in the library;");
+        System.out.println("14. Remove a librarian from the library;");
+        System.out.println("15. Update last name for librarian;");
+        System.out.println("16. End program");
         System.out.println("Choose one of the above options:");
         return scanner.nextInt();
     }
@@ -52,6 +56,7 @@ public class Menu {
         libraryService = LibraryService.getInstance();
         libraryBookService = LibraryBookService.getInstance();
         databaseSetup = new DatabaseSetup();
+        librarianService = LibrarianService.getInstance();
     }
 
     public static void startApp(){
@@ -113,10 +118,22 @@ public class Menu {
                     writeAudit.logAction("Updating last name for reader");
                 }
                 if(opt == 13){
+                    librarianService.addNewLibrarianFromInput();
+                    writeAudit.logAction("Adding a new librarian");
+                }
+                if(opt == 14){
+                    librarianService.removeLibrarianFromInput();
+                    writeAudit.logAction("Removing a librarian");
+                }
+                if(opt == 15){
+                    librarianService.modifyLibrarianFromInput();
+                    writeAudit.logAction("Updating last name for librarian");
+                }
+                if(opt == 16){
                     writeAudit.logAction("Ending program");
                     break;
                 }
-                if (opt < 0 || opt > 13) {
+                if (opt < 0 || opt > 16) {
                     System.out.println("The entered option is invalid!");
                 }
 

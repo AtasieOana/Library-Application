@@ -19,14 +19,4 @@ public class Repository {
         Statement stmt = connection.createStatement();
         stmt.execute(sql);
     }
-
-    public void executeUpdateSql(Connection connection, String sql) throws SQLException {
-        Statement stmt = connection.createStatement();
-        stmt.executeUpdate(sql);
-    }
-
-    public ResultSet executeQuerySql(Connection connection, String sql) throws SQLException {
-        Statement stmt = connection.createStatement();
-        return stmt.executeQuery(sql);
-    }
 }

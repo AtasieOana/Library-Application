@@ -1,6 +1,7 @@
 package repository;
 
 import classes.Librarian;
+import classes.Reader;
 import config.DatabaseConfig;
 import services.HelperService;
 
@@ -10,6 +11,10 @@ public class LibrarianRepository {
 
     /** Method for inserting a librarian object into the database **/
     public void insertLibrarianInDatabase(Librarian librarian) {
+        if(existence(librarian) == 1) {
+            System.out.println("CNP already exist in database!");
+            return;
+        }
 
         String preparedSql = "call insertLibrarian(?,?,?,?,?,?,?)";
 
@@ -24,7 +29,7 @@ public class LibrarianRepository {
             callableStatement.setInt(7, librarian.getSalary());
             callableStatement.registerOutParameter(1, Types.VARCHAR);
             callableStatement.execute();
-            System.out.println("The librarian with CNP:" + callableStatement.getString(1) + " was added!");
+            System.out.println("The librarian with CNP: " + callableStatement.getString(2) + " was added!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -54,5 +59,52 @@ public class LibrarianRepository {
         }
         return null;
     }
+
+    /** Method for modifying the last name of a librarian **/
+    public void updateLastName(String newLastName, String cnp) {
+        String updateCopiesSql = "UPDATE librarians SET lastName=? WHERE cnp=?";
+
+        Connection databaseConnection = DatabaseConfig.getDatabaseConnection();
+        try {
+            PreparedStatement preparedStatement = databaseConnection.prepareStatement(updateCopiesSql);
+            preparedStatement.setString(1, newLastName);
+            preparedStatement.setString(2, cnp);
+            preparedStatement.executeUpdate();
+            System.out.println("Librarian with CNP: " + cnp + " was modified!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /** Method for removing a reader object from the database **/
+    public void removeLibrarianFromDatabase(String  cnp) {
+        String deleteSql = "DELETE FROM librarians WHERE cnp=?";
+
+        Connection databaseConnection = DatabaseConfig.getDatabaseConnection();
+        try {
+            if(getLibrarianFromDatabase(cnp) != null) {
+                PreparedStatement preparedStatement = databaseConnection.prepareStatement(deleteSql);
+                preparedStatement.setString(1, cnp);
+                int resultSet = preparedStatement.executeUpdate();
+                System.out.println("The librarian with CNP: " + cnp + " was removed!");
+            }
+            else{
+                System.out.println("The librarian with CNP: " + cnp + " doesn't exist in library!!");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private int existence(Librarian librarian){
+        if(getLibrarianFromDatabase(librarian.getCNP()) == null){
+            return 0;
+        }
+        else{
+            return 1;
+        }
+    }
+
 
 }
