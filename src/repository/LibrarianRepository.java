@@ -29,7 +29,7 @@ public class LibrarianRepository {
             callableStatement.setInt(7, librarian.getSalary());
             callableStatement.registerOutParameter(1, Types.VARCHAR);
             callableStatement.execute();
-            System.out.println("The librarian with CNP: " + callableStatement.getString(2) + " was added!");
+            System.out.println("The librarian with CNP: " + librarian.getCNP() + " was added!");
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -21,28 +21,49 @@ public class Menu {
     private static LibrarianService librarianService;
 
 
-    /**
-     * Illustrating the actions that can be done in the library
-     */
-    private static int Options() {
+    private static int BookOptions(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("1. Add a book in the library");
         System.out.println("2. Remove a book from the library");
         System.out.println("3. See all books written by an author");
         System.out.println("4. See all the books in a section");
         System.out.println("5. See all the books in the library");
-        System.out.println("6. Add a new reader");
-        System.out.println("7. Remove a reader");
-        System.out.println("8. Remove an author from the library");
-        System.out.println("9. Borrow a book;");
-        System.out.println("10. Return a book");
-        System.out.println("11. Find the most requested book;");
-        System.out.println("12. Update last name for reader;");
-        System.out.println("13. Add a librarian in the library;");
-        System.out.println("14. Remove a librarian from the library;");
-        System.out.println("15. Update last name for librarian;");
-        System.out.println("16. Remove the required books with the fewest requests");
-        System.out.println("17. End program");
+        System.out.println("6. Borrow a book;");
+        System.out.println("7. Return a book");
+        System.out.println("8. Find the most requested book;");
+        System.out.println("9. Remove the required books with the fewest requests");
+        System.out.println("10. Remove an author from the library");
+        System.out.println("Choose one of the above options:");
+        return scanner.nextInt();
+    }
+
+    private static int ReaderOptions(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("1. Add a new reader");
+        System.out.println("2. Remove a reader");
+        System.out.println("3. Update last name for reader;");
+        System.out.println("Choose one of the above options:");
+        return scanner.nextInt();
+    }
+
+    private static int LibrarianOptions(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("1. Add a librarian in the library;");
+        System.out.println("2. Remove a librarian from the library;");
+        System.out.println("3. Update last name for librarian;");
+        System.out.println("Choose one of the above options:");
+        return scanner.nextInt();
+    }
+
+    /**
+     * Illustrating the actions that can be done in the library
+     */
+    private static int Options() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("1. Options for books (add/remove/borrow/return/view)");
+        System.out.println("2. Options for readers (add/remove/modify)");
+        System.out.println("3. Options for librarians (add/remove/modify)");
+        System.out.println("4. End program");
         System.out.println("Choose one of the above options:");
         return scanner.nextInt();
     }
@@ -60,6 +81,83 @@ public class Menu {
         librarianService = LibrarianService.getInstance();
     }
 
+    public static void BooksMenu(){
+        int opt = BookOptions();
+        if (opt == 1) {
+            libraryBookService.addBookFromInput();
+            writeAudit.logAction("Adding a book in the library");
+        }
+        if (opt == 2) {
+            libraryBookService.removeBookFromInput();
+            writeAudit.logAction("Removing a book from the library");
+        }
+        if (opt == 3) {
+            libraryAuthorService.seeAllBooks();
+            writeAudit.logAction("Seeing all books written by an author");
+        }
+        if (opt == 4){
+            sectionService.seeAllBooks();
+            writeAudit.logAction("Seeing all the books in a section");
+        }
+        if(opt == 5){
+            libraryService.seeAllBookInLibrary();
+            writeAudit.logAction("Seeing all the books in the library");
+        }
+        if(opt == 6){
+            loanService.borrowBookFromInput();
+            writeAudit.logAction("Borrowing a book");
+        }
+        if(opt == 7){
+            loanService.returnBookFromInput();
+            writeAudit.logAction("Returning a book");
+        }
+        if(opt == 8){
+            requiredBookService.findMostRequestedBook();
+            writeAudit.logAction("Finding the most requested book");
+        }
+        if(opt == 9){
+            requiredBookService.removeRequestBooks();
+            writeAudit.logAction("Removing the required books with the fewest requests");
+        }
+        if(opt == 10){
+            libraryAuthorService.removeAuthorFromInput();
+            writeAudit.logAction("Removing an author from the library");
+        }
+    }
+
+    public static void ReadersMenu() {
+        int opt = ReaderOptions();
+        if(opt == 1){
+            readerService.addNewReaderFromInput();
+            writeAudit.logAction("Adding a new reader");
+        }
+        if(opt == 2){
+            readerService.removeReaderFromInput();
+            writeAudit.logAction("Removing a reader");
+        }
+        if(opt == 3){
+            readerService.modifyReaderFromInput();
+            writeAudit.logAction("Updating last name for reader");
+        }
+    }
+
+    public static void LibrariansMenu() {
+        int opt = LibrarianOptions();
+        if(opt == 1){
+            librarianService.addNewLibrarianFromInput();
+            writeAudit.logAction("Adding a new librarian");
+        }
+        if(opt == 2){
+            librarianService.removeLibrarianFromInput();
+            writeAudit.logAction("Removing a librarian");
+        }
+        if(opt == 3){
+            librarianService.modifyLibrarianFromInput();
+            writeAudit.logAction("Updating last name for librarian");
+        }
+    }
+
+
     public static void startApp(){
         Scanner scan = new Scanner(System.in);
         initialise();
@@ -71,74 +169,19 @@ public class Menu {
                     opt = Options();
                 }
                 if (opt == 1) {
-                    libraryBookService.addBookFromInput();
-                    writeAudit.logAction("Adding a book in the library");
+                    BooksMenu();
                 }
                 if (opt == 2) {
-                    libraryBookService.removeBookFromInput();
-                    writeAudit.logAction("Removing a book from the library");
+                    ReadersMenu();
                 }
                 if (opt == 3) {
-                    libraryAuthorService.seeAllBooks();
-                    writeAudit.logAction("Seeing all books written by an author");
+                    LibrariansMenu();
                 }
-                if (opt == 4){
-                    sectionService.seeAllBooks();
-                    writeAudit.logAction("Seeing all the books in a section");
-                }
-                if(opt == 5){
-                    libraryService.seeAllBookInLibrary();
-                    writeAudit.logAction("Seeing all the books in the library");
-                }
-                if(opt == 6){
-                    readerService.addNewReaderFromInput();
-                    writeAudit.logAction("Adding a new reader");
-                }
-                if(opt == 7){
-                    readerService.removeReaderFromInput();
-                    writeAudit.logAction("Removing a reader");
-                }
-                if(opt == 8){
-                    libraryAuthorService.removeAuthorFromInput();
-                    writeAudit.logAction("Removing an author from the library");
-                }
-                if(opt == 9){
-                    loanService.borrowBookFromInput();
-                    writeAudit.logAction("Borrowing a book");
-                }
-                if(opt == 10){
-                    loanService.returnBookFromInput();
-                    writeAudit.logAction("Returning a book");
-                }
-                if(opt == 11){
-                    requiredBookService.findMostRequestedBook();
-                    writeAudit.logAction("Finding the most requested book");
-                }
-                if(opt == 12){
-                    readerService.modifyReaderFromInput();
-                    writeAudit.logAction("Updating last name for reader");
-                }
-                if(opt == 13){
-                    librarianService.addNewLibrarianFromInput();
-                    writeAudit.logAction("Adding a new librarian");
-                }
-                if(opt == 14){
-                    librarianService.removeLibrarianFromInput();
-                    writeAudit.logAction("Removing a librarian");
-                }
-                if(opt == 15){
-                    librarianService.modifyLibrarianFromInput();
-                    writeAudit.logAction("Updating last name for librarian");
-                }
-                if(opt == 16){
-                    requiredBookService.removeRequestBooks();
-                    writeAudit.logAction("Removing the required books with the fewest requests");
-                }
-                if(opt == 17){
+                if(opt == 4){
                     writeAudit.logAction("Ending program");
                     break;
                 }
-                if (opt < 0 || opt > 17) {
+                if (opt < 0 || opt > 4) {
                     System.out.println("The entered option is invalid!");
                 }
 
