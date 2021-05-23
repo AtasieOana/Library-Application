@@ -37,6 +37,9 @@ The following classes were used in the system:
 * Returning a book;
 * Finding the most requested book;
 * Updating last name for reader;
+* Adding a new librarian;
+* Removing a librarian;
+* Updating last name for librarian;
 
 ## Stage II
 
