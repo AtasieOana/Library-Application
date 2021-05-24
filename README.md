@@ -40,6 +40,7 @@ The following classes were used in the system:
 * Adding a new librarian;
 * Removing a librarian;
 * Updating last name for librarian;
+* Removing the required books with the fewest requests;
 
 ## Stage II
 
