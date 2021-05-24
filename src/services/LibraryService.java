@@ -123,38 +123,6 @@ public class LibraryService {
     }
 
     /**
-     * Method for adding a book to a section
-     **/
-    public void addBookInSection(Library library, Section section, LibraryBook book) {
-        boolean found = false;
-        for (Section sec : library.getSections()) {
-            if (sec.equals(section)) {
-                sectionService.addBook(sec, book);
-                found = true;
-            }
-        }
-        if (!found) {
-            System.out.println("Section doesn't exist!");
-        }
-    }
-
-    /**
-     * Method to add a book to the corresponding author
-     **/
-    public void addBookAtAuthor(Library library, LibraryAuthor author, LibraryBook book) {
-        boolean found = false;
-        for (LibraryAuthor aut : library.getLibraryAuthors()) {
-            if (aut.equals(author)) {
-                libraryAuthorService.addBook(book, aut);
-                found = true;
-            }
-        }
-        if (!found) {
-            System.out.println("Author doesn't exist!");
-        }
-    }
-
-    /**
      * Method to check if there is an author in the library
      */
     public LibraryAuthor checkAuthor(LibraryAuthor libraryAuthor){
