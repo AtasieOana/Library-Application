@@ -134,12 +134,14 @@ public class LibraryBookRepository {
         Connection databaseConnection = DatabaseConfig.getDatabaseConnection();
 
         try {
-            PreparedStatement preparedStatement = databaseConnection.prepareStatement(selectSql);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            Statement statement = databaseConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery(selectSql);
             if(resultSet == null){
                 System.out.println("There are no books in the library!");
             }
-            while (resultSet.next()) {
+            while (true) {
+                assert resultSet != null;
+                if (!resultSet.next()) break;
                 LibraryBook lb = getLibraryBookFromDatabase(resultSet.getInt(1));
                 System.out.println(lb);
             }
