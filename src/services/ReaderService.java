@@ -64,21 +64,6 @@ public class ReaderService {
         removeReader(CNP);
     }
 
-    public ArrayList<Reader> createFirstReaders() {
-        Date dateOfBirth1 = HelperService.makeDate(1999, 9, 12);
-        Reader reader1 = new Reader("6020518409892","Mihulescu","Vladimir",dateOfBirth1,"Aviators","0455879671");
-        Date dateOfBirth2 = HelperService.makeDate(2001, 4, 4);
-        Reader reader2 = new Reader("5020518409399","Cernat","Mihaela",dateOfBirth2,"Summer Street","0766112365");
-        return new ArrayList<>(Arrays.asList(reader1,reader2));
-    }
-
-    public void addInitialReaders(){
-        ArrayList<Reader> readers = createFirstReaders();
-        for(Reader r: readers) {
-            libraryService.addReader(r);
-        }
-    }
-
     /* Update the name of a reader*/
     public void modifyReader(Reader reader, String newLastName){
         readerRepository.updateLastName(newLastName,reader.getCNP());

@@ -3,7 +3,6 @@ package services;
 import classes.Section;
 import classes.SectionType;
 
-import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -41,16 +40,6 @@ public class HelperService {
             }
         }
         return section;
-    }
-
-    public static Boolean checkIfExists(String FilePath) {
-        File file = new File(FilePath);
-        if (file.isFile()) {
-            if (file.length() < 1) {
-                return Boolean.TRUE;
-            }
-        }
-        return Boolean.FALSE;
     }
 
     public static java.sql.Date fromDateUtilToDateSql(Date date){

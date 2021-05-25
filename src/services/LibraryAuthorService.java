@@ -8,32 +8,17 @@ import java.util.*;
 
 public class LibraryAuthorService {
     private static LibraryAuthorService INSTANCE = null;
-    private static LibraryService libraryService;
     private final LibraryAuthorRepository libraryAuthorRepository = new LibraryAuthorRepository();
     private final LibraryBookRepository libraryBookRepository = new LibraryBookRepository();
 
 
     private LibraryAuthorService() {
-        libraryService = LibraryService.getInstance();
     }
     public static synchronized LibraryAuthorService getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new LibraryAuthorService();
         }
         return INSTANCE;
-    }
-
-    public ArrayList<LibraryAuthor> createFirstAuthors() {
-        LibraryAuthor libraryAuthor1 = new LibraryAuthor("Twain", "Mark");
-        LibraryAuthor libraryAuthor2 = new LibraryAuthor("Christie", "Agatha");
-        return new ArrayList<>(Arrays.asList(libraryAuthor1,libraryAuthor2));
-    }
-
-    public void addInitialLibraryAuthors(){
-        ArrayList<LibraryAuthor> libraryAuthors = createFirstAuthors();
-        for(LibraryAuthor la: libraryAuthors){
-            libraryService.addAuthor(la);
-        }
     }
 
     /**
@@ -74,23 +59,6 @@ public class LibraryAuthorService {
         return booksTitle.toString();
     }
 
-    /**
-     * Method for adding a book to its author
-     **/
-    public void addBook(LibraryBook libraryBook, LibraryAuthor libraryAuthor){
-        TreeSet<LibraryBook> libraryBookTreeSet = libraryAuthor.getBooks();
-        libraryBookTreeSet.add(libraryBook);
-        libraryAuthor.setBooks(libraryBookTreeSet);
-    }
-
-    /**
-     * Method for removing a book from its author
-     **/
-    public void removeBook(LibraryAuthor libraryAuthor, LibraryBook libraryBook){
-        TreeSet<LibraryBook> libraryBookTreeSet = libraryAuthor.getBooks();
-        libraryBookTreeSet.remove(libraryBook);
-        libraryAuthor.setBooks(libraryBookTreeSet);
-    }
 
     /* Removing an author from the library read from console */
     public void removeAuthorFromInput(){

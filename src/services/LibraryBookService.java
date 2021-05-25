@@ -4,10 +4,7 @@ import classes.*;
 
 import repository.LibraryAuthorRepository;
 import repository.LibraryBookRepository;
-import repository.SectionRepository;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class LibraryBookService {
@@ -15,8 +12,6 @@ public class LibraryBookService {
     private static LibraryService libraryService;
     private final LibraryBookRepository libraryBookRepository = new LibraryBookRepository();
     private final LibraryAuthorRepository libraryAuthorRepository = new LibraryAuthorRepository();
-    private final SectionRepository sectionRepository = new SectionRepository();
-
 
 
     private LibraryBookService() {
@@ -27,36 +22,6 @@ public class LibraryBookService {
             INSTANCE = new LibraryBookService();
         }
         return INSTANCE;
-    }
-
-    public ArrayList<LibraryBook> createFirstBooks() {
-        LibraryAuthor libraryAuthor = libraryAuthorRepository.getLibraryAuthorByName("Christie","Agatha");
-        if(libraryAuthor == null){
-            libraryAuthor = new LibraryAuthor("Christie","Agatha");
-            libraryAuthorRepository.insertLibraryAuthorInDatabase(libraryAuthor);
-        }
-        LibraryAuthor libraryAuthor1 = libraryAuthorRepository.getLibraryAuthorByName("Twain","Mark");
-        if(libraryAuthor1 == null){
-            libraryAuthor1 = new LibraryAuthor("Twain","Mark");
-            libraryAuthorRepository.insertLibraryAuthorInDatabase(libraryAuthor1);
-        }
-        Section section = sectionRepository.getSectionFromDatabase(String.valueOf(SectionType.FICTIONAL));
-        if(section == null){
-            section = new Section(SectionType.FICTIONAL);
-            sectionRepository.insertSectionInDatabase(section);
-        }
-        LibraryBook libraryBook = new LibraryBook( "The Mysterious Affair at Styles", 298,
-                1920, "English", libraryAuthor, section, 10);
-        LibraryBook libraryBook1 = new LibraryBook( "Eve's Diary", 157,
-                1906, "English", libraryAuthor1, section, 1);
-        return new ArrayList<>(Arrays.asList(libraryBook,libraryBook1));
-    }
-
-    public void addInitialLibraryBooks(){
-        ArrayList<LibraryBook> libraryBooks = createFirstBooks();
-        for(LibraryBook lb: libraryBooks){
-            libraryService.addBook(lb);
-        }
     }
 
     /** Adding a book in the library;

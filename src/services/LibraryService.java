@@ -8,8 +8,6 @@ import repository.*;
 public class LibraryService {
 
     private static LibraryService INSTANCE = null;
-    private static final SectionService sectionService = SectionService.getInstance();
-    private static final LibraryAuthorService libraryAuthorService = LibraryAuthorService.getInstance();
     private final LibrarianRepository librarianRepository = new LibrarianRepository();
     private final ReaderRepository readerRepository = new ReaderRepository();
     private final SectionRepository sectionRepository = new SectionRepository();
@@ -100,13 +98,6 @@ public class LibraryService {
      **/
     public LibraryAuthor addAuthor(LibraryAuthor libraryAuthor) {
         return libraryAuthorRepository.insertLibraryAuthorInDatabase(libraryAuthor);
-    }
-
-    /**
-     * Method for adding a new book to the library
-     **/
-    public void addBook(LibraryBook libraryBook) {
-        libraryBookRepository.insertLibraryBookInDatabase(libraryBook);
     }
 
     /**
