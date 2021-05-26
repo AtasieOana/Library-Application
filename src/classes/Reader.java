@@ -100,4 +100,16 @@ public class Reader implements CSVCompatible{
     public int hashCode() {
         return Objects.hash(lastName, firstName, dateOfBirth, CNP, address, phoneNumber);
     }
+
+    @Override
+    public String toString() {
+        return "Reader{" +
+                "lastName='" + lastName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", CNP='" + CNP + '\'' +
+                ", address='" + address + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
+    }
 }
