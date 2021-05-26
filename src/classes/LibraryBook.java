@@ -87,7 +87,7 @@ public class LibraryBook extends Book implements Comparable<LibraryBook>, CSVCom
     public String toString() {
         return "LibraryBook{" +
                 "name=" + getName() +
-                "idLibraryBook=" + idLibraryBook +
+                ", idLibraryBook=" + idLibraryBook +
                 ", author=" + author +
                 ", section=" + section +
                 ", numberOfCopies=" + numberOfCopies +

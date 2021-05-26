@@ -32,8 +32,8 @@ public class DatabaseSetup {
                 ",numberOfRequests int)";
         String createTableLoanSql = "CREATE TABLE IF NOT EXISTS loans" +
                 "(idLoan int PRIMARY KEY AUTO_INCREMENT, idLibraryBook int, FOREIGN KEY (idLibraryBook) REFERENCES" +
-                " libraryBooks(idLibraryBook), idReader varchar(13), FOREIGN KEY (idReader) REFERENCES readers(cnp)," +
-                "idLibrarian varchar(13), FOREIGN KEY (idLibrarian) REFERENCES librarians(cnp), loanDate date, loanDays int)";
+                " libraryBooks(idLibraryBook) ON DELETE CASCADE, idReader varchar(13), FOREIGN KEY (idReader) REFERENCES readers(cnp) ON DELETE CASCADE," +
+                "idLibrarian varchar(13), FOREIGN KEY (idLibrarian) REFERENCES librarians(cnp) ON DELETE CASCADE, loanDate date, loanDays int)";
 
         Connection databaseConnection = DatabaseConfig.getDatabaseConnection();
         Repository repository = Repository.getRepository();
