@@ -77,7 +77,7 @@ public class LibraryBookRepository {
                 preparedStatement.setInt(1, id);
                 int resultSet = preparedStatement.executeUpdate();
                 System.out.println("The library book with id: " + id + " was removed!");
-                if(libraryAuthorRepository.findAllBookFromAuthor(libraryAuthor.getIdAuthor())==null) {
+                if(libraryAuthorRepository.findAllBookFromAuthor(libraryAuthor.getIdAuthor()).size() <1) {
                     libraryAuthorRepository.removeLibraryAuthorFromDatabase(libraryAuthor.getIdAuthor());
                 }
             }
