@@ -84,4 +84,8 @@ public class ReaderService {
             modifyReader(reader, newLastName);
         }
     }
+
+    public void displayReaders(){
+        readerRepository.displayAllReaders();
+    }
 }

@@ -1,5 +1,6 @@
 package repository;
 
+import classes.LibraryBook;
 import classes.Reader;
 import config.DatabaseConfig;
 import services.HelperService;
@@ -101,6 +102,31 @@ public class ReaderRepository {
             preparedStatement.setString(2, cnp);
             preparedStatement.executeUpdate();
             System.out.println("Reader with CNP: " + cnp + " was modified!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /** Method for displaying all readers */
+    public void displayAllReaders() {
+        String selectSql = "SELECT * FROM readers";
+
+        Connection databaseConnection = DatabaseConfig.getDatabaseConnection();
+
+        try {
+            Statement statement = databaseConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery(selectSql);
+            if(resultSet == null){
+                System.out.println("There are no readers in the library!");
+            }
+            while (true) {
+                assert resultSet != null;
+                if (!resultSet.next()) break;
+                Reader r = getReaderFromDatabase(resultSet.getString(1));
+                System.out.println(r);
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

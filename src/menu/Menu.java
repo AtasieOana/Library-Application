@@ -42,6 +42,7 @@ public class Menu {
         System.out.println("1. Add a new reader");
         System.out.println("2. Remove a reader");
         System.out.println("3. Update last name for reader;");
+        System.out.println("4. Seeing all readers;");
         System.out.println("Choose one of the above options:");
         return scanner.nextInt();
     }
@@ -138,6 +139,10 @@ public class Menu {
         if(opt == 3){
             readerService.modifyReaderFromInput();
             writeAudit.logAction("Updating last name for reader");
+        }
+        if(opt == 4){
+            readerService.displayReaders();
+            writeAudit.logAction("Seeing readers");
         }
     }
 
