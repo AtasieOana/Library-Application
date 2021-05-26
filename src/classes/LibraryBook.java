@@ -86,6 +86,7 @@ public class LibraryBook extends Book implements Comparable<LibraryBook>, CSVCom
     @Override
     public String toString() {
         return "LibraryBook{" +
+                "name=" + getName() +
                 "idLibraryBook=" + idLibraryBook +
                 ", author=" + author +
                 ", section=" + section +
