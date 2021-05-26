@@ -103,13 +103,11 @@ public class Reader implements CSVCompatible{
 
     @Override
     public String toString() {
-        return "Reader{" +
-                "lastName='" + lastName + '\'' +
+        return "lastName='" + lastName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", CNP='" + CNP + '\'' +
                 ", address='" + address + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                '}';
+                ", phoneNumber='" + phoneNumber + '\'';
     }
 }
